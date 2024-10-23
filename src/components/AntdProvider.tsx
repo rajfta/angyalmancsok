@@ -17,9 +17,9 @@ const AntdProvider: FC<Props> = ({ children }) => {
                 },
             }}
         >
-            {/* <Button type="primary" size="large">
+            <Button type="primary" size="large">
                 Hello
-            </Button> */}
+            </Button>
             {children}
         </ConfigProvider>
     );
