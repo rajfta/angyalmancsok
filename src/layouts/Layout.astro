@@ -1,6 +1,6 @@
 ---
-import AntdProvider from "../components/AntdProvider.tsx";
 import Header from "../components/Header.tsx";
+import "@/styles/globals.css";
 interface Props {
     title: string;
 }
@@ -19,12 +19,11 @@ const { title } = Astro.props;
         <title>{title}</title>
     </head>
     <body class="w-full">
-        <AntdProvider client:load>
-            <Header client:load />
-            <main>
-                <slot />
-            </main>
-        </AntdProvider>
+        <Header client:visible />
+        <main>
+            <slot />
+        </main>
+        <footer>Footer</footer>
     </body>
 </html>
 <style is:global>
