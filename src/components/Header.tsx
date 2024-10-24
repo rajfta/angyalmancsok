@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { MenuIcon, XIcon } from "lucide-react";
+import DonateButton from "./DonateButton";
 
 const Header: FC = () => {
     return (
@@ -19,12 +20,7 @@ const Header: FC = () => {
                 </a>
             </div>
             <div className="flex md:flex-row-reverse gap-4 items-center justify-between">
-                <Button
-                    size="lg"
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:static md:transform-none"
-                >
-                    <a href="/adomanyozas">Adományozás</a>
-                </Button>
+                <DonateButton className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:static md:transform-none" />
                 <Navigation />
             </div>
         </header>
