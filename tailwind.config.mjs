@@ -52,7 +52,8 @@ export default {
                     header: "#f3eae1",
                 },
                 text: {
-                    DEFAULT: "#1c2112",
+                    DEFAULT: "#1c2112", // olive 950
+                    // DEFAULT: "#373f28", // olive 900
                     description: "#1e293b",
                 },
             },

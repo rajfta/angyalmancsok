@@ -49,9 +49,7 @@ const MobileNav: FC = () => {
     return (
         <Drawer direction="right">
             <DrawerTrigger asChild>
-                <Button variant="outline">
-                    <MenuIcon />
-                </Button>
+                <MenuIcon className="size-8 stroke-[3] text-primary-700" />
             </DrawerTrigger>
             <DrawerContent>
                 <div className="h-full w-full flex flex-col bg-bg-primary/20">
