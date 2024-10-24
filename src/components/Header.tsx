@@ -1,8 +1,14 @@
-import { useState, type FC, type ReactNode } from "react";
-import { Button, Drawer } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { type FC, type ReactNode } from "react";
 
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.png";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import { MenuIcon, XIcon } from "lucide-react";
 
 const Header: FC = () => {
     return (
@@ -14,9 +20,8 @@ const Header: FC = () => {
             </div>
             <div className="flex md:flex-row-reverse gap-4 items-center justify-between">
                 <Button
-                    size="large"
+                    size="lg"
                     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:static md:transform-none"
-                    type="primary"
                 >
                     <a href="/adomanyozas">Adományozás</a>
                 </Button>
@@ -41,42 +46,40 @@ const Navigation: FC = () => {
 };
 
 const MobileNav: FC = () => {
-    const [open, setOpen] = useState(false);
-
-    const showDrawer = () => {
-        setOpen(true);
-    };
-
-    const onClose = () => {
-        setOpen(false);
-    };
-
     return (
-        <>
-            <Button type="text" onClick={showDrawer} icon={<MenuOutlined />} />
-            <Drawer size="default" onClose={onClose} open={open}>
-                <NavLinks />
-            </Drawer>
-        </>
+        <Drawer direction="right">
+            <DrawerTrigger asChild>
+                <Button variant="outline">
+                    <MenuIcon />
+                </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+                <div className="h-full w-full flex flex-col bg-bg-primary/20">
+                    <div className="mb-4 mt-12">
+                        <NavLinks />
+                    </div>
+                    <DrawerClose asChild>
+                        <Button
+                            variant="outline"
+                            className="absolute top-4 right-4"
+                        >
+                            <XIcon />
+                        </Button>
+                    </DrawerClose>
+                </div>
+            </DrawerContent>
+        </Drawer>
     );
 };
 
 const NavLinks: FC = () => {
     return (
         <nav>
-            <ul className="flex flex-col md:flex-row gap-4 items-center justify-center">
-                <li>
-                    <Link href="/">Főoldal</Link>
-                </li>
-                <li>
-                    <Link href="/rolunk">Rólunk</Link>
-                </li>
-                <li>
-                    <Link href="/szolgaltatasok">Szolgáltatások</Link>
-                </li>
-                <li>
-                    <Link href="/kapcsolat">Kapcsolat</Link>
-                </li>
+            <ul className="flex flex-col md:flex-row gap-1 md:gap-0 items-center justify-center">
+                <Link href="/">Főoldal</Link>
+                <Link href="/rolunk">Rólunk</Link>
+                <Link href="/szolgaltatasok">Szolgáltatások</Link>
+                <Link href="/kapcsolat">Kapcsolat</Link>
             </ul>
         </nav>
     );
@@ -86,12 +89,14 @@ const Link: FC<{ href: string; children: ReactNode }> = ({
     href,
     children,
 }) => (
-    <a
-        href={href}
-        className="text-text-primary hover:text-primary transition-colors duration-300 text-lg"
-    >
-        {children}
-    </a>
+    <li className="px-4 md:px-2 py-2 text-text-primary">
+        <a
+            href={href}
+            className="text-text-primary  hover:text-primary transition-colors duration-300 text-lg"
+        >
+            {children}
+        </a>
+    </li>
 );
 
 export default Header;
