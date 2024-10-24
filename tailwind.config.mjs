@@ -48,8 +48,8 @@ export default {
                     950: "#410f09",
                 },
                 bg: {
-                    DEFAULT: "#faf6f2",
-                    header: "#f3eae1",
+                    DEFAULT: "#e9ecdb",
+                    header: "#e9ecdb",
                 },
                 text: {
                     DEFAULT: "#1c2112", // olive 950
