@@ -8,7 +8,7 @@ const DonateButton: FC<DonateButtonProps> = ({ className }) => {
     return (
         <Button
             size="lg"
-            className={cn("font-semibold uppercase px-4", className)}
+            className={cn("font-extrabold uppercase px-4", className)}
         >
             <a href="/tamogass">Támogass minket</a>
         </Button>

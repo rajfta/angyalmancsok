@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { MenuIcon, XIcon } from "lucide-react";
-import DonateButton from "./DonateButton";
+import DonateButton from "@/components/DonateButton";
 
 const Header: FC = () => {
     return (

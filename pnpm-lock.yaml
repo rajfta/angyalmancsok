@@ -14,7 +14,7 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.1.2
     version: 5.1.2(astro@4.16.7)(tailwindcss@3.4.14)
-  '@fontsource-variable/playpen-sans':
+  '@fontsource-variable/nunito':
     specifier: ^5.1.0
     version: 5.1.0
   '@radix-ui/react-dialog':
@@ -708,8 +708,8 @@ packages:
     dev: false
     optional: true
 
-  /@fontsource-variable/playpen-sans@5.1.0:
-    resolution: {integrity: sha512-PjOX2jU0jgyn8/Flxak+n1srV27jrx/NeS9HSY2JW3ziupFSsq2Ddy7hg65ZvbvFK6jy5yWw2RFCUA6fpu508w==}
+  /@fontsource-variable/nunito@5.1.0:
+    resolution: {integrity: sha512-58KMaWHfR+cci4ZMPvoa2hVF9PV0g1gV8jilgFWDxToh3UrpOtrAiGluDZ8eqK5jDZX7v1GbMAKohvjJRBmgfg==}
     dev: false
 
   /@img/sharp-darwin-arm64@0.33.5:

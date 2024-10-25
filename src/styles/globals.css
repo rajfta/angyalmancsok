@@ -6,3 +6,43 @@
         --radius: 0.75rem;
     }
 }
+
+@layer utilities {
+    .container-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        .container-padding {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container-padding {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+
+    .-container-padding {
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+
+    @media (min-width: 768px) {
+        .-container-padding {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .-container-padding {
+            margin-left: -4rem;
+            margin-right: -4rem;
+        }
+    }
+}
