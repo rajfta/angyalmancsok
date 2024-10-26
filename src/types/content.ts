@@ -6,6 +6,41 @@ import type {
     LocaleCode,
 } from "contentful";
 
+export interface TypeDogFields {
+    name: EntryFieldTypes.Symbol;
+    thumbnail: EntryFieldTypes.AssetLink;
+    photoWithOwner: EntryFieldTypes.AssetLink;
+    nicknames?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    workplaces?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    owner: EntryFieldTypes.EntryLink<TypeMemberSkeleton>;
+    content: EntryFieldTypes.RichText;
+    priority: EntryFieldTypes.Integer;
+    certificates: EntryFieldTypes.Array<
+        EntryFieldTypes.Symbol<"SEGÍTŐ" | "TANULÓ" | "TERÁPIÁS">
+    >;
+}
+
+export type TypeDogSkeleton = EntrySkeletonType<TypeDogFields, "dog">;
+export type TypeDog<
+    Modifiers extends ChainModifiers,
+    Locales extends LocaleCode = LocaleCode,
+> = Entry<TypeDogSkeleton, Modifiers, Locales>;
+
+export interface TypeMemberFields {
+    name: EntryFieldTypes.Symbol;
+    title: EntryFieldTypes.Symbol;
+    certificates?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    content: EntryFieldTypes.RichText;
+    dogs?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeDogSkeleton>>;
+    priority?: EntryFieldTypes.Integer;
+}
+
+export type TypeMemberSkeleton = EntrySkeletonType<TypeMemberFields, "member">;
+export type TypeMember<
+    Modifiers extends ChainModifiers,
+    Locales extends LocaleCode = LocaleCode,
+> = Entry<TypeMemberSkeleton, Modifiers, Locales>;
+
 export interface TypePostFields {
     title: EntryFieldTypes.Symbol;
     slug: EntryFieldTypes.Symbol;
@@ -22,16 +57,3 @@ export type TypePost<
     Modifiers extends ChainModifiers,
     Locales extends LocaleCode = LocaleCode,
 > = Entry<TypePostSkeleton, Modifiers, Locales>;
-export type TypePostWithoutLinkResolutionResponse =
-    TypePost<"WITHOUT_LINK_RESOLUTION">;
-export type TypePostWithoutUnresolvableLinksResponse =
-    TypePost<"WITHOUT_UNRESOLVABLE_LINKS">;
-export type TypePostWithAllLocalesResponse<
-    Locales extends LocaleCode = LocaleCode,
-> = TypePost<"WITH_ALL_LOCALES", Locales>;
-export type TypePostWithAllLocalesAndWithoutLinkResolutionResponse<
-    Locales extends LocaleCode = LocaleCode,
-> = TypePost<"WITHOUT_LINK_RESOLUTION" | "WITH_ALL_LOCALES", Locales>;
-export type TypePostWithAllLocalesAndWithoutUnresolvableLinksResponse<
-    Locales extends LocaleCode = LocaleCode,
-> = TypePost<"WITHOUT_UNRESOLVABLE_LINKS" | "WITH_ALL_LOCALES", Locales>;
