@@ -1,18 +1,4 @@
-import { type EntryFieldTypes, createClient } from "contentful";
-
-export interface Post {
-    contentTypeId: "post";
-    fields: {
-        title: EntryFieldTypes.Text;
-        slug: EntryFieldTypes.Text;
-        thumbnail: EntryFieldTypes.AssetLink;
-        description: EntryFieldTypes.Text;
-        date: EntryFieldTypes.Date;
-        content: EntryFieldTypes.RichText;
-        priority: EntryFieldTypes.Number;
-        gallery: EntryFieldTypes.AssetLink[];
-    };
-}
+import { createClient, type Asset } from "contentful";
 
 export const contentfulClient = createClient({
     space: import.meta.env.CONTENTFUL_SPACE_ID,
@@ -21,3 +7,7 @@ export const contentfulClient = createClient({
         : import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
     host: import.meta.env.DEV ? "preview.contentful.com" : "cdn.contentful.com",
 });
+
+export function isAssetLink(link: any): link is Asset {
+    return link && link.sys && link.sys.type === "Asset";
+}
