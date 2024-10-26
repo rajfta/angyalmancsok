@@ -1,15 +1,15 @@
 import { type FC, type ReactNode } from "react";
 
-import logo from "@/assets/logo.png";
+import logo from "~/assets/logo.png";
 import {
     Drawer,
     DrawerClose,
     DrawerContent,
     DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
+} from "~/components/ui/drawer";
+import { Button } from "~/components/ui/button";
 import { MenuIcon, XIcon } from "lucide-react";
-import DonateButton from "@/components/DonateButton";
+import DonateButton from "~/components/DonateButton";
 
 const Header: FC = () => {
     return (

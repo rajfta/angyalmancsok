@@ -1,7 +1,7 @@
 import { type FC } from "react";
 
-import heroImage from "@/assets/hero.jpg";
-import { Button } from "@/components/ui/button";
+import heroImage from "~/assets/hero.jpg";
+import { Button } from "~/components/ui/button";
 
 const Hero: FC = () => {
     return (

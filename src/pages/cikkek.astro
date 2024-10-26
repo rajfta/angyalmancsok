@@ -1,0 +1,37 @@
+---
+import { contentfulClient } from "~/lib/contentful";
+import Layout from "~/layouts/Layout.astro";
+import type { Post } from "~/lib/contentful";
+
+const entries = await contentfulClient.getEntries<Post>({
+    content_type: "post",
+});
+console.log(entries);
+
+const posts = entries.items.map((item) => {
+    const { title, date, description, slug } = item.fields;
+    return {
+        title,
+        slug,
+        description,
+        date: new Date(date).toLocaleDateString(),
+    };
+});
+---
+
+<Layout title="Cikkek">
+    <h1>My Blog</h1>
+    <ul>
+        {
+            posts.map((post) => (
+                <li>
+                    <a href={`/posts/${post.slug}/`}>
+                        <h2>{post.title}</h2>
+                    </a>
+                    <time>{post.date}</time>
+                    <p>{post.description}</p>
+                </li>
+            ))
+        }
+    </ul>
+</Layout>
