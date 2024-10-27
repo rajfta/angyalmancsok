@@ -1,10 +1,23 @@
 import type {
+    Asset,
     ChainModifiers,
     Entry,
     EntryFieldTypes,
     EntrySkeletonType,
     LocaleCode,
 } from "contentful";
+
+export interface Dog {
+    name: string;
+    thumbnail: Asset<undefined, string> | null;
+    photoWithOwner: Asset<undefined, string> | null;
+    nicknames: string[] | undefined;
+    workplaces: string[] | undefined;
+    ownerName: string;
+    priority: number;
+    content: Document;
+    certificates: ("SEGÍTŐ" | "TANULÓ" | "TERÁPIÁS")[];
+}
 
 export interface TypeDogFields {
     name: EntryFieldTypes.Symbol;

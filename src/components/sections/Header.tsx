@@ -13,7 +13,7 @@ import DonateButton from "~/components/DonateButton";
 
 const Header: FC = () => {
     return (
-        <header className="bg-bg-header relative h-20 w-full px-4 py-2 flex items-center justify-between">
+        <header className="bg-bg-header mb-12 md:mb-24 relative h-20 w-full px-4 py-2 flex items-center justify-between">
             <div className="h-full aspect-square hover:scale-110 transition-all duration-300">
                 <a href="/">
                     <img src={logo.src} alt="Angyalmancsok logo" />

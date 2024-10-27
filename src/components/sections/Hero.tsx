@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 
 const Hero: FC = () => {
     return (
-        <div className="py-12 md:py-24 flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col md:flex-row md:gap-16 gap-4 items-center justify-between">
                 <div className="order-1 md:pl-12 md:order-2 md:flex-1 flex flex-col gap-4">
                     <h1 className="max-w-96 md:mb-12">

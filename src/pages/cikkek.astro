@@ -11,8 +11,6 @@ const entries = await contentfulClient.getEntries<TypePostSkeleton>({
 });
 
 const posts = entries.items.map((item) => {
-    console.log("fields", item.fields);
-
     const {
         title,
         date,

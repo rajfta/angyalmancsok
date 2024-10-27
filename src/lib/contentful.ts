@@ -1,4 +1,4 @@
-import { createClient, type Asset } from "contentful";
+import { createClient, type Asset, type Entry } from "contentful";
 
 export const contentfulClient = createClient({
     space: import.meta.env.CONTENTFUL_SPACE_ID,
@@ -10,4 +10,8 @@ export const contentfulClient = createClient({
 
 export function isAssetLink(link: any): link is Asset {
     return link && link.sys && link.sys.type === "Asset";
+}
+
+export function isEntryLink(link: any): link is Entry {
+    return link && link.sys && link.sys.type === "Entry";
 }
