@@ -7,60 +7,49 @@ import {
 import type { Dog } from "~/types/content";
 
 const WindowCard: FC<{ dog: Dog }> = ({ dog }) => {
-    const [panelThreshold, setPanelThreshold] = useState(0);
+    const [threshold, setThreshold] = useState(0);
 
     const handleClick = useCallback(() => {
-        const isAtZero = panelThreshold === 0;
-        const startValue = isAtZero ? 0 : 100;
-        const endValue = isAtZero ? 100 : 0;
-        const startTime = Date.now();
-        const duration = 400; // 0.4 seconds in ms
-
-        const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            // Adjusted elastic easing parameters for smoother 0.4s animation
-            const t = progress;
-            const elasticOut =
-                Math.pow(2, -8 * t) * Math.sin((t - 0.075) * 3 * Math.PI) + 1;
-            const value = startValue + (endValue - startValue) * elasticOut;
-
-            setPanelThreshold(Math.min(100, Math.max(0, value)));
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-
-        requestAnimationFrame(animate);
-    }, [panelThreshold]);
+        setThreshold((prev) => (prev === 0 ? 100 : 0));
+    }, []);
 
     return (
         <div
             onClick={handleClick}
             className="w-80 h-[820px] shadow-lg overflow-hidden rounded-md"
         >
-            <ResizablePanelGroup direction="vertical">
+            <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel
                     defaultSize={100}
-                    style={{ flex: `${panelThreshold}%` }}
+                    style={{
+                        flex: `${threshold}%`,
+                        transition: "flex 400ms cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
                 >
-                    <Frontside dog={dog} />
+                    <Frontside
+                        dog={dog}
+                        showText={threshold === 0 ? false : true}
+                    />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel
                     defaultSize={0}
-                    style={{ flex: `${100 - panelThreshold}%` }}
+                    style={{
+                        flex: `${100 - threshold}%`,
+                        transition: "flex 400ms cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
                 >
-                    <Backside dog={dog} />
+                    <Backside
+                        dog={dog}
+                        showText={threshold === 0 ? true : false}
+                    />
                 </ResizablePanel>
             </ResizablePanelGroup>
         </div>
     );
 };
 
-const Frontside: FC<{ dog: Dog }> = ({ dog }) => {
+const Frontside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
     return (
         <div className="w-full h-full">
             {dog.thumbnail?.fields?.file?.url && (
@@ -70,7 +59,14 @@ const Frontside: FC<{ dog: Dog }> = ({ dog }) => {
                     className="w-full aspect-[2/3] object-contain"
                 />
             )}
-            <div className="p-6 pt-4 flex flex-col gap-2">
+            <div
+                style={{
+                    opacity: showText ? 1 : 0,
+                    transition:
+                        "opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1) 400ms",
+                }}
+                className="p-6 pt-4 flex flex-col gap-2"
+            >
                 <h2>{dog.name}</h2>
 
                 <div>
@@ -104,7 +100,7 @@ const Frontside: FC<{ dog: Dog }> = ({ dog }) => {
     );
 };
 
-const Backside: FC<{ dog: Dog }> = ({ dog }) => {
+const Backside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
     return (
         <div className="w-full h-full">
             {dog.photoWithOwner?.fields?.file?.url && (
@@ -117,7 +113,14 @@ const Backside: FC<{ dog: Dog }> = ({ dog }) => {
                     className="w-full object-contain"
                 />
             )}
-            <div className="p-6 pt-4 flex flex-col gap-2">
+            <div
+                style={{
+                    opacity: showText ? 1 : 0,
+                    transition:
+                        "opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1) 400ms",
+                }}
+                className="p-6 pt-4 flex flex-col gap-2"
+            >
                 <h2>{dog.name}</h2>
 
                 <div>
