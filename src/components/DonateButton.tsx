@@ -34,7 +34,7 @@ const DonateButton: FC<DonateButtonProps> = ({ className }) => {
                     ],
                 }}
                 className={cn(
-                    "font-extrabold bg-secondary-500 z-10 w-72 h-14",
+                    "font-extrabold bg-accent-300 z-10 w-72 h-14",
                     className,
                 )}
             />

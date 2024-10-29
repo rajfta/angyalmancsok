@@ -1,6 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode, FC } from "react";
 import { SiInstagram, SiFacebook } from "@icons-pack/react-simple-icons";
+import DonateButton from "~/components/DonateButton";
 
 const links = [
     { href: "/", label: "Főoldal" },
@@ -23,6 +24,36 @@ const NavLinks: FC = () => {
                         {link.label}
                     </Link>
                 ))}
+                <motion.div
+                    initial={{
+                        opacity: 0,
+                        rotateX: 90,
+                        translateY: 50,
+                        translateX: -20,
+                    }}
+                    animate={{
+                        opacity: 1,
+                        rotateX: 0,
+                        translateY: 0,
+                        translateX: 0,
+                    }}
+                    transition={{
+                        duration: 0.65,
+                        delay: 0.5 + links.length * 0.1,
+                        ease: [0.215, 0.61, 0.355, 1],
+                    }}
+                    exit={{
+                        opacity: 0,
+                        transition: {
+                            duration: 0.5,
+                            type: "linear",
+                            ease: [0.76, 0, 0.24, 1],
+                        },
+                    }}
+                >
+                    {/* <DonateButton className="md:hidden h-20 relative rounded-none bg-secondary-300 -mx-4 w-[calc(100%+16px)]" /> */}
+                    <DonateButton className="md:hidden h-20 bg-accent-400 relative" />
+                </motion.div>
             </ul>
             <div className="ml-4 flex items-center gap-4 lg:gap-8">
                 {socialLinks.map((link, index) => (

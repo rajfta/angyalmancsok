@@ -13,7 +13,7 @@ const Header: FC = () => {
                 <ResponsiveLogo />
             </motion.div>
             <div className="flex w-full h-full gap-4 items-center justify-end">
-                <DonateButton className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                <DonateButton className="absolute hidden md:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                 <Nav>
                     <NavLinks />
                 </Nav>
@@ -28,7 +28,11 @@ const ResponsiveLogo = () => {
             {/* mobile until lg */}
             <div className="lg:hidden aspect-square">
                 <a href="/">
-                    <img src={logo.src} alt="Angyalmancsok logo" />
+                    <img
+                        className="h-20 w-20 object-contain"
+                        src={logo.src}
+                        alt="Angyalmancsok logo"
+                    />
                 </a>
             </div>
             {/* desktop */}

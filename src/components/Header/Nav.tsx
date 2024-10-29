@@ -74,7 +74,7 @@ const tweenTransition: Transition = {
 const menu: Variants = {
     open: {
         width: "320px",
-        height: "480px",
+        height: "540px",
         top: "-16px",
         right: "-8px",
         // NOTE: Keep this in sync with tailwind.config.mjs
