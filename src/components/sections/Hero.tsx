@@ -9,7 +9,7 @@ const Hero: FC = () => {
             <div className="flex flex-col md:flex-row md:gap-16 gap-4 items-center justify-between">
                 <div className="order-1 md:pl-12 md:order-2 md:flex-1 flex flex-col gap-4">
                     <h1 className="max-w-96 md:mb-12">
-                        Üdvözlünk az Angyalmancsok oldalán! <br /> 🐾
+                        Üdvözlünk az Angyalmancsok Alapítvány oldalán! <br /> 🐾
                     </h1>
                     <p className="mb-4 order-3 md:block hidden">{pText}</p>
                 </div>
