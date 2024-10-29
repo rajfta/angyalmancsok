@@ -26,6 +26,8 @@ const Nav: FC<{ children: ReactNode }> = ({ children }) => {
                     closed: ["Bezárás", "Bezárás"],
                 }}
             />
+
+            {/* Background shadow */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -33,7 +35,7 @@ const Nav: FC<{ children: ReactNode }> = ({ children }) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={tweenTransition}
-                        className="fixed z-10 inset-0 bg-slate-950/50"
+                        className="fixed z-10 inset-0 bg-slate-950/80"
                         aria-hidden="true"
                         onClick={() => setIsOpen(false)}
                     />
@@ -103,7 +105,7 @@ const bigMenu: Variants = {
     open: {
         ...menu.open,
         width: "540px",
-        height: "720px",
+        height: "620px",
     },
 };
 

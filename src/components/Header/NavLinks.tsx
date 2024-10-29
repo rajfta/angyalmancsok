@@ -37,9 +37,9 @@ const NavLinks: FC = () => {
                         <motion.div whileHover={{ y: -4 }}>
                             <motion.a href={link.href}>
                                 {link.label === "Instagram" ? (
-                                    <SiInstagram className="size-8 lg:size-12" />
+                                    <SiInstagram className="size-8 lg:size-10" />
                                 ) : (
-                                    <SiFacebook className="size-8 lg:size-12" />
+                                    <SiFacebook className="size-8 lg:size-10" />
                                 )}
                             </motion.a>
                         </motion.div>
@@ -84,7 +84,7 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
             <motion.div whileHover={{ x: 4 }}>
                 <a
                     href={href}
-                    className="text-text hover:-translate-y-full transition duration-300 text-3xl lg:text-5xl font-medium"
+                    className="text-text hover:-translate-y-full transition duration-300 text-3xl lg:text-4xl font-medium"
                 >
                     {children}
                 </a>

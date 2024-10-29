@@ -26,7 +26,7 @@ const DonateButton: FC<DonateButtonProps> = ({ className }) => {
                                 className="w-12 h-12"
                             />
                         </div>,
-                        <div className="flex px-4 w-full items-center text-text justify-between">
+                        <div className="flex translate-y-1 px-4 w-full items-center text-text justify-between">
                             <HeartFilledIcon className="w-8 h-8" />
                             <div>Köszönjük</div>
                             <HeartFilledIcon className="w-8 h-8" />

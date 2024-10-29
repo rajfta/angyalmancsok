@@ -19,7 +19,7 @@ const { title } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body class="w-full">
+    <body class="w-full mx-auto max-w-[1920px]">
         <Header client:load />
         <main class="container-padding text-justify">
             <slot />
