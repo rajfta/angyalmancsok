@@ -13,24 +13,24 @@ const DonateButton: FC<DonateButtonProps> = ({ className }) => {
             <PerspectiveButton
                 labels={{
                     closed: [
-                        <div className="flex px-2 w-full items-center text-text justify-between">
+                        <span className="flex px-2 w-full items-center text-text justify-between">
                             <img
                                 src={logoBlack.src}
                                 alt="Angyalmancsok"
                                 className="w-12 h-12"
                             />
-                            <p>Támogass Minket</p>
+                            <span>Támogass Minket</span>
                             <img
                                 src={logoBlack.src}
                                 alt="Angyalmancsok"
                                 className="w-12 h-12"
                             />
-                        </div>,
-                        <div className="flex translate-y-1 px-4 w-full items-center text-text justify-between">
+                        </span>,
+                        <span className="flex translate-y-1 px-4 w-full items-center text-text justify-between">
                             <HeartFilledIcon className="w-8 h-8" />
-                            <div>Köszönjük</div>
+                            <span>Köszönjük</span>
                             <HeartFilledIcon className="w-8 h-8" />
-                        </div>,
+                        </span>,
                     ],
                 }}
                 className={cn(
