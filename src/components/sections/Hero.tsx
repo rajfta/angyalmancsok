@@ -1,7 +1,7 @@
 import { type FC } from "react";
 
 import heroImage from "~/assets/hero.jpg";
-import { Button } from "~/components/ui/button";
+import PerspectiveButton from "../ui/PerspectiveButton";
 
 const Hero: FC = () => {
     return (
@@ -14,7 +14,7 @@ const Hero: FC = () => {
                     <p className="mb-4 order-3 md:block hidden">{pText}</p>
                 </div>
                 <p className="mb-4 order-3 md:hidden">{pText}</p>
-                <div className="md:order-1 order-2 aspect-[3/2] md:aspect-square -container-padding">
+                <div className="md:order-1 order-2 aspect-square md:aspect-square -container-padding">
                     <img
                         src={heroImage.src}
                         alt="Boldog kutya Enid"
@@ -22,9 +22,15 @@ const Hero: FC = () => {
                     />
                 </div>
             </div>
-            <Button className="order-4 md:self-end">
-                <a href="/rolunk">Részletek</a>
-            </Button>
+            <PerspectiveButton
+                className="order-4 w-36 static md:self-end"
+                labels={{
+                    closed: [
+                        <a href="/rolunk">Részletek</a>,
+                        <a href="/rolunk">Részletek</a>,
+                    ],
+                }}
+            />
         </div>
     );
 };

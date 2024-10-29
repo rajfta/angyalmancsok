@@ -8,7 +8,7 @@ import DonateButton from "../DonateButton";
 
 const Header: FC = () => {
     return (
-        <header className="bg-bg-header mb-12 md:mb-24 relative h-20 w-full px-4 py-2 flex items-center justify-between">
+        <header className="bg-bg-header fixed top-0 left-0 right-0 z-50 h-20 w-full px-4 py-2 flex items-center justify-between">
             <motion.div whileHover={{ scale: 1.05 }}>
                 <ResponsiveLogo />
             </motion.div>

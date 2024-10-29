@@ -7,7 +7,7 @@ import { Image } from "astro:assets";
 const entries = await contentfulClient.getEntries<TypePostSkeleton>({
     content_type: "post",
     order: ["fields.priority", "fields.date"],
-    include: 10,
+    include: 2,
 });
 
 const posts = entries.items.map((item) => {

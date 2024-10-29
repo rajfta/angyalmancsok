@@ -2,32 +2,31 @@
 import Layout from "~/layouts/Layout.astro";
 import WindowCard from "~/components/WindowCard";
 import { contentfulClient, isAssetLink, isEntryLink } from "~/lib/contentful";
-import type { TypeDogSkeleton, TypeMemberSkeleton } from "~/types/content";
+import type { TypeDogSkeleton } from "~/types/content";
 
 const dogsResponse = await contentfulClient.getEntries<TypeDogSkeleton>({
     content_type: "dog",
     order: ["-fields.priority"],
-    include: 10,
+    include: 2,
 });
 
-const membersResponse = await contentfulClient.getEntries<TypeMemberSkeleton>({
-    content_type: "member",
-    order: ["fields.priority"],
-    include: 10,
-});
+// const membersResponse = await contentfulClient.getEntries<TypeMemberSkeleton>({
+//     content_type: "member",
+//     order: ["fields.priority"],
+//     include: 2,
+// });
 
-const members = membersResponse.items.map((item) => {
-    const { name, title, certificates, content, dogs, priority } = item.fields;
+// const members = membersResponse.items.map((item) => {
+//     const { name, title, certificates, content, priority } = item.fields;
 
-    return {
-        name,
-        title,
-        certificates,
-        content: content as unknown as Document,
-        dogs: dogs?.map((dog) => (isEntryLink(dog) ? dog : null)) ?? [],
-        priority,
-    };
-});
+//     return {
+//         name,
+//         title,
+//         certificates,
+//         content: content as unknown as Document,
+//         priority,
+//     };
+// });
 
 const dogs = dogsResponse.items.map((item) => {
     const {
