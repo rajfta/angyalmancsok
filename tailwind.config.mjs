@@ -61,6 +61,20 @@ export default {
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
             },
+            rotate: {
+                "x-90": "rotateX(90deg)",
+                "-x-90": "rotateX(-90deg)",
+            },
+            transitionTimingFunction: {
+                perspective: "cubic-bezier(0.76, 0, 0.24, 1)",
+            },
+            transitionDuration: {
+                750: "750ms",
+                1000: "1000ms",
+            },
+            zIndex: {
+                100: "100",
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],

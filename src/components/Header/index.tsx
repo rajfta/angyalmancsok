@@ -1,8 +1,8 @@
 import { type FC } from "react";
 import logo from "~/assets/logo.png";
 import DonateButton from "~/components/DonateButton";
-import MobileNav from "~/components/navigation/MobileNav";
-import NavLinks from "~/components/navigation/NavLinks";
+import Nav from "./Nav";
+import NavLinks from "./NavLinks";
 
 const Header: FC = () => {
     return (
@@ -14,25 +14,11 @@ const Header: FC = () => {
             </div>
             <div className="flex w-full h-full gap-4 items-center justify-end">
                 <DonateButton className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                <Navigation />
+                <Nav>
+                    <NavLinks />
+                </Nav>
             </div>
         </header>
-    );
-};
-
-const Navigation: FC = () => {
-    return (
-        <>
-            <div className="lg:hidden">
-                <MobileNav>
-                    <NavLinks />
-                </MobileNav>
-            </div>
-
-            <div className="hidden lg:block">
-                <NavLinks />
-            </div>
-        </>
     );
 };
 

@@ -5,10 +5,10 @@ import {
     type Variants,
 } from "framer-motion";
 import { type FC, type ReactNode, useState, useCallback } from "react";
-import MenuButton from "~/components/navigation/MenuButton";
+import PerspectiveButton from "../ui/PerspectiveButton";
 import { usePreventScroll } from "~/hooks/usePreventScroll";
 
-const MobileNav: FC<{ children: ReactNode }> = ({ children }) => {
+const Nav: FC<{ children: ReactNode }> = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = useCallback(() => {
@@ -18,7 +18,14 @@ const MobileNav: FC<{ children: ReactNode }> = ({ children }) => {
 
     return (
         <div className="relative h-10 w-12">
-            <MenuButton isOpen={isOpen} onClick={handleClick} />
+            <PerspectiveButton
+                isOpen={isOpen}
+                onClick={handleClick}
+                labels={{
+                    open: ["Menü", "Menü"],
+                    closed: ["Bezárás", "Bezárás"],
+                }}
+            />
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -32,11 +39,23 @@ const MobileNav: FC<{ children: ReactNode }> = ({ children }) => {
                     />
                 )}
             </AnimatePresence>
+
+            {/* Small menu */}
             <motion.div
                 variants={menu}
                 initial="closed"
                 animate={isOpen ? "open" : "closed"}
-                className="absolute z-10 -top-3 -right-2 flex justify-start flex-col overflow-hidden rounded-md items-center"
+                className="absolute lg:hidden z-10 -top-3 -right-2 flex justify-start flex-col overflow-hidden rounded-md items-center"
+            >
+                <AnimatePresence>{isOpen && <>{children}</>}</AnimatePresence>
+            </motion.div>
+
+            {/* Big menu */}
+            <motion.div
+                variants={bigMenu}
+                initial="closed"
+                animate={isOpen ? "open" : "closed"}
+                className="absolute hidden lg:flex z-10 -top-3 -right-2  justify-start flex-col overflow-hidden rounded-md items-center"
             >
                 <AnimatePresence>{isOpen && <>{children}</>}</AnimatePresence>
             </motion.div>
@@ -61,8 +80,9 @@ const menu: Variants = {
         transition: tweenTransition,
     },
     closed: {
-        width: "48px",
+        width: "100px",
         height: "40px",
+        borderRadius: "25px",
         top: "0px",
         right: "0px",
         backgroundColor: "transparent",
@@ -78,4 +98,13 @@ const menu: Variants = {
     },
 };
 
-export default MobileNav;
+const bigMenu: Variants = {
+    ...menu,
+    open: {
+        ...menu.open,
+        width: "540px",
+        height: "720px",
+    },
+};
+
+export default Nav;

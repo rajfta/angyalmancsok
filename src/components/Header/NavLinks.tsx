@@ -16,15 +16,15 @@ const socialLinks = [
 
 const NavLinks: FC = () => {
     return (
-        <nav className="w-full pl-4 pb-12 lg:pb-0 h-full flex flex-col justify-between">
-            <ul className="flex pt-[88px] gap-4 lg:gap-0 lg:pt-0 lg:pl-0 flex-col lg:flex-row items-start lg:items-center justify-center">
+        <nav className="w-full pl-4 pb-12 lg:pb-16 h-full flex flex-col justify-between">
+            <ul className="flex pt-[88px] lg:pt-[120px] gap-5 lg:gap-8 flex-col justify-center">
                 {links.map((link, index) => (
                     <Link key={link.href} href={link.href} index={index}>
                         {link.label}
                     </Link>
                 ))}
             </ul>
-            <div className="lg:hidden ml-4 flex items-center gap-4">
+            <div className="ml-4 flex items-center gap-4 lg:gap-8">
                 {socialLinks.map((link, index) => (
                     <motion.div
                         variants={slideIn}
@@ -34,13 +34,15 @@ const NavLinks: FC = () => {
                         key={link.href}
                         custom={index}
                     >
-                        <a href={link.href}>
-                            {link.label === "Instagram" ? (
-                                <SiInstagram className="size-8" />
-                            ) : (
-                                <SiFacebook className="size-8" />
-                            )}
-                        </a>
+                        <motion.div whileHover={{ y: -4 }}>
+                            <motion.a href={link.href}>
+                                {link.label === "Instagram" ? (
+                                    <SiInstagram className="size-8 lg:size-12" />
+                                ) : (
+                                    <SiFacebook className="size-8 lg:size-12" />
+                                )}
+                            </motion.a>
+                        </motion.div>
                     </motion.div>
                 ))}
             </div>
@@ -54,9 +56,7 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
     index,
 }) => (
     <div
-        className={`px-4 lg:px-2 lg:py-2 hover:translate-x-1 lg:hover:translate-x-0 lg:hover:-translate-y-0.5 transition duration-300" ${
-            index === 0 ? "lg:hidden" : ""
-        }`}
+        className="px-4"
         style={{ perspective: "120px", perspectiveOrigin: "bottom" }}
     >
         <motion.div
@@ -81,12 +81,14 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
                 },
             }}
         >
-            <a
-                href={href}
-                className="text-text hover:-translate-y-full transition duration-300 text-3xl font-medium"
-            >
-                {children}
-            </a>
+            <motion.div whileHover={{ x: 4 }}>
+                <a
+                    href={href}
+                    className="text-text hover:-translate-y-full transition duration-300 text-3xl lg:text-5xl font-medium"
+                >
+                    {children}
+                </a>
+            </motion.div>
         </motion.div>
     </div>
 );
@@ -107,7 +109,11 @@ const slideIn: Variants = {
     }),
     exit: {
         opacity: 0,
-        transition: { duration: 0.5, type: "tween", ease: "easeInOut" },
+        transition: {
+            duration: 0.5,
+            type: "tween",
+            ease: "easeInOut",
+        },
     },
 };
 
