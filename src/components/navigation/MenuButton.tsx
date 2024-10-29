@@ -9,7 +9,7 @@ const MenuButton: FC<{ isOpen: boolean; onClick: () => void }> = ({
     return (
         <button
             className={`flex absolute z-50 items-center justify-center rounded-md h-10 w-12 hover:shadow-lg shadow-sm flex-col text-primary-900 ${
-                isOpen ? "bg-primary-900 text-white border-none" : "border"
+                isOpen ? "bg-text text-primary border-none" : "border"
             }`}
             onClick={onClick}
         >
@@ -19,7 +19,11 @@ const MenuButton: FC<{ isOpen: boolean; onClick: () => void }> = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                 >
-                    <XIcon className="size-6 stroke-[3px]" />
+                    <XIcon
+                        className={`size-6 stroke-[3px] ${
+                            isOpen ? "text-primary" : "text-text"
+                        }`}
+                    />
                 </motion.div>
             ) : (
                 <motion.div

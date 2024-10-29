@@ -12,8 +12,8 @@ const Header: FC = () => {
                     <img src={logo.src} alt="Angyalmancsok logo" />
                 </a>
             </div>
-            <div className="flex w-full h-full md:flex-row-reverse gap-4 items-center justify-end">
-                <DonateButton className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:static md:transform-none" />
+            <div className="flex w-full h-full gap-4 items-center justify-end">
+                <DonateButton className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                 <Navigation />
             </div>
         </header>
@@ -23,13 +23,13 @@ const Header: FC = () => {
 const Navigation: FC = () => {
     return (
         <>
-            <div className="md:hidden">
+            <div className="lg:hidden">
                 <MobileNav>
                     <NavLinks />
                 </MobileNav>
             </div>
 
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
                 <NavLinks />
             </div>
         </>

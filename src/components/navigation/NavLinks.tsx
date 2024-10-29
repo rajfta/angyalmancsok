@@ -16,15 +16,15 @@ const socialLinks = [
 
 const NavLinks: FC = () => {
     return (
-        <nav className="w-full pl-4 pb-12 h-full flex flex-col justify-between">
-            <ul className="flex pt-20 md:pt-0 md:pl-0 flex-col md:flex-row gap-1 md:gap-0 items-start md:items-center justify-center">
+        <nav className="w-full pl-4 pb-12 lg:pb-0 h-full flex flex-col justify-between">
+            <ul className="flex pt-[88px] gap-4 lg:gap-0 lg:pt-0 lg:pl-0 flex-col lg:flex-row items-start lg:items-center justify-center">
                 {links.map((link, index) => (
                     <Link key={link.href} href={link.href} index={index}>
                         {link.label}
                     </Link>
                 ))}
             </ul>
-            <div className="md:hidden ml-4 flex items-center gap-4">
+            <div className="lg:hidden ml-4 flex items-center gap-4">
                 {socialLinks.map((link, index) => (
                     <motion.div
                         variants={slideIn}
@@ -54,7 +54,9 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
     index,
 }) => (
     <div
-        className="px-4 md:px-2 py-2"
+        className={`px-4 lg:px-2 lg:py-2 hover:translate-x-1 lg:hover:translate-x-0 lg:hover:-translate-y-0.5 transition duration-300" ${
+            index === 0 ? "lg:hidden" : ""
+        }`}
         style={{ perspective: "120px", perspectiveOrigin: "bottom" }}
     >
         <motion.div
@@ -78,11 +80,10 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
                     ease: [0.76, 0, 0.24, 1],
                 },
             }}
-            className="text-text-primary"
         >
             <a
                 href={href}
-                className="text-text-primary hover:text-primary transition-colors duration-300 text-3xl font-medium md:text-4xl"
+                className="text-text hover:-translate-y-full transition duration-300 text-3xl font-medium"
             >
                 {children}
             </a>
