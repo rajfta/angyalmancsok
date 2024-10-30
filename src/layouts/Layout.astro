@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/nunito";
 import DonateButton from "~/components/DonateButton";
+import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 import "~/styles/globals.css";
 interface Props {
@@ -20,9 +21,11 @@ const { title } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body class="w-full mx-auto max-w-[1920px]">
+    <body class="w-full mx-auto flex flex-col min-h-screen max-w-[1920px]">
         <Header client:load />
-        <main class="container-padding text-justify mt-32">
+        <main
+            class="container-padding overflow-x-hidden max-w-[100vw] text-justify header-spacing"
+        >
             <div class="md:hidden h-14 mb-8 w-full relative">
                 <DonateButton
                     className="absolute h-8 text-center flex items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -32,7 +35,7 @@ const { title } = Astro.props;
             </div>
             <slot />
         </main>
-        <footer>Footer</footer>
+        <Footer client:load />
     </body>
 </html>
 <style is:global>

@@ -14,23 +14,22 @@ const Hero: FC = () => {
                     <p className="mb-4 order-3 md:block hidden">{pText}</p>
                 </div>
                 <p className="mb-4 order-3 md:hidden">{pText}</p>
-                <div className="md:order-1 order-2 aspect-square md:aspect-square -container-padding">
+                <div className="-container-padding md:order-1 order-2 aspect-[4/5] ">
                     <img
                         src={heroImage.src}
                         alt="Boldog kutya Enid"
-                        className="md:rounded-lg w-full h-full shadow-lg object-cover object-center"
+                        className=" md:rounded-lg h-full w-full shadow-lg object-cover object-center"
                     />
                 </div>
             </div>
-            <PerspectiveButton
-                className="order-4 w-36 static md:self-end"
-                labels={{
-                    closed: [
-                        <a href="/rolunk">Részletek</a>,
-                        <a href="/rolunk">Részletek</a>,
-                    ],
-                }}
-            />
+            <a href="/rolunk" className="order-4 md:self-end">
+                <PerspectiveButton
+                    className="z-10 w-36 static"
+                    labels={{
+                        closed: ["Részletek", "Részletek"],
+                    }}
+                />
+            </a>
         </div>
     );
 };

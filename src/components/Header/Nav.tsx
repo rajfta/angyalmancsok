@@ -35,7 +35,7 @@ const Nav: FC<{ children: ReactNode }> = ({ children }) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={tweenTransition}
-                        className="fixed z-10 inset-0 bg-slate-950/80"
+                        className="fixed z-10 inset-0 bg-black/85"
                         aria-hidden="true"
                         onClick={() => setIsOpen(false)}
                     />

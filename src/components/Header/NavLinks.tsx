@@ -1,18 +1,13 @@
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode, FC } from "react";
-import { SiInstagram, SiFacebook } from "@icons-pack/react-simple-icons";
 import DonateButton from "~/components/DonateButton";
+import Socials from "~/components/Socials";
 
 const links = [
     { href: "/", label: "Főoldal" },
     { href: "/rolunk", label: "Rólunk" },
     { href: "/szolgaltatasok", label: "Szolgáltatások" },
     { href: "/kapcsolat", label: "Kapcsolat" },
-];
-
-const socialLinks = [
-    { href: "https://www.instagram.com/angyalmancsok/", label: "Instagram" },
-    { href: "https://www.facebook.com/angyalmancsok", label: "Facebook" },
 ];
 
 const NavLinks: FC = () => {
@@ -56,26 +51,7 @@ const NavLinks: FC = () => {
                 </motion.div>
             </ul>
             <div className="ml-4 flex items-center gap-4 lg:gap-8">
-                {socialLinks.map((link, index) => (
-                    <motion.div
-                        variants={slideIn}
-                        initial="initial"
-                        animate="enter"
-                        exit="exit"
-                        key={link.href}
-                        custom={index}
-                    >
-                        <motion.div whileHover={{ y: -4 }}>
-                            <motion.a href={link.href}>
-                                {link.label === "Instagram" ? (
-                                    <SiInstagram className="size-8 lg:size-10" />
-                                ) : (
-                                    <SiFacebook className="size-8 lg:size-10" />
-                                )}
-                            </motion.a>
-                        </motion.div>
-                    </motion.div>
-                ))}
+                <Socials />
             </div>
         </nav>
     );
@@ -123,29 +99,5 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
         </motion.div>
     </div>
 );
-
-const slideIn: Variants = {
-    initial: {
-        opacity: 0,
-        y: 20,
-    },
-    enter: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            delay: 1 + i * 0.1,
-            ease: [0.215, 0.61, 0.355, 1],
-        },
-    }),
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.5,
-            type: "tween",
-            ease: "easeInOut",
-        },
-    },
-};
 
 export default NavLinks;
