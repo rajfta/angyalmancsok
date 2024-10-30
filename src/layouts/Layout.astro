@@ -21,7 +21,9 @@ const { title } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body class="w-full mx-auto flex flex-col min-h-screen max-w-[1920px]">
+    <body
+        class="w-full mx-auto flex flex-col min-h-screen max-w-[1536px] overflow-hidden"
+    >
         <Header client:load />
         <main
             class="container-padding overflow-x-hidden max-w-[100vw] text-justify header-spacing"

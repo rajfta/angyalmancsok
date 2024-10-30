@@ -9,14 +9,16 @@ import DonateButton from "../DonateButton";
 const Header: FC = () => {
     return (
         <header className="bg-bg-header fixed top-0 left-0 right-0 z-50 h-20 w-full px-4 py-2 flex items-center justify-between">
-            <motion.div whileHover={{ scale: 1.05 }}>
-                <ResponsiveLogo />
-            </motion.div>
-            <div className="flex w-full h-full gap-4 items-center justify-end">
-                <DonateButton className="absolute hidden md:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                <Nav>
-                    <NavLinks />
-                </Nav>
+            <div className="max-w-[1200px] mx-auto w-full flex items-center justify-between h-full">
+                <motion.div whileHover={{ scale: 1.05 }}>
+                    <ResponsiveLogo />
+                </motion.div>
+                <div className="flex w-full h-full gap-4 items-center justify-end">
+                    <DonateButton className="absolute hidden md:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    <Nav>
+                        <NavLinks />
+                    </Nav>
+                </div>
             </div>
         </header>
     );

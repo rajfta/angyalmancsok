@@ -2,45 +2,57 @@ import { type FC } from "react";
 import heroTransparent from "~/assets/hero-transparent.png";
 import PerspectiveButton from "~/components/ui/PerspectiveButton";
 import { VolleyballIcon } from "lucide-react";
+import { cn } from "~/lib/utils";
 
 const Hero: FC = () => {
     return (
-        <div className="flex flex-col gap-4 items-center">
-            <div className="flex flex-col md:flex-row md:gap-16 gap-4 items-center justify-between">
-                <div className="order-1 md:pl-12 md:order-2 md:flex-1 flex flex-col gap-4">
-                    <h1 className="max-w-96 md:mb-12">
-                        Üdvözlünk az Angyalmancsok Alapítvány oldalán! <br /> 🐾
+        <div className="flex flex-col gap-4 items-center lg:items-stretch">
+            <div className="flex flex-col md:flex-row md:gap-0 gap-4 items-center justify-between">
+                <div className="order-1 md:max-w-80 md:order-2 md:flex-1 flex flex-col gap-4">
+                    <h1 className="max-w-96 lg:text-5xl xl:text-6xl md:mb-4 md:mt-2 md:text-left">
+                        Üdvözlünk az Angyalmancsok Alapítvány oldalán!
+                        <span className="text-accent md:mt-4 md:block">🐾</span>
                     </h1>
-                    <p className="mb-4 order-3 md:block hidden">{pText}</p>
+                    <Description className="order-4 hidden md:block" />
+                    <CTA className="order-4 hidden md:block mt-12" />
                 </div>
-                <p className="mb-4 order-3 md:hidden">{pText}</p>
-                {/* <div className="-container-padding md:order-1 order-2 aspect-square ">
-                    <img
-                        src={heroImage.src}
-                        alt="Boldog kutya Enid"
-                        className=" md:rounded-lg h-full w-full shadow-lg object-cover object-center"
-                    />
-                </div> */}
-                <div className="-container-padding relative md:order-1 order-2 aspect-square ">
-                    <img
-                        src={heroTransparent.src}
-                        alt="Boldog kutya Enid"
-                        className=" md:rounded-lg shadow-lg md:shadow-none object-contain scale-110"
-                    />
-                    <div className="absolute -z-20 rounded-full scale-[112%] -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent" />
-                    <VolleyballIcon className="absolute -z-10 bottom-12 right-4 w-1/5 h-1/5 text-enid" />
-                </div>
+                <Description className="order-3 md:hidden" />
+                <Illustration />
             </div>
-            <a href="/rolunk" className="order-4 md:self-end">
-                <PerspectiveButton
-                    className="z-10 w-36 static"
-                    labels={{
-                        closed: ["Részletek", "Részletek"],
-                    }}
-                />
-            </a>
+            <CTA className="md:hidden mt-4" />
         </div>
     );
+};
+
+const Illustration: FC = () => {
+    return (
+        <div className="-container-padding -z-10 relative md:order-2 order-2 aspect-square md:flex-1 lg:max-w-[920px]">
+            <img
+                src={heroTransparent.src}
+                alt="Boldog kutya Enid"
+                className=" md:rounded-lg shadow-lg md:shadow-none object-contain scale-110 md:scale-100"
+            />
+            <div className="absolute -z-20 rounded-full -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent md:scale-90" />
+            <VolleyballIcon className="absolute -z-10 bottom-16 xl:bottom-36 right-4 w-1/5 h-1/5 text-enid" />
+        </div>
+    );
+};
+
+const CTA: FC<{ className?: string }> = ({ className }) => {
+    return (
+        <a href="/rolunk" className={className}>
+            <PerspectiveButton
+                className="z-10 w-36 static"
+                labels={{
+                    closed: ["Részletek", "Részletek"],
+                }}
+            />
+        </a>
+    );
+};
+
+const Description: FC<{ className?: string }> = ({ className }) => {
+    return <p className={cn("text-gray-500", className)}>{pText}</p>;
 };
 
 const pText = `Az AngyalMancsok Alapítványnál hiszünk a terápiás kutyák
