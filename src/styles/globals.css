@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
     :root {
         --radius: 0.75rem;
@@ -82,5 +83,20 @@
             padding-top: -12rem;
             padding-bottom: -12rem;
         }
+    }
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+@keyframes rotateGradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
     }
 }

@@ -1,55 +1,20 @@
-import { useCallback, useState, type FC } from "react";
-import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
-} from "~/components/ui/resizable";
+import { type FC } from "react";
 import type { Dog } from "~/types/content";
+import FlipCard from "~/components/ui/FlipCard";
 
-const WindowCard: FC<{ dog: Dog }> = ({ dog }) => {
-    const [threshold, setThreshold] = useState(0);
-
-    const handleClick = useCallback(() => {
-        setThreshold((prev) => (prev === 0 ? 100 : 0));
-    }, []);
-
+const DogFlipCard: FC<{ dog: Dog }> = ({ dog }) => {
     return (
-        <div
-            onClick={handleClick}
-            className="w-80 h-[820px] shadow-lg overflow-hidden rounded-md"
-        >
-            <ResizablePanelGroup direction="horizontal">
-                <ResizablePanel
-                    defaultSize={100}
-                    style={{
-                        flex: `${threshold}%`,
-                        transition: "flex 400ms cubic-bezier(0.4, 0, 0.2, 1)",
-                    }}
-                >
-                    <Frontside
-                        dog={dog}
-                        showText={threshold === 0 ? false : true}
-                    />
-                </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel
-                    defaultSize={0}
-                    style={{
-                        flex: `${100 - threshold}%`,
-                        transition: "flex 400ms cubic-bezier(0.4, 0, 0.2, 1)",
-                    }}
-                >
-                    <Backside
-                        dog={dog}
-                        showText={threshold === 0 ? true : false}
-                    />
-                </ResizablePanel>
-            </ResizablePanelGroup>
-        </div>
+        <FlipCard
+            FrontSide={<FrontSide dog={dog} showText />}
+            BackSide={<BackSide dog={dog} showText />}
+        />
     );
 };
 
-const Frontside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
+export const FrontSide: FC<{ dog: Dog; showText: boolean }> = ({
+    dog,
+    showText,
+}) => {
     return (
         <div className="w-full h-full">
             {dog.thumbnail?.fields?.file?.url && (
@@ -100,7 +65,10 @@ const Frontside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
     );
 };
 
-const Backside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
+export const BackSide: FC<{ dog: Dog; showText: boolean }> = ({
+    dog,
+    showText,
+}) => {
     return (
         <div className="w-full h-full">
             {dog.photoWithOwner?.fields?.file?.url && (
@@ -154,4 +122,4 @@ const Backside: FC<{ dog: Dog; showText: boolean }> = ({ dog, showText }) => {
     );
 };
 
-export default WindowCard;
+export default DogFlipCard;
