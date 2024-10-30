@@ -1,7 +1,8 @@
 import { type FC } from "react";
+import { motion } from "framer-motion";
+import { VolleyballIcon } from "lucide-react";
 import heroTransparent from "~/assets/hero-transparent.png";
 import PerspectiveButton from "~/components/ui/PerspectiveButton";
-import { VolleyballIcon } from "lucide-react";
 import { cn } from "~/lib/utils";
 
 const Hero: FC = () => {
@@ -32,8 +33,32 @@ const Illustration: FC = () => {
                 alt="Boldog kutya Enid"
                 className=" md:rounded-lg shadow-lg md:shadow-none object-contain scale-110 md:scale-100"
             />
-            <div className="absolute -z-20 rounded-full -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent md:scale-90" />
-            <VolleyballIcon className="absolute -z-10 bottom-16 xl:bottom-36 right-4 w-1/5 h-1/5 text-enid" />
+            <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    delay: 0.2,
+                }}
+                className="absolute -z-20 rounded-full -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent md:scale-90"
+            />
+            <motion.div
+                className="absolute -z-10 bottom-16 xl:bottom-36 right-4 w-1/6 h-1/6 text-enid"
+                initial={{ opacity: 0, y: -200 }}
+                animate={{
+                    y: 0,
+                    opacity: [1],
+                }}
+                transition={{
+                    delay: 0.8,
+                    duration: 0.3,
+                    ease: "easeIn",
+                }}
+            >
+                <VolleyballIcon className="w-full h-full" />
+            </motion.div>
         </div>
     );
 };
@@ -44,7 +69,7 @@ const CTA: FC<{ className?: string }> = ({ className }) => {
             <PerspectiveButton
                 className="z-10 w-36 static"
                 labels={{
-                    closed: ["Részletek", "Részletek"],
+                    closed: ["Részletek", "Rólunk"],
                 }}
             />
         </a>
