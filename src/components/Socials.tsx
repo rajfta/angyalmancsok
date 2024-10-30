@@ -8,12 +8,15 @@ const socialLinks = [
     { href: "https://www.facebook.com/angyalmancsok", label: "Facebook" },
 ];
 
-const Socials: FC<{ iconClassName?: string }> = ({ iconClassName }) => {
+const Socials: FC<{
+    iconClassName?: string;
+    noAnimation?: boolean;
+}> = ({ iconClassName, noAnimation }) => {
     return (
         <>
             {socialLinks.map((link, index) => (
                 <motion.div
-                    variants={slideIn}
+                    variants={noAnimation ? {} : slideIn}
                     initial="initial"
                     animate="enter"
                     exit="exit"

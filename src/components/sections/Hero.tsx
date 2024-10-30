@@ -4,6 +4,12 @@ import { VolleyballIcon } from "lucide-react";
 import heroTransparent from "~/assets/hero-transparent.png";
 import PerspectiveButton from "~/components/ui/PerspectiveButton";
 import { cn } from "~/lib/utils";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "~/components/ui/popover";
+import Socials from "../Socials";
 
 const Hero: FC = () => {
     return (
@@ -15,7 +21,7 @@ const Hero: FC = () => {
                         <span className="text-accent md:mt-4 md:block">🐾</span>
                     </h1>
                     <Description className="order-4 hidden md:block" />
-                    <CTA className="order-4 hidden md:block mt-12" />
+                    <CTA className="order-4 hidden md:flex mt-12" />
                 </div>
                 <Description className="order-3 md:hidden" />
                 <Illustration />
@@ -65,14 +71,35 @@ const Illustration: FC = () => {
 
 const CTA: FC<{ className?: string }> = ({ className }) => {
     return (
-        <a href="/rolunk" className={className}>
-            <PerspectiveButton
-                className="z-10 w-36 static"
-                labels={{
-                    closed: ["Részletek", "Rólunk"],
-                }}
-            />
-        </a>
+        <div
+            className={cn(
+                "flex z-10 justify-center gap-4 md:justify-between",
+                className,
+            )}
+        >
+            <Popover>
+                <PopoverTrigger>
+                    <PerspectiveButton
+                        className="w-36 static"
+                        labels={{
+                            closed: ["Kapcsolat", "Felvétel"],
+                        }}
+                    />
+                </PopoverTrigger>
+                <PopoverContent className="bg-primary-50 flex gap-4 w-fit">
+                    <Socials noAnimation />
+                </PopoverContent>
+            </Popover>
+
+            <a href="/rolunk">
+                <PerspectiveButton
+                    className="w-36 static bg-transparent border border-primary"
+                    labels={{
+                        closed: ["Részletek", "Rólunk"],
+                    }}
+                />
+            </a>
+        </div>
     );
 };
 

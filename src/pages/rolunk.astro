@@ -54,7 +54,7 @@ const dogs = dogsResponse.items.map((item) => {
 });
 ---
 
-<Layout title="Csapatunk | Angyalmancsok">
+<Layout title="Angyalmancsok | Rólunk">
     <div class="flex items-center justify-center w-full flex-col gap-8">
         {dogs.map((dog) => <WindowCard client:load dog={dog} />)}
     </div>
