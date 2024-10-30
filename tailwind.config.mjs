@@ -45,6 +45,7 @@ export default {
                     900: "#5d325d",
                     950: "#3b173b",
                 },
+                enid: "#A6A7AC",
                 bg: {
                     DEFAULT: "#f3ede1",
                     header: "#f3ede1",

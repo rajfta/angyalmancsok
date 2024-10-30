@@ -1,7 +1,7 @@
 import { type FC } from "react";
-
-import heroImage from "~/assets/hero.jpg";
-import PerspectiveButton from "../ui/PerspectiveButton";
+import heroTransparent from "~/assets/hero-transparent.png";
+import PerspectiveButton from "~/components/ui/PerspectiveButton";
+import { VolleyballIcon } from "lucide-react";
 
 const Hero: FC = () => {
     return (
@@ -14,12 +14,21 @@ const Hero: FC = () => {
                     <p className="mb-4 order-3 md:block hidden">{pText}</p>
                 </div>
                 <p className="mb-4 order-3 md:hidden">{pText}</p>
-                <div className="-container-padding md:order-1 order-2 aspect-[4/5] ">
+                {/* <div className="-container-padding md:order-1 order-2 aspect-square ">
                     <img
                         src={heroImage.src}
                         alt="Boldog kutya Enid"
                         className=" md:rounded-lg h-full w-full shadow-lg object-cover object-center"
                     />
+                </div> */}
+                <div className="-container-padding relative md:order-1 order-2 aspect-square ">
+                    <img
+                        src={heroTransparent.src}
+                        alt="Boldog kutya Enid"
+                        className=" md:rounded-lg shadow-lg md:shadow-none object-contain scale-110"
+                    />
+                    <div className="absolute -z-20 rounded-full scale-[112%] -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent" />
+                    <VolleyballIcon className="absolute -z-10 bottom-12 right-4 w-1/5 h-1/5 text-enid" />
                 </div>
             </div>
             <a href="/rolunk" className="order-4 md:self-end">
