@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import type { Dog } from "~/types/content";
 import FlipCard from "~/components/ui/FlipCard";
 
@@ -89,34 +90,7 @@ export const BackSide: FC<{ dog: Dog; showText: boolean }> = ({
                 }}
                 className="p-6 pt-4 flex flex-col gap-2"
             >
-                <h2>{dog.name}</h2>
-
-                <div>
-                    <span>Gazdi: </span>
-                    <span className="text-sm text-gray-500">
-                        {dog.ownerName}
-                    </span>
-                </div>
-
-                {dog.nicknames && (
-                    <div>
-                        <span>Becenevek: </span>
-                        <span className="text-sm text-gray-500">
-                            {dog.nicknames.join(", ")}
-                        </span>
-                    </div>
-                )}
-
-                {dog.workplaces && (
-                    <div>
-                        <span>Munkahely:</span>
-                        <ul className="text-sm ml-2 text-gray-500">
-                            {dog.workplaces.map((workplace) => (
-                                <li key={workplace}>• {workplace}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                {documentToReactComponents(dog.content)}
             </div>
         </div>
     );

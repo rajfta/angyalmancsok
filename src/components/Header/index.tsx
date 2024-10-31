@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { motion } from "framer-motion";
 import logo from "~/assets/logo.png";
 import Nav from "./Nav";
@@ -7,6 +7,16 @@ import Logo from "~/components/Logo";
 import DonateButton from "../DonateButton";
 
 const Header: FC = () => {
+    const [pathname, setPathname] = useState<string>("");
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+        setPathname(window.location.pathname);
+    }, []);
+    console.log("pathname", pathname);
+
     return (
         <header className="bg-bg-header fixed top-0 left-0 right-0 z-50 h-20 w-full px-4 py-2 flex items-center justify-between">
             <div className="max-w-[1200px] mx-auto w-full flex items-center justify-between h-full">
@@ -16,7 +26,7 @@ const Header: FC = () => {
                 <div className="flex w-full h-full gap-4 items-center justify-end">
                     <DonateButton className="absolute hidden md:block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                     <Nav>
-                        <NavLinks />
+                        <NavLinks pathname={pathname} />
                     </Nav>
                 </div>
             </div>

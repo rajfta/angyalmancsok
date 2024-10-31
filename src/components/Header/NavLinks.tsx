@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import type { ReactNode, FC } from "react";
+import { type ReactNode, type FC } from "react";
 import DonateButton from "~/components/DonateButton";
 import Socials from "~/components/Socials";
 
@@ -10,12 +10,17 @@ const links = [
     { href: "/kapcsolat", label: "Kapcsolat" },
 ];
 
-const NavLinks: FC = () => {
+const NavLinks: FC<{ pathname: string }> = ({ pathname }) => {
     return (
         <nav className="w-full pl-4 pb-12 lg:pb-16 h-full flex flex-col justify-between">
             <ul className="flex pt-[88px] lg:pt-[120px] gap-5 lg:gap-8 flex-col justify-center">
                 {links.map((link, index) => (
-                    <Link key={link.href} href={link.href} index={index}>
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        index={index}
+                        isActive={pathname === link.href}
+                    >
                         {link.label}
                     </Link>
                 ))}
@@ -57,11 +62,12 @@ const NavLinks: FC = () => {
     );
 };
 
-const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
-    href,
-    children,
-    index,
-}) => (
+const Link: FC<{
+    href: string;
+    children: ReactNode;
+    index: number;
+    isActive: boolean;
+}> = ({ href, children, index, isActive }) => (
     <div
         className="px-4"
         style={{ perspective: "120px", perspectiveOrigin: "bottom" }}
@@ -88,13 +94,22 @@ const Link: FC<{ href: string; children: ReactNode; index: number }> = ({
                 },
             }}
         >
-            <motion.div whileHover={{ x: 4 }}>
-                <a
-                    href={href}
-                    className="text-text hover:-translate-y-full transition duration-300 text-3xl lg:text-4xl font-medium"
-                >
-                    {children}
-                </a>
+            <motion.div whileHover={isActive ? {} : { x: 4 }}>
+                <div className="flex gap-2 items-center">
+                    {isActive && (
+                        <div className="w-2 h-2 rounded-full bg-text-description" />
+                    )}
+                    <a
+                        href={isActive ? undefined : href}
+                        className={`text-3xl lg:text-4xl font-medium ${
+                            isActive
+                                ? "cursor-default pointer-events-none text-text-description"
+                                : "text-text"
+                        }`}
+                    >
+                        {children}
+                    </a>
+                </div>
             </motion.div>
         </motion.div>
     </div>

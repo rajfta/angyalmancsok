@@ -15,7 +15,7 @@ export interface Dog {
     workplaces: string[] | undefined;
     ownerName: string;
     priority: number;
-    content: Document;
+    content: any;
     certificates: ("SEGÍTŐ" | "TANULÓ" | "TERÁPIÁS")[];
 }
 
