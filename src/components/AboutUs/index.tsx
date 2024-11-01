@@ -26,10 +26,18 @@ const AboutUs: FC = () => {
                 {Object.entries(imageMap).map(([key, image]) => (
                     <motion.div
                         key={key}
-                        className="absolute inset-0 w-full h-full"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: activeSection === key ? 1 : 0 }}
-                        transition={{ duration: 0.5 }}
+                        className={`absolute inset-0 w-full h-full ${
+                            activeSection === key ? "z-10" : "z-0"
+                        }`}
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        animate={{
+                            opacity: activeSection === key ? 1 : 0,
+                            filter:
+                                activeSection === key
+                                    ? "blur(0px)"
+                                    : "blur(10px)",
+                        }}
+                        transition={{ duration: 0.6 }}
                     >
                         <img
                             src={image.src}
