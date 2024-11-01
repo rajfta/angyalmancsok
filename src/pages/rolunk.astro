@@ -3,6 +3,7 @@ import Layout from "~/layouts/Layout.astro";
 import { contentfulClient, isAssetLink, isEntryLink } from "~/lib/contentful";
 import type { TypeDogSkeleton } from "~/types/content";
 import DogFlipCard from "~/components/DogFlipCard";
+import AboutUs from "~/components/AboutUs";
 
 const dogsResponse = await contentfulClient.getEntries<TypeDogSkeleton>({
     content_type: "dog",
@@ -55,6 +56,7 @@ const dogs = dogsResponse.items.map((item) => {
 ---
 
 <Layout title="Angyalmancsok | Rólunk">
+    <AboutUs client:load />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
         {dogs.map((dog) => <DogFlipCard client:load dog={dog} />)}
     </div>
