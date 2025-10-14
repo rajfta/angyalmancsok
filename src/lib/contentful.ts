@@ -8,10 +8,26 @@ export const contentfulClient = createClient({
 	host: import.meta.env.DEV ? "preview.contentful.com" : "cdn.contentful.com",
 });
 
-export function isAssetLink(link: any): link is Asset {
-	return link && link.sys && link.sys.type === "Asset";
+export function isAssetLink(link: unknown): link is Asset {
+	return (
+		typeof link === "object" &&
+		link !== null &&
+		"sys" in link &&
+		typeof link.sys === "object" &&
+		link.sys !== null &&
+		"type" in link.sys &&
+		link.sys.type === "Asset"
+	);
 }
 
-export function isEntryLink(link: any): link is Entry {
-	return link && link.sys && link.sys.type === "Entry";
+export function isEntryLink(link: unknown): link is Entry {
+	return (
+		typeof link === "object" &&
+		link !== null &&
+		"sys" in link &&
+		typeof link.sys === "object" &&
+		link.sys !== null &&
+		"type" in link.sys &&
+		link.sys.type === "Entry"
+	);
 }

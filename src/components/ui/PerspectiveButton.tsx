@@ -14,6 +14,7 @@ const PerspectiveButton: FC<{
 }> = ({ isOpen, onClick, labels, className }) => {
 	return (
 		<button
+			type="button"
 			className={cn(
 				"bg-primary-200",
 				isOpen ? "text-primary-200" : "text-text",

@@ -32,15 +32,19 @@ const Footer: FC = () => {
 			<div className="flex flex-col relative gap-2 justify-center">
 				<h3 className="text-lg text-primary-200 font-bold">Dokumentumok</h3>
 				<div className="flex flex-col gap-1">
+					{/* biome-ignore lint/a11y/useValidAnchor: Placeholder link, will be updated later */}
 					<a href="#" className="hover:text-primary-200 transition-colors">
 						Adatkezelési tájékoztató
 					</a>
+					{/* biome-ignore lint/a11y/useValidAnchor: Placeholder link, will be updated later */}
 					<a href="#" className="hover:text-primary-200 transition-colors">
 						Alapító okirat
 					</a>
+					{/* biome-ignore lint/a11y/useValidAnchor: Placeholder link, will be updated later */}
 					<a href="#" className="hover:text-primary-200 transition-colors">
 						Közhasznúsági jelentés 2023
 					</a>
+					{/* biome-ignore lint/a11y/useValidAnchor: Placeholder link, will be updated later */}
 					<a href="#" className="hover:text-primary-200 transition-colors">
 						SZMSZ
 					</a>

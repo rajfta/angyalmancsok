@@ -1,3 +1,4 @@
+import type { Document } from "@contentful/rich-text-types";
 import type {
 	Asset,
 	ChainModifiers,
@@ -15,7 +16,7 @@ export interface Dog {
 	workplaces: string[] | undefined;
 	ownerName: string;
 	priority: number;
-	content: any;
+	content: Document;
 	certificates: ("SEGÍTŐ" | "TANULÓ" | "TERÁPIÁS")[];
 }
 

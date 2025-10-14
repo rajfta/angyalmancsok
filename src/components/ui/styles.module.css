@@ -21,12 +21,36 @@
 	height: 100%;
 }
 
+.button .slider .el:nth-of-type(2) {
+	background-color: black;
+}
+
+.perspectiveText {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	transform-style: preserve-3d;
+	transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.perspectiveText p {
+	transition: all 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+	pointer-events: none;
+	text-transform: uppercase;
+}
+
 .button .slider .el p {
 	margin: 0px;
 }
 
-.button .slider .el:nth-of-type(2) {
-	background-color: black;
+.perspectiveText p:nth-of-type(2) {
+	position: absolute;
+	transform-origin: bottom center;
+	transform: rotateX(-90deg) translateY(12px);
+	opacity: 0;
 }
 
 .button .slider .el:hover .perspectiveText {
@@ -40,28 +64,4 @@
 
 .button .slider .el:hover .perspectiveText p:nth-of-type(2) {
 	opacity: 1;
-}
-
-.perspectiveText {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-	transform-style: preserve-3d;
-	transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.perspectiveText p {
-	transition: all 0.75s cubic-bezier(0.76, 0, 0.24, 1);
-	pointer-events: none;
-	text-transform: uppercase;
-}
-
-.perspectiveText p:nth-of-type(2) {
-	position: absolute;
-	transform-origin: bottom center;
-	transform: rotateX(-90deg) translateY(12px);
-	opacity: 0;
 }

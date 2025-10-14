@@ -21,6 +21,7 @@ const DonateButton: FC<DonateButtonProps> = ({
 				labels={{
 					closed: [
 						<span
+							key="support-us"
 							className={`flex px-2 w-full items-center text-text ${
 								hideIcons ? "justify-center" : "justify-between"
 							}`}
@@ -42,6 +43,7 @@ const DonateButton: FC<DonateButtonProps> = ({
 							)}
 						</span>,
 						<span
+							key="thank-you"
 							className={`flex px-4 w-full items-center text-text ${
 								hideIcons ? "justify-center" : "justify-between"
 							}`}
