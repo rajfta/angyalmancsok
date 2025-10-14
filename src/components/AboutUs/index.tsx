@@ -1,80 +1,77 @@
-import { useState, type FC } from "react";
 import { motion } from "framer-motion";
-import {
-    Accordion,
-    AccordionItem,
-    AccordionTrigger,
-    AccordionContent,
-} from "~/components/ui/accordion";
-import visionImage from "~/assets/about-us/vision.jpg";
-import storyImage from "~/assets/about-us/story.jpg";
+import { type FC, useState } from "react";
 import missionImage from "~/assets/about-us/mission.jpg";
+import storyImage from "~/assets/about-us/story.jpg";
+import visionImage from "~/assets/about-us/vision.jpg";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "~/components/ui/accordion";
 
 const imageMap: Record<string, ImageMetadata> = {
-    vision: visionImage,
-    story: storyImage,
-    mission: missionImage,
+	vision: visionImage,
+	story: storyImage,
+	mission: missionImage,
 };
 
 const AboutUs: FC = () => {
-    const [activeSection, setActiveSection] = useState<string>("vision");
+	const [activeSection, setActiveSection] = useState<string>("vision");
 
-    return (
-        <div>
-            <h2 className="mb-8">Rólunk</h2>
-            <div className="flex flex-col gap-4 items-center justify-center md:items-stretch xl:justify-between xl:items-start xl:flex-row">
-                <div className="aspect-[133/100] w-full relative">
-                    {Object.entries(imageMap).map(([key, image]) => (
-                        <motion.div
-                            key={key}
-                            className="absolute inset-0 w-full h-full"
-                            initial={{
-                                opacity: 0,
-                                filter: "blur(10px)",
-                            }}
-                            animate={{
-                                opacity: activeSection === key ? 1 : 0,
-                                filter:
-                                    activeSection === key
-                                        ? "blur(0px)"
-                                        : "blur(10px)",
-                            }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src={image.src}
-                                alt="Angyalmancsok"
-                                className="w-full h-full rounded-xl overflow-hidden object-cover"
-                            />
-                        </motion.div>
-                    ))}
-                </div>
-                <div className="w-full xl:max-w-[500px]">
-                    <Accordion
-                        className="w-full"
-                        defaultValue="vision"
-                        type="single"
-                        onValueChange={(value) => {
-                            setActiveSection(value ?? "vision");
-                        }}
-                    >
-                        <AccordionItem value="vision">
-                            <AccordionTrigger>Jövőképünk</AccordionTrigger>
-                            <AccordionContent>{vision}</AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="story">
-                            <AccordionTrigger>Történetünk</AccordionTrigger>
-                            <AccordionContent>{story}</AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="mission">
-                            <AccordionTrigger>Küldetésünk</AccordionTrigger>
-                            <AccordionContent>{mission}</AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div>
+			<h2 className="mb-8">Rólunk</h2>
+			<div className="flex flex-col gap-4 items-center justify-center md:items-stretch xl:justify-between xl:items-start xl:flex-row">
+				<div className="aspect-[133/100] w-full relative">
+					{Object.entries(imageMap).map(([key, image]) => (
+						<motion.div
+							key={key}
+							className="absolute inset-0 w-full h-full"
+							initial={{
+								opacity: 0,
+								filter: "blur(10px)",
+							}}
+							animate={{
+								opacity: activeSection === key ? 1 : 0,
+								filter: activeSection === key ? "blur(0px)" : "blur(10px)",
+							}}
+							transition={{ duration: 1 }}
+						>
+							<img
+								src={image.src}
+								alt="Angyalmancsok"
+								className="w-full h-full rounded-xl overflow-hidden object-cover"
+							/>
+						</motion.div>
+					))}
+				</div>
+				<div className="w-full xl:max-w-[500px]">
+					<Accordion
+						className="w-full"
+						defaultValue="vision"
+						type="single"
+						onValueChange={(value) => {
+							setActiveSection(value ?? "vision");
+						}}
+					>
+						<AccordionItem value="vision">
+							<AccordionTrigger>Jövőképünk</AccordionTrigger>
+							<AccordionContent>{vision}</AccordionContent>
+						</AccordionItem>
+						<AccordionItem value="story">
+							<AccordionTrigger>Történetünk</AccordionTrigger>
+							<AccordionContent>{story}</AccordionContent>
+						</AccordionItem>
+						<AccordionItem value="mission">
+							<AccordionTrigger>Küldetésünk</AccordionTrigger>
+							<AccordionContent>{mission}</AccordionContent>
+						</AccordionItem>
+					</Accordion>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 const vision = `

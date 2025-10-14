@@ -1,14 +1,14 @@
 ---
+import AboutUs from "~/components/AboutUs";
+import DogFlipCard from "~/components/DogFlipCard";
 import Layout from "~/layouts/Layout.astro";
 import { contentfulClient, isAssetLink, isEntryLink } from "~/lib/contentful";
 import type { TypeDogSkeleton } from "~/types/content";
-import DogFlipCard from "~/components/DogFlipCard";
-import AboutUs from "~/components/AboutUs";
 
 const dogsResponse = await contentfulClient.getEntries<TypeDogSkeleton>({
-    content_type: "dog",
-    order: ["-fields.priority"],
-    include: 2,
+	content_type: "dog",
+	order: ["-fields.priority"],
+	include: 2,
 });
 
 // const membersResponse = await contentfulClient.getEntries<TypeMemberSkeleton>({
@@ -30,28 +30,28 @@ const dogsResponse = await contentfulClient.getEntries<TypeDogSkeleton>({
 // });
 
 const dogs = dogsResponse.items.map((item) => {
-    const {
-        name,
-        thumbnail,
-        photoWithOwner,
-        nicknames,
-        workplaces,
-        owner,
-        priority,
-        content,
-        certificates,
-    } = item.fields;
-    return {
-        name,
-        thumbnail: isAssetLink(thumbnail) ? thumbnail : null,
-        photoWithOwner: isAssetLink(photoWithOwner) ? photoWithOwner : null,
-        nicknames,
-        workplaces,
-        ownerName: isEntryLink(owner) ? owner.fields.name : "",
-        priority,
-        content: content as unknown as Document,
-        certificates,
-    };
+	const {
+		name,
+		thumbnail,
+		photoWithOwner,
+		nicknames,
+		workplaces,
+		owner,
+		priority,
+		content,
+		certificates,
+	} = item.fields;
+	return {
+		name,
+		thumbnail: isAssetLink(thumbnail) ? thumbnail : null,
+		photoWithOwner: isAssetLink(photoWithOwner) ? photoWithOwner : null,
+		nicknames,
+		workplaces,
+		ownerName: isEntryLink(owner) ? owner.fields.name : "",
+		priority,
+		content: content as unknown as Document,
+		certificates,
+	};
 });
 ---
 

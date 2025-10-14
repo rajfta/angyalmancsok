@@ -1,36 +1,36 @@
 ---
-import { contentfulClient, isAssetLink } from "~/lib/contentful";
-import Layout from "~/layouts/Layout.astro";
-import type { TypePostSkeleton } from "~/types/content";
 import { Image } from "astro:assets";
+import Layout from "~/layouts/Layout.astro";
+import { contentfulClient, isAssetLink } from "~/lib/contentful";
+import type { TypePostSkeleton } from "~/types/content";
 
 const entries = await contentfulClient.getEntries<TypePostSkeleton>({
-    content_type: "post",
-    order: ["fields.priority", "fields.date"],
-    include: 2,
+	content_type: "post",
+	order: ["fields.priority", "fields.date"],
+	include: 2,
 });
 
 const posts = entries.items.map((item) => {
-    const {
-        title,
-        date,
-        description,
-        slug,
-        thumbnail,
-        gallery,
-        priority,
-        content,
-    } = item.fields;
-    return {
-        thumbnail: isAssetLink(thumbnail) ? thumbnail : null,
-        gallery: gallery?.map((item) => (isAssetLink(item) ? item : null)),
-        priority,
-        content,
-        title,
-        slug,
-        description,
-        date: new Date(date).toLocaleDateString(),
-    };
+	const {
+		title,
+		date,
+		description,
+		slug,
+		thumbnail,
+		gallery,
+		priority,
+		content,
+	} = item.fields;
+	return {
+		thumbnail: isAssetLink(thumbnail) ? thumbnail : null,
+		gallery: gallery?.map((item) => (isAssetLink(item) ? item : null)),
+		priority,
+		content,
+		title,
+		slug,
+		description,
+		date: new Date(date).toLocaleDateString(),
+	};
 });
 ---
 
