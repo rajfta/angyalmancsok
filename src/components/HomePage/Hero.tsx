@@ -33,7 +33,7 @@ const Hero: FC = () => {
 
 const Illustration: FC = () => {
 	return (
-		<div className="-container-padding -z-10 relative md:order-2 order-2 aspect-square md:flex-1 lg:max-w-[920px]">
+		<div className="-container-padding -z-10 relative md:order-2 order-2 aspect-square md:flex-1 lg:max-w-[720px]">
 			<img
 				src={heroTransparent.src}
 				alt="Boldog kutya Enid"
