@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import type { FC } from "react";
 import Logo from "~/components/Logo";
@@ -22,7 +23,9 @@ const Footer: FC = () => {
 					<Socials iconClassName="size-6 lg:size-8" />
 				</div>
 				<div className="absolute top-1/2 -translate-y-1/2 -right-6">
-					<Logo hideText />
+					<motion.div whileHover={{ scale: 1.05 }}>
+						<Logo hideText />
+					</motion.div>
 				</div>
 			</div>
 
