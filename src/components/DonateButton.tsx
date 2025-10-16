@@ -26,7 +26,6 @@ const DonateButton: FC<DonateButtonProps> = ({
 							hideIcons ? "justify-center" : "justify-between"
 						}`}
 					>
-						x{" "}
 						{!hideIcons && (
 							<img
 								src={logoBlack.src}

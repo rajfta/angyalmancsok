@@ -3,6 +3,7 @@ import {
 	Building2,
 	Heart,
 	Home,
+	type LucideIcon,
 	School,
 	Sparkles,
 	Sun,
@@ -14,7 +15,7 @@ import { cn } from "~/lib/utils";
 interface Program {
 	id: string;
 	title: string;
-	icon: FC<{ className?: string }>;
+	icon: LucideIcon;
 	description: string;
 	imageUrl?: string;
 }

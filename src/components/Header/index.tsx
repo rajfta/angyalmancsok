@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { type FC, useEffect, useState } from "react";
 import logo from "~/assets/logo.png";
@@ -95,12 +95,22 @@ const Header: FC = () => {
 						</div>
 
 						{/* Mobile Menu Dropdown */}
-						<div className="w-full rounded-3xl border bg-bg-header p-6 shadow-2xl shadow-zinc-300/20 group-data-[state=active]:block lg:hidden">
-							<NavLinks pathname={pathname} />
-							<div className="mt-6">
-								<DonateButton className="font-extrabold bg-accent-300 z-10 w-full h-14" />
-							</div>
-						</div>
+						<AnimatePresence>
+							{menuState && (
+								<motion.div
+									initial={{ opacity: 0, y: -20 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -20 }}
+									transition={{ duration: 0.3, ease: "easeOut" }}
+									className="w-full rounded-3xl border bg-bg-header p-6 shadow-2xl shadow-zinc-300/20 lg:hidden"
+								>
+									<NavLinks pathname={pathname} />
+									<div className="mt-6">
+										<DonateButton className="font-extrabold bg-accent-300 z-10 w-full h-14" />
+									</div>
+								</motion.div>
+							)}
+						</AnimatePresence>
 					</div>
 				</div>
 			</nav>
