@@ -22,11 +22,11 @@ const { title } = Astro.props;
         <title>{title}</title>
     </head>
     <body
-        class="w-full mx-auto flex flex-col min-h-screen max-w-[1420px] overflow-hidden"
+        class="w-full mx-auto flex flex-col min-h-screen max-w-[1420px]"
     >
         <Header client:load />
         <main
-            class="container-padding overflow-x-hidden max-w-[100vw] text-justify header-spacing"
+            class="container-padding text-justify header-spacing"
         >
             <div class="md:hidden h-14 mb-8 w-full relative">
                 <DonateButton

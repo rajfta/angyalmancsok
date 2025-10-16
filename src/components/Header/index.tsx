@@ -41,9 +41,9 @@ const Header: FC = () => {
 			>
 				<div
 					className={cn(
-						"mx-auto max-w-6xl px-6 transition-all duration-300 lg:px-12",
+						"mx-auto max-w-6xl mt-2 px-6 transition-all duration-300 lg:px-12",
 						isScrolled &&
-							"max-w-4xl rounded-2xl border bg-bg-header/80 backdrop-blur-lg lg:px-5",
+							"max-w-4xl rounded-2xl bg-bg-header-scrolled/60 backdrop-blur-lg lg:px-5",
 					)}
 				>
 					<div className="flex flex-wrap relative items-center justify-between gap-4 lg:flex-nowrap lg:gap-6">

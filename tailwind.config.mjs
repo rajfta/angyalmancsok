@@ -48,6 +48,7 @@ export default {
 				bg: {
 					DEFAULT: "#f3ede1",
 					header: "#f3ede1",
+					"header-scrolled": "#e8e3da",
 				},
 				text: {
 					heading: "#475569",

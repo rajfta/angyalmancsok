@@ -26,6 +26,7 @@ const DonateButton: FC<DonateButtonProps> = ({
 							hideIcons ? "justify-center" : "justify-between"
 						}`}
 					>
+						x{" "}
 						{!hideIcons && (
 							<img
 								src={logoBlack.src}
@@ -33,7 +34,7 @@ const DonateButton: FC<DonateButtonProps> = ({
 								className={cn("w-12 h-12", smallIcons && "w-8 h-8")}
 							/>
 						)}
-						<span>Támogass Minket</span>
+						<span>Támogass</span>
 						{!hideIcons && (
 							<img
 								src={logoBlack.src}

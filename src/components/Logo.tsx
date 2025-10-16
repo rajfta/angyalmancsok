@@ -12,7 +12,7 @@ const Logo = ({
 		<a href="/">
 			<div className={cn("flex items-center justify-center", className)}>
 				<img
-					className="h-24 w-24 object-contain"
+					className="h-20 w-20 object-contain"
 					src={logo.src}
 					alt="Angyalmancsok logo"
 				/>
