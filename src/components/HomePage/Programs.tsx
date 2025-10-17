@@ -139,14 +139,15 @@ const Programs: FC = () => {
 					initial={{ opacity: 0, x: 20 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.5 }}
-					className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+					className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex min-h-[400px]"
 				>
+					{/* Left: Image */}
 					{selectedProgram?.imageUrl && (
 						<motion.div
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.6, delay: 0.1 }}
-							className="w-full h-[300px] overflow-hidden"
+							className="w-[45%] h-full overflow-hidden"
 						>
 							<img
 								src={selectedProgram.imageUrl}
@@ -155,7 +156,9 @@ const Programs: FC = () => {
 							/>
 						</motion.div>
 					)}
-					<div className="p-8">
+
+					{/* Right: Content */}
+					<div className="flex-1 p-8 flex flex-col">
 						<div className="flex items-center gap-4 mb-6">
 							{selectedProgram && (
 								<>
