@@ -1,59 +1,16 @@
 import { motion } from "framer-motion";
 import type { FC } from "react";
 
-interface Partner {
-	id: string;
-	name: string;
-	logo: string;
-	website?: string;
+interface PartnersProps {
+	partners: {
+		id: string;
+		name: string;
+		logo: string;
+		website?: string | undefined;
+	}[];
 }
 
-const partners: Partner[] = [
-	{
-		id: "noriart",
-		name: "NoriArt photography",
-		logo: "/partners/noriart.jpg",
-		website: "https://www.norartphotography.com/",
-	},
-	{
-		id: "adany-timi",
-		name: "Ádány Timi coaching",
-		logo: "/partners/coaching.jpg",
-		website: "https://www.facebook.com/groups/310169079929730/",
-	},
-	{
-		id: "szamoca",
-		name: "Szabó Mónika Szamóca",
-		logo: "/partners/szamoca.png",
-		website: "https://szamocaalapitvany.hu/",
-	},
-	{
-		id: "veres-viola",
-		name: "Veres Viola agility edzés",
-		logo: "/partners/viola-agility.jpg",
-		website: "https://www.facebook.com/groups/veresviolaagilityedzes/",
-	},
-	{
-		id: "petplex",
-		name: "PetPlex",
-		logo: "/partners/petplex.jpg",
-		website: "https://petplex.hu/",
-	},
-	{
-		id: "dalma-kutyakozmi",
-		name: "Dalma Kutyakozmi",
-		logo: "/partners/dalma-kutyakozmi.jpg",
-		website: "https://www.facebook.com/people/Dalmakutyakozmi/100089611284517/",
-	},
-	{
-		id: "frog-meddog",
-		name: "FROG - Meddog",
-		logo: "/partners/frog-meddog.webp",
-		website: "https://meddogkozpont.hu/",
-	},
-];
-
-const Partners: FC = () => {
+const Partners: FC<PartnersProps> = ({ partners }) => {
 	return (
 		<section className="container-padding py-16 md:py-24 bg-bg">
 			<motion.h2

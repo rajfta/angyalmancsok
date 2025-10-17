@@ -15,71 +15,32 @@ import { cn } from "~/lib/utils";
 interface Program {
 	id: string;
 	title: string;
-	icon: LucideIcon;
+	icon: string | LucideIcon;
 	description: string;
 	imageUrl?: string;
 }
 
-const programs: Program[] = [
-	{
-		id: "therapy-visits",
-		title: "Terápiás Kutya Látogatások",
-		icon: Heart,
-		description:
-			"A terápiás kutyás programok jelentősége abban rejlik, hogy a kutyák jelenléte csökkentheti a szorongást és javítja az érzelmi jólétet, hozzájárulva ezzel a résztvevők mentális egészségéhez. Emellett ezek a programok elősegítik a szociális készségek fejlődését, fokozzák a motivációt, és javítják a fizikai aktivitást, ezáltal átfogóan támogatják a résztvevők életminőségének javítását.",
-		imageUrl: "/therapy-programs/terapias-kutya-latogatasok.jpg",
-	},
-	{
-		id: "regular-work",
-		title: "Rendszeres Munkáink",
-		icon: School,
-		description:
-			"Bölcsőde, Óvoda, általános iskola, középiskola. Fejlesztőház, Szociális ellátó központ, otthona, rendszeres munkáink heti, kétheti rendszerességgel történnek az intézmény egyedi igényei alapján.",
-		imageUrl: "/therapy-programs/rendszeres-munkaink.jpeg",
-	},
-	{
-		id: "summer-camps",
-		title: "Nyári Táborok",
-		icon: Sun,
-		description:
-			"A nyári táborok különleges programjai terápiás kutyákkal izgalmas és tanulságos élményeket nyújtanak a gyerekek számára, miközben fejlesztik szociális készségeiket. A kutyákkal való interakció során a gyerekek játékos formában tanulhatják a felelős állattartásról, az empátiáról és az együttműködés fontosságáról.",
-		imageUrl: "/therapy-programs/nyari-taborok.jpg",
-	},
-	{
-		id: "sensitivity",
-		title: "Érzékenyítés",
-		icon: Sparkles,
-		description:
-			"Az érzékenyítő programok terápiás és segítő kutyákkal lehetőséget nyújtanak a résztvevők számára, hogy jobban megértsék és elfogadják a különböző fogyatékosságokkal és speciális igényekkel élők mindennapi szerepét és értékét. Ezek a programok elősegítik az empátia és a tolerancia fejlődését, miközben közvetlen élményeken keresztül mutatják be a segítő kutyák mindennapi szerepét és értékét.",
-		imageUrl: "/therapy-programs/erzekenyites.jpg",
-	},
-	{
-		id: "team-building",
-		title: "Céges Csapatépítés",
-		icon: Building2,
-		description:
-			"A terápiás kutyákkal szervezett céges csapatépítő programok elősegítik a munkahelyi stressz csökkentését és javítják a kollégák közötti kommunikációt. Ezek a programok erősítik a csapatszellemet és növelik a munkatársak közötti bizalmat, miközben egyedülálló és élvezetesek élményt nyújtanak.",
-		imageUrl: "/therapy-programs/ceges-csapatepites.jpg",
-	},
-	{
-		id: "dszit",
-		title: "DSZIT",
-		icon: Users,
-		description:
-			"A dinamikus szenzoros integrációs terápia (DSZIT) egy nondirektív terápia, amely egyéni terápiás célkitűzéseknek megfelelő szabadjátékot alkalmaz. A szakemberek folyamatos visszacsatolással és pozitív megerősítéssel támogatja a gyermeket, figyelembe véve annak egyéni tempóját, erősségeit és nehézségeit. Panka két éve vesz részt ilyen terápiáin, amely segíti a szorongásoldást és fejleszti az önkontrollt, valamint a szociális készségeket.",
-		imageUrl: "/therapy-programs/dszit.jpg",
-	},
-	{
-		id: "horse-coaching",
-		title: "Lovas Coaching",
-		icon: Home,
-		description:
-			"A lovas coaching terápiás kutyákkal kombinált programjai egyedülálló módon segítik a résztvevők önismeretének és vezetői képességeinek fejlesztését. A lovak és kutyák közös jelenléte növeli az érzelmi intelligenciát és javítja a kommunikációs készségeket, miközben természetes és támogató környezetet biztosít a személyes fejlődéshez.",
-		imageUrl: "/therapy-programs/lovas-coaching.jpg",
-	},
-];
+interface ProgramsProps {
+	programs: { id: string; title: string; icon: string; description: string }[];
+}
 
-const Programs: FC = () => {
+const iconMap: Record<string, LucideIcon> = {
+	Heart,
+	School,
+	Sun,
+	Sparkles,
+	Building2,
+	Users,
+	Home,
+};
+
+const Programs: FC<ProgramsProps> = ({ programs: programsData }) => {
+	// Map icon names to components
+	const programs: Program[] = programsData.map((p) => ({
+		...p,
+		icon: iconMap[p.icon] || Heart,
+	}));
+
 	const [selectedId, setSelectedId] = useState(programs[0]?.id);
 	const selectId = useId();
 	const selectedProgram = programs.find((p) => p.id === selectedId);

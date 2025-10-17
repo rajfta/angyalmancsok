@@ -11,73 +11,11 @@ interface Testimonial {
 	dogPhoto: string;
 }
 
-const testimonials: Testimonial[] = [
-	{
-		id: "panka-1",
-		quote:
-			"Panka jelenléte a foglalkozásokon igazán sokat ad a lányunknak. Panka tele van szeretettel és csodálatos milyen intelligens, fegyelmezett kutyus. Öröm látni a lányunkon, hogy mennyire szereti, mesél róla, törődik vele. Úgy tapasztaljuk, hogy nagyban erősíti a bizalmát, bátorságát saját maga és a világ felé is, hogy Bea Pankával együtt dolgozik.",
-		author: "Szülő",
-		dogName: "Panka",
-		handlerName: "Bea",
-		dogPhoto: "https://placedog.net/400/400?random=1", // TODO: Replace with actual Panka photo
-	},
-	{
-		id: "placeholder-1",
-		quote:
-			"A terápiás kutyás foglalkozások csodálatos hatással vannak a gyermekünkre. Minden alkalommal lelkesen várja a találkozást, és láthatóan boldogabbá, kiegyensúlyozottabbá válik.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=2", // TODO: Replace with actual photo
-	},
-	{
-		id: "placeholder-2",
-		quote:
-			"Hálásak vagyunk a türelmes, szakszerű munkáért. A kutya nyugodt jelenléte csodákra képes, látjuk a fejlődést a gyermekünkben hétről hétre.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=3", // TODO: Replace with actual photo
-	},
-	{
-		id: "placeholder-3",
-		quote:
-			"Köszönjük a kedves, empatikus hozzáállást. A kutyával való foglalkozás felszabadult, mosolygós perceket ad a hétköznapokba.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=4",
-	},
-	{
-		id: "placeholder-4",
-		quote:
-			"Gyönyörű látni, ahogy gyermekünk a kutya mellett megnyugszik, és egyre nyitottabbá válik a környezete felé.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=5",
-	},
-	{
-		id: "placeholder-5",
-		quote:
-			"A programok professzionális szervezése és a kutyák kiegyensúlyozott jelleme biztosítja a pozitív élményt minden alkalommal.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=6",
-	},
-	{
-		id: "placeholder-6",
-		quote:
-			"Fantasztikus munka, amit végeztek! A változás szembetűnő a gyermekünk viselkedésében és magabiztosságában.",
-		author: "Szülő",
-		dogName: "[Kutya neve]",
-		handlerName: "[Gazdi neve]",
-		dogPhoto: "https://placedog.net/400/400?random=7",
-	},
-];
+interface TestimonialsProps {
+	testimonials: Testimonial[];
+}
 
-const Testimonials: FC = () => {
+const Testimonials: FC<TestimonialsProps> = ({ testimonials }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [slidesPerView, setSlidesPerView] = useState(3);
 

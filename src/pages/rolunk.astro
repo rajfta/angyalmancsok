@@ -1,63 +1,59 @@
 ---
+import { getCollection } from "astro:content";
 import AboutUs from "~/components/AboutUs";
-import DogFlipCard from "~/components/DogFlipCard";
 import Layout from "~/layouts/Layout.astro";
-import { contentfulClient, isAssetLink, isEntryLink } from "~/lib/contentful";
-import type { TypeDogSkeleton } from "~/types/content";
 
-const dogsResponse = await contentfulClient.getEntries<TypeDogSkeleton>({
-	content_type: "dog",
-	order: ["-fields.priority"],
-	include: 2,
-});
-
-// const membersResponse = await contentfulClient.getEntries<TypeMemberSkeleton>({
-//     content_type: "member",
-//     order: ["fields.priority"],
-//     include: 2,
-// });
-
-// const members = membersResponse.items.map((item) => {
-//     const { name, title, certificates, content, priority } = item.fields;
-
-//     return {
-//         name,
-//         title,
-//         certificates,
-//         content: content as unknown as Document,
-//         priority,
-//     };
-// });
-
-const dogs = dogsResponse.items.map((item) => {
-	const {
-		name,
-		thumbnail,
-		photoWithOwner,
-		nicknames,
-		workplaces,
-		owner,
-		priority,
-		content,
-		certificates,
-	} = item.fields;
-	return {
-		name,
-		thumbnail: isAssetLink(thumbnail) ? thumbnail : null,
-		photoWithOwner: isAssetLink(photoWithOwner) ? photoWithOwner : null,
-		nicknames,
-		workplaces,
-		ownerName: isEntryLink(owner) ? owner.fields.name : "",
-		priority,
-		content: content as unknown as Document,
-		certificates,
-	};
-});
+const dogsEntries = await getCollection("dogs");
+const dogs = dogsEntries.sort((a, b) => b.data.priority - a.data.priority);
 ---
 
 <Layout title="Angyalmancsok | Rólunk">
     <AboutUs client:load />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
-        {dogs.map((dog) => <DogFlipCard client:load dog={dog} />)}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8 container-padding py-16">
+        {dogs.map((dog) => (
+            <div class="bg-bg-highlight rounded-xl p-6 shadow-md border border-gray-100">
+                <img
+                    src={dog.data.thumbnail}
+                    alt={dog.data.name}
+                    class="w-full aspect-square object-cover rounded-lg mb-4"
+                />
+                <h2 class="text-2xl font-bold text-primary-700 mb-2">{dog.data.name}</h2>
+
+                {dog.data.nicknames && dog.data.nicknames.length > 0 && (
+                    <div class="mb-2">
+                        <span class="font-semibold">Becenevek: </span>
+                        <span class="text-gray-600">{dog.data.nicknames.join(", ")}</span>
+                    </div>
+                )}
+
+                {dog.data.workplaces && dog.data.workplaces.length > 0 && (
+                    <div class="mb-2">
+                        <span class="font-semibold">Munkahely: </span>
+                        <ul class="text-gray-600 ml-4">
+                            {dog.data.workplaces.map((workplace: string) => (
+                                <li>• {workplace}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+                {dog.data.certificates && dog.data.certificates.length > 0 && (
+                    <div class="mb-2">
+                        <span class="font-semibold">Tanúsítványok: </span>
+                        <div class="flex gap-2 mt-1">
+                            {dog.data.certificates.map((cert: string) => (
+                                <span class="bg-primary-100 text-primary-700 px-2 py-1 rounded text-sm">
+                                    {cert}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <div class="prose prose-sm mt-4 text-gray-700">
+                    {dog.body}
+                </div>
+            </div>
+        ))}
     </div>
 </Layout>

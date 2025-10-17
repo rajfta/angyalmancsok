@@ -1,14 +1,50 @@
 ---
+import { getCollection } from "astro:content";
 import Hero from "~/components/HomePage/Hero";
 import Partners from "~/components/HomePage/Partners";
 import Programs from "~/components/HomePage/Programs";
 import Testimonials from "~/components/HomePage/Testimonials";
 import Layout from "~/layouts/Layout.astro";
+
+// Fetch content from collections
+const testimonialsEntries = await getCollection("testimonials");
+const partnersEntries = await getCollection("partners");
+const programsEntries = await getCollection("programs");
+
+// Transform and sort
+const testimonials = testimonialsEntries
+	.sort((a, b) => (a.data.priority || 0) - (b.data.priority || 0))
+	.map((entry) => ({
+		id: entry.id,
+		quote: entry.data.quote,
+		author: entry.data.author,
+		dogName: entry.data.dogName,
+		handlerName: entry.data.handlerName,
+		dogPhoto: entry.data.dogPhoto,
+	}));
+
+const partners = partnersEntries
+	.sort((a, b) => (a.data.priority || 0) - (b.data.priority || 0))
+	.map((entry) => ({
+		id: entry.id,
+		name: entry.data.name,
+		logo: entry.data.logo,
+		website: entry.data.website,
+	}));
+
+const programs = programsEntries
+	.sort((a, b) => (a.data.priority || 0) - (b.data.priority || 0))
+	.map((entry) => ({
+		id: entry.id,
+		title: entry.data.title,
+		icon: entry.data.icon,
+		description: entry.data.description,
+	}));
 ---
 
 <Layout title="Angyalmancsok | Terápiás kutyák">
     <Hero client:load />
-    <Programs client:load />
-    <Testimonials client:load />
-    <Partners client:load />
+    <Programs client:load programs={programs} />
+    <Testimonials client:load testimonials={testimonials} />
+    <Partners client:load partners={partners} />
 </Layout>
