@@ -12,13 +12,13 @@ const partners: Partner[] = [
 	{
 		id: "noriart",
 		name: "NoriArt photography",
-		logo: "/partners/noriart.png",
+		logo: "/partners/noriart.jpg",
 		website: "https://www.norartphotography.com/",
 	},
 	{
 		id: "adany-timi",
 		name: "Ádány Timi coaching",
-		logo: "/partners/adany-timi.png",
+		logo: "/partners/coaching.jpg",
 		website: "https://www.facebook.com/groups/310169079929730/",
 	},
 	{
@@ -30,19 +30,19 @@ const partners: Partner[] = [
 	{
 		id: "veres-viola",
 		name: "Veres Viola agility edzés",
-		logo: "/partners/veres-viola.png",
+		logo: "/partners/viola-agility.jpg",
 		website: "https://www.facebook.com/groups/veresviolaagilityedzes/",
 	},
 	{
 		id: "petplex",
 		name: "PetPlex",
-		logo: "/partners/petplex.png",
+		logo: "/partners/petplex.jpg",
 		website: "https://petplex.hu/",
 	},
 	{
 		id: "dalma-kutyakozmi",
 		name: "Dalma Kutyakozmi",
-		logo: "/partners/dalma-kutyakozmi.png",
+		logo: "/partners/dalma-kutyakozmi.jpg",
 		website: "https://www.facebook.com/people/Dalmakutyakozmi/100089611284517/",
 	},
 	{
@@ -87,7 +87,7 @@ const Partners: FC = () => {
 						>
 							<CardWrapper
 								{...cardProps}
-								className="block bg-white rounded-xl p-6 shadow-md border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl h-full flex flex-col items-center justify-center group"
+								className="bg-bg-highlight rounded-xl p-6 shadow-md border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl h-full flex flex-col items-center justify-center group"
 							>
 								<div className="w-full aspect-square flex items-center justify-center mb-4">
 									<img

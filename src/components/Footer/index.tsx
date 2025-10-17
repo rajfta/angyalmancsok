@@ -30,7 +30,7 @@ const Footer: FC = () => {
 			</div>
 
 			{/* Divider */}
-			<div className="h-[1px] my-4 -container-padding bg-white/30" />
+			<div className="h-[1px] my-4 -container-padding bg-bg-highlight/30" />
 			{/*TODO: Dokumentumok */}
 			<div className="flex flex-col relative gap-2 justify-center">
 				<h3 className="text-lg text-primary-200 font-bold">Dokumentumok</h3>
@@ -54,7 +54,7 @@ const Footer: FC = () => {
 				</div>
 			</div>
 			{/* Divider */}
-			<div className="h-[1px] my-4 -container-padding bg-white/30" />
+			<div className="h-[1px] my-4 -container-padding bg-bg-highlight/30" />
 			<p className="text-slate-200 text-xs text-[10px]">
 				Angyalmancsok Alapítvány 2024. Minden jog fenntartva.
 			</p>

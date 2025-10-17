@@ -114,7 +114,7 @@ const Programs: FC = () => {
 									"w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-3 group",
 									selectedId === program.id
 										? "bg-primary-500 text-white shadow-lg scale-105"
-										: "bg-white hover:bg-primary-50 text-text border border-gray-200",
+										: "bg-bg-highlight hover:bg-primary-50 text-text border border-gray-200",
 								)}
 							>
 								<Icon
@@ -139,7 +139,7 @@ const Programs: FC = () => {
 					initial={{ opacity: 0, x: 20 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.5 }}
-					className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex min-h-[400px]"
+					className="bg-bg-highlight rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex min-h-[400px]"
 				>
 					{/* Left: Image */}
 					{selectedProgram?.imageUrl && (
@@ -200,7 +200,7 @@ const Programs: FC = () => {
 							id={selectId}
 							value={selectedId}
 							onChange={(e) => setSelectedId(e.target.value)}
-							className="w-full p-4 pr-10 bg-white border-2 border-primary-200 rounded-lg appearance-none cursor-pointer text-text font-medium focus:outline-none focus:border-primary-500 transition-colors"
+							className="w-full p-4 pr-10 bg-bg-highlight border-2 border-primary-200 rounded-lg appearance-none cursor-pointer text-text font-medium focus:outline-none focus:border-primary-500 transition-colors"
 						>
 							{programs.map((program) => (
 								<option key={program.id} value={program.id}>
@@ -231,7 +231,7 @@ const Programs: FC = () => {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.4 }}
-					className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 min-h-[320px]"
+					className="bg-bg-highlight rounded-2xl shadow-xl p-6 border border-gray-100 min-h-[320px]"
 				>
 					{selectedProgram && (
 						<>

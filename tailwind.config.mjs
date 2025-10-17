@@ -47,6 +47,7 @@ export default {
 				enid: "#A6A7AC",
 				bg: {
 					DEFAULT: "#f3ede1",
+					highlight: "#F1F1EF",
 					header: "#f3ede1",
 					"header-scrolled": "#e8e3da",
 				},

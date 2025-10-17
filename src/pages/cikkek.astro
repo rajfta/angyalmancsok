@@ -38,7 +38,7 @@ const posts = entries.items.map((item) => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
             posts.map((post) => (
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="bg-bg-highlight shadow-md rounded-lg overflow-hidden">
                     {post.thumbnail?.fields?.file?.url && (
                         <Image
                             src={post.thumbnail.fields.file.url}
