@@ -27,6 +27,7 @@ const programs: Program[] = [
 		icon: Heart,
 		description:
 			"A terápiás kutyás programok jelentősége abban rejlik, hogy a kutyák jelenléte csökkentheti a szorongást és javítja az érzelmi jólétet, hozzájárulva ezzel a résztvevők mentális egészségéhez. Emellett ezek a programok elősegítik a szociális készségek fejlődését, fokozzák a motivációt, és javítják a fizikai aktivitást, ezáltal átfogóan támogatják a résztvevők életminőségének javítását.",
+		imageUrl: "/therapy-programs/terapias-kutya-latogatasok.jpg",
 	},
 	{
 		id: "regular-work",
@@ -34,6 +35,7 @@ const programs: Program[] = [
 		icon: School,
 		description:
 			"Bölcsőde, Óvoda, általános iskola, középiskola. Fejlesztőház, Szociális ellátó központ, otthona, rendszeres munkáink heti, kétheti rendszerességgel történnek az intézmény egyedi igényei alapján.",
+		imageUrl: "/therapy-programs/rendszeres-munkaink.jpeg",
 	},
 	{
 		id: "summer-camps",
@@ -41,6 +43,7 @@ const programs: Program[] = [
 		icon: Sun,
 		description:
 			"A nyári táborok különleges programjai terápiás kutyákkal izgalmas és tanulságos élményeket nyújtanak a gyerekek számára, miközben fejlesztik szociális készségeiket. A kutyákkal való interakció során a gyerekek játékos formában tanulhatják a felelős állattartásról, az empátiáról és az együttműködés fontosságáról.",
+		imageUrl: "/therapy-programs/nyari-taborok.jpg",
 	},
 	{
 		id: "sensitivity",
@@ -48,6 +51,7 @@ const programs: Program[] = [
 		icon: Sparkles,
 		description:
 			"Az érzékenyítő programok terápiás és segítő kutyákkal lehetőséget nyújtanak a résztvevők számára, hogy jobban megértsék és elfogadják a különböző fogyatékosságokkal és speciális igényekkel élők mindennapi szerepét és értékét. Ezek a programok elősegítik az empátia és a tolerancia fejlődését, miközben közvetlen élményeken keresztül mutatják be a segítő kutyák mindennapi szerepét és értékét.",
+		imageUrl: "/therapy-programs/erzekenyites.jpg",
 	},
 	{
 		id: "team-building",
@@ -55,6 +59,7 @@ const programs: Program[] = [
 		icon: Building2,
 		description:
 			"A terápiás kutyákkal szervezett céges csapatépítő programok elősegítik a munkahelyi stressz csökkentését és javítják a kollégák közötti kommunikációt. Ezek a programok erősítik a csapatszellemet és növelik a munkatársak közötti bizalmat, miközben egyedülálló és élvezetesek élményt nyújtanak.",
+		imageUrl: "/therapy-programs/ceges-csapatepites.jpg",
 	},
 	{
 		id: "dszit",
@@ -62,6 +67,7 @@ const programs: Program[] = [
 		icon: Users,
 		description:
 			"A dinamikus szenzoros integrációs terápia (DSZIT) egy nondirektív terápia, amely egyéni terápiás célkitűzéseknek megfelelő szabadjátékot alkalmaz. A szakemberek folyamatos visszacsatolással és pozitív megerősítéssel támogatja a gyermeket, figyelembe véve annak egyéni tempóját, erősségeit és nehézségeit. Panka két éve vesz részt ilyen terápiáin, amely segíti a szorongásoldást és fejleszti az önkontrollt, valamint a szociális készségeket.",
+		imageUrl: "/therapy-programs/dszit.jpg",
 	},
 	{
 		id: "horse-coaching",
@@ -69,6 +75,7 @@ const programs: Program[] = [
 		icon: Home,
 		description:
 			"A lovas coaching terápiás kutyákkal kombinált programjai egyedülálló módon segítik a résztvevők önismeretének és vezetői képességeinek fejlesztését. A lovak és kutyák közös jelenléte növeli az érzelmi intelligenciát és javítja a kommunikációs készségeket, miközben természetes és támogató környezetet biztosít a személyes fejlődéshez.",
+		imageUrl: "/therapy-programs/lovas-coaching.jpg",
 	},
 ];
 
@@ -132,25 +139,41 @@ const Programs: FC = () => {
 					initial={{ opacity: 0, x: 20 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.5 }}
-					className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 min-h-[280px]"
+					className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
 				>
-					<div className="flex items-start gap-4 mb-6">
-						{selectedProgram && (
-							<>
-								<div className="p-3 bg-primary-100 rounded-xl">
-									<selectedProgram.icon className="w-8 h-8 text-primary-600" />
-								</div>
-								<div>
-									<h3 className="text-2xl font-bold text-primary-700 mb-2">
-										{selectedProgram.title}
-									</h3>
-								</div>
-							</>
-						)}
+					{selectedProgram?.imageUrl && (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.6, delay: 0.1 }}
+							className="w-full h-[300px] overflow-hidden"
+						>
+							<img
+								src={selectedProgram.imageUrl}
+								alt={selectedProgram.title}
+								className="w-full h-full object-cover"
+							/>
+						</motion.div>
+					)}
+					<div className="p-8">
+						<div className="flex items-center gap-4 mb-6">
+							{selectedProgram && (
+								<>
+									<div className="p-3 bg-primary-100 rounded-xl">
+										<selectedProgram.icon className="w-8 h-8 text-primary-600" />
+									</div>
+									<div>
+										<h3 className="text-2xl font-bold text-primary-700 mb-2">
+											{selectedProgram.title}
+										</h3>
+									</div>
+								</>
+							)}
+						</div>
+						<p className="text-text-description leading-relaxed">
+							{selectedProgram?.description}
+						</p>
 					</div>
-					<p className="text-text-description leading-relaxed">
-						{selectedProgram?.description}
-					</p>
 				</motion.div>
 			</div>
 
