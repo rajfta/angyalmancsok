@@ -27,7 +27,7 @@ export default defineConfig({
 	schema: {
 		collections: [
 			{
-				name: "dog",
+				name: "dogs",
 				label: "Dogs",
 				path: "src/content/dogs",
 				format: "mdx",
@@ -90,7 +90,7 @@ export default defineConfig({
 				],
 			},
 			{
-				name: "member",
+				name: "members",
 				label: "Trainers",
 				path: "src/content/members",
 				format: "mdx",
@@ -141,7 +141,7 @@ export default defineConfig({
 				],
 			},
 			{
-				name: "post",
+				name: "posts",
 				label: "Posts",
 				path: "src/content/posts",
 				format: "mdx",
@@ -198,7 +198,7 @@ export default defineConfig({
 				],
 			},
 			{
-				name: "testimonial",
+				name: "testimonials",
 				label: "Testimonials",
 				path: "src/content/testimonials",
 				format: "mdx",
@@ -245,7 +245,7 @@ export default defineConfig({
 				],
 			},
 			{
-				name: "partner",
+				name: "partners",
 				label: "Partners",
 				path: "src/content/partners",
 				format: "mdx",
@@ -276,7 +276,7 @@ export default defineConfig({
 				],
 			},
 			{
-				name: "program",
+				name: "programs",
 				label: "Programs",
 				path: "src/content/programs",
 				format: "mdx",

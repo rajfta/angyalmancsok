@@ -24,6 +24,4 @@ pnpm-debug.log*
 .idea/
 
 # TinaCMS
-.tina/__generated__
-tina-lock.json
 public/admin

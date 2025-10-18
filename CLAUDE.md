@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Angyalmancsok is a dog therapy website (https://www.angyalmancsok.hu) built with Astro, React, TypeScript, and Tailwind CSS. Content is managed through Contentful CMS, featuring information about therapy dogs, their owners, and therapy programs.
+Angyalmancsok is a dog therapy website (https://www.angyalmancsok.hu) built with Astro, React, TypeScript, and Tailwind CSS. Content is managed through TinaCMS (Git-based CMS), featuring information about therapy dogs, their trainers, and therapy programs.
 
 ## Development Commands
 
 ```bash
 # Development
-pnpm dev          # Start dev server
-pnpm start        # Alias for dev
+pnpm dev          # Start dev server with TinaCMS admin
+pnpm start        # Alias for dev (without TinaCMS)
 
 # Build & Preview
 pnpm build        # Type check and build for production
@@ -28,7 +28,7 @@ pnpm check:unsafe # Run Biome with unsafe auto-fixes
 ### Tech Stack
 - **Framework**: Astro 4.x with React integration
 - **Styling**: Tailwind CSS with custom design system
-- **CMS**: Contentful (headless CMS)
+- **CMS**: TinaCMS (Git-based, file-backed)
 - **Type Safety**: TypeScript with strictest Astro config
 - **Code Quality**: Biome (formatter & linter)
 
@@ -36,26 +36,49 @@ pnpm check:unsafe # Run Biome with unsafe auto-fixes
 - `src/pages/*.astro` - Route pages (index, rolunk, cikkek)
 - `src/layouts/Layout.astro` - Base layout with header, footer, and global styles
 - `src/components/` - React components (`.tsx`) and Astro components
-- `src/lib/contentful.ts` - Contentful client initialization and utilities
-- `src/types/content.ts` - TypeScript types for Contentful content models
+- `src/content/` - Content collections (MDX files)
+  - `dogs/` - Therapy dog profiles
+  - `members/` - Trainer/team member profiles
+  - `posts/` - Blog articles
+  - `testimonials/` - Client testimonials
+  - `partners/` - Partner organizations
+  - `programs/` - Therapy program descriptions
+- `src/content/config.ts` - Astro content collection schemas
+- `.tina/config.ts` - TinaCMS schema and configuration
 - `src/styles/globals.css` - Global Tailwind styles
 
 ### Path Aliases
 - `~/*` maps to `./src/*` (configured in tsconfig.json)
 
-### Contentful Integration
+### TinaCMS Integration
 
-**Client Configuration** (`src/lib/contentful.ts`):
-- Uses preview API in development, delivery API in production
-- Environment variables: `CONTENTFUL_SPACE_ID`, `CONTENTFUL_PREVIEW_TOKEN`, `CONTENTFUL_DELIVERY_TOKEN`
-- Helper functions: `isAssetLink()`, `isEntryLink()` for type guards
+**How it works:**
+- Content stored as MDX files in `src/content/`
+- TinaCMS provides visual editing interface at `/admin`
+- Changes saved directly to Git repository
+- No external API or database required
 
-**Content Models**:
-- **Dog**: Therapy dogs with name, thumbnail, photoWithOwner, nicknames, workplaces, owner reference, certificates (SEGÍTŐ/TANULÓ/TERÁPIÁS), priority
-- **Member**: Team members with name, title, certificates, content, dogs references, priority
-- **Post**: Blog posts with title, slug, thumbnail, description, date, content, gallery
+**Access Admin Panel:**
+- Run `pnpm dev`
+- Navigate to `http://localhost:3009/admin`
+- Edit content visually, saves to MDX files
 
-**Important**: When updating relationships in Contentful, you must update references in BOTH directions (e.g., dog's reference to owner AND owner's reference to dogs).
+**Content Collections:**
+- **Dogs**: Therapy dogs with name, photos, workplaces, trainer reference, certificates (SEGÍTŐ/TANULÓ/TERÁPIÁS), priority
+- **Members**: Trainers with name, photo, role, dog references, titles/certifications, priority
+- **Posts**: Blog posts with title, slug, thumbnail, description, date, content, gallery
+- **Testimonials**: Client feedback with quote, author, dog name, handler name, photo
+- **Partners**: Partner organizations with name, logo, website
+- **Programs**: Therapy program types with title, description, icon
+
+**Relationships:**
+- Dogs reference trainers via `owner` field (file slug, e.g., "gemesi-rita")
+- Members reference dogs via `dogs` array (file slugs, e.g., ["enid", "isha", "nala"])
+
+**Environment Variables** (optional, only for Tina Cloud):
+- `TINA_CLIENT_ID` - Tina Cloud client ID
+- `TINA_TOKEN` - Tina Cloud token
+- Leave empty for local-only development
 
 ### Styling System
 
@@ -81,8 +104,9 @@ pnpm check:unsafe # Run Biome with unsafe auto-fixes
 
 ## Key Development Notes
 
-1. **Data Fetching**: Contentful queries use `include: 2` to fetch nested relationships (dogs → owners)
+1. **Data Fetching**: Use Astro's `getCollection()` to fetch content from collections
 2. **Ordering**: Content typically ordered by `priority` field (ascending for members, descending for dogs)
-3. **Type Safety**: All Contentful responses are mapped to typed interfaces before use
+3. **Type Safety**: Content schemas defined in `src/content/config.ts` using Zod
 4. **Client-Side Hydration**: Interactive components require `client:load` or similar directives
 5. **Hungarian Language**: Site content is in Hungarian (`lang="hu"`)
+6. **Content Editing**: All content editable via TinaCMS admin at `/admin` during development
