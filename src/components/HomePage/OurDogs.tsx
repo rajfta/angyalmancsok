@@ -185,6 +185,13 @@ interface DogCardProps {
 const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 	const [showDetails, setShowDetails] = useState(true);
 
+	// Determine which image to show based on toggle state
+	// showDetails=true (Alapadatok): front image (thumbnail)
+	// showDetails=false (Bemutatkozás): photoWithOwner image
+	const currentImage = showDetails
+		? dog.thumbnail
+		: dog.photoWithOwner || dog.thumbnail;
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -193,12 +200,27 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 			transition={{ duration: 0.3, delay: index * 0.05 }}
 			className="bg-bg-highlight rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden flex flex-col"
 		>
-			{/* Full-bleed image */}
-			<img
-				src={dog.thumbnail}
-				alt={dog.name}
-				className="w-full aspect-square object-cover"
-			/>
+			{/* Full-bleed image with smooth transition and dynamic aspect ratio */}
+			{/* Front: 2:1 portrait | Back: 1:1 square */}
+			<div
+				className={cn(
+					"w-full overflow-hidden relative transition-all duration-300",
+					showDetails ? "aspect-[7/10]" : "aspect-square",
+				)}
+			>
+				<AnimatePresence mode="wait">
+					<motion.img
+						key={currentImage}
+						src={currentImage}
+						alt={dog.name}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.3 }}
+						className="w-full h-full object-cover absolute inset-0"
+					/>
+				</AnimatePresence>
+			</div>
 
 			{/* Content with padding */}
 			<div className="p-6 flex flex-col flex-1">
@@ -399,7 +421,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 		selectedCertificates.length > 0;
 
 	return (
-		<section className="container-padding py-16 md:py-24">
+		<section className="md:container-padding py-16 md:py-24">
 			<motion.h2
 				initial={{ opacity: 0, y: 20 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -444,10 +466,6 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 				<div>
 					{/* Results count */}
 					<div className="mb-6 flex items-center justify-between">
-						<p className="text-sm text-gray-600">
-							{filteredDogs.length} kutya{" "}
-							{filteredDogs.length !== dogs.length && `(${dogs.length}-ból)`}
-						</p>
 						{hasActiveFilters && (
 							<div className="flex flex-wrap gap-2 items-center">
 								<span className="text-xs text-gray-500">Aktív szűrők:</span>
