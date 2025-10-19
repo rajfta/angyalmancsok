@@ -68,6 +68,7 @@ const programCollection = defineCollection({
 		title: z.string(),
 		description: z.string(),
 		icon: z.string(), // Lucide icon name as string
+		imageUrl: z.string().optional(),
 		priority: z.number().optional(),
 	}),
 });

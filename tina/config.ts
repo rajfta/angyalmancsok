@@ -307,6 +307,11 @@ export default defineConfig({
 						required: true,
 					},
 					{
+						type: "image",
+						name: "imageUrl",
+						label: "Program Image",
+					},
+					{
 						type: "number",
 						name: "priority",
 						label: "Priority (display order)",

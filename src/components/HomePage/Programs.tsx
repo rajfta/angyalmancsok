@@ -21,7 +21,7 @@ interface Program {
 }
 
 interface ProgramsProps {
-	programs: { id: string; title: string; icon: string; description: string }[];
+	programs: { id: string; title: string; icon: string; description: string; imageUrl?: string }[];
 }
 
 const iconMap: Record<string, LucideIcon> = {
@@ -39,6 +39,7 @@ const Programs: FC<ProgramsProps> = ({ programs: programsData }) => {
 	const programs: Program[] = programsData.map((p) => ({
 		...p,
 		icon: iconMap[p.icon] || Heart,
+		imageUrl: p.imageUrl,
 	}));
 
 	const [selectedId, setSelectedId] = useState(programs[0]?.id);
