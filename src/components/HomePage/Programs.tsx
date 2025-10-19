@@ -21,7 +21,13 @@ interface Program {
 }
 
 interface ProgramsProps {
-	programs: { id: string; title: string; icon: string; description: string; imageUrl?: string }[];
+	programs: {
+		id: string;
+		title: string;
+		icon: string;
+		description: string;
+		imageUrl?: string;
+	}[];
 }
 
 const iconMap: Record<string, LucideIcon> = {

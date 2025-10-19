@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Hero from "~/components/HomePage/Hero";
+import OurDogs from "~/components/HomePage/OurDogs";
 import Partners from "~/components/HomePage/Partners";
 import Programs from "~/components/HomePage/Programs";
 import Testimonials from "~/components/HomePage/Testimonials";
@@ -10,6 +11,8 @@ import Layout from "~/layouts/Layout.astro";
 const testimonialsEntries = await getCollection("testimonials");
 const partnersEntries = await getCollection("partners");
 const programsEntries = await getCollection("programs");
+const dogsEntries = await getCollection("dogs");
+const membersEntries = await getCollection("members");
 
 // Transform and sort
 const testimonials = testimonialsEntries
@@ -41,11 +44,39 @@ const programs = programsEntries
 		description: entry.data.description,
 		imageUrl: entry.data.imageUrl,
 	}));
+
+const dogs = dogsEntries
+	.sort((a, b) => b.data.priority - a.data.priority)
+	.map((entry) => ({
+		id: entry.id,
+		name: entry.data.name,
+		thumbnail: entry.data.thumbnail,
+		photoWithOwner: entry.data.photoWithOwner,
+		nicknames: entry.data.nicknames,
+		workplaces: entry.data.workplaces,
+		owner: entry.data.owner,
+		certificates: entry.data.certificates,
+		priority: entry.data.priority,
+		body: entry.body,
+	}));
+
+const members = membersEntries
+	.sort((a, b) => a.data.priority - b.data.priority)
+	.map((entry) => ({
+		id: entry.id,
+		name: entry.data.name,
+		picture: entry.data.picture,
+		role: entry.data.role,
+		dogs: entry.data.dogs,
+		titles: entry.data.titles,
+		priority: entry.data.priority,
+	}));
 ---
 
 <Layout title="Angyalmancsok | Terápiás kutyák">
     <Hero client:load />
     <Programs client:load programs={programs} />
+	<OurDogs client:load dogs={dogs} members={members} />
     <Testimonials client:load testimonials={testimonials} />
     <Partners client:load partners={partners} />
 </Layout>
