@@ -133,7 +133,7 @@ const CTA: FC<{ className?: string }> = ({ className }) => {
 			<Popover>
 				<PopoverTrigger>
 					<PerspectiveButton
-						className="w-36 static"
+						className="w-36 h-10 static"
 						labels={{
 							closed: ["Kapcsolat", "Felvétel"],
 						}}
@@ -146,7 +146,7 @@ const CTA: FC<{ className?: string }> = ({ className }) => {
 
 			<a href="/rolunk">
 				<PerspectiveButton
-					className="w-36 static bg-transparent border border-primary"
+					className="w-36 h-10 static bg-transparent border border-primary"
 					labels={{
 						closed: ["Részletek", "Rólunk"],
 					}}

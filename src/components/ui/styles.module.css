@@ -1,8 +1,6 @@
 .button {
 	top: 0;
 	right: 0;
-	width: 100px;
-	height: 40px;
 	cursor: pointer;
 	border-radius: 25px;
 	overflow: hidden;

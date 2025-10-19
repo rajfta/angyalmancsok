@@ -46,7 +46,7 @@ const Programs: FC<ProgramsProps> = ({ programs: programsData }) => {
 	const selectedProgram = programs.find((p) => p.id === selectedId);
 
 	return (
-		<section className="container-paddin mt-40 py-16 md:py-24">
+		<section className="container-paddin my-40 py-16 md:py-24">
 			<motion.h2
 				initial={{ opacity: 0, y: 20 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ const Programs: FC<ProgramsProps> = ({ programs: programsData }) => {
 									"w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-3 group",
 									selectedId === program.id
 										? "bg-primary-500 text-white shadow-lg scale-105"
-										: "bg-bg-highlight hover:bg-primary-50 text-text border border-gray-200",
+										: "bg-bg-highlight hover:bg-primary-50 text-text",
 								)}
 							>
 								<Icon
