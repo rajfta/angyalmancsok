@@ -7,12 +7,15 @@ const branch =
 	process.env.HEAD ||
 	"master";
 
+const clientId = process.env.TINA_CLIENT_ID || "";
+const token = process.env.TINA_TOKEN || "";
+
 export default defineConfig({
 	branch,
 
 	// Get this from tina.io (optional for local development)
-	clientId: process.env.TINA_CLIENT_ID,
-	token: process.env.TINA_TOKEN,
+	clientId,
+	token,
 
 	build: {
 		outputFolder: "admin",

@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const dogCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/dogs" }),
 	schema: z.object({
 		name: z.string(),
 		thumbnail: z.string(),
@@ -15,7 +16,7 @@ const dogCollection = defineCollection({
 });
 
 const memberCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/members" }),
 	schema: z.object({
 		name: z.string(),
 		picture: z.string(),
@@ -27,7 +28,7 @@ const memberCollection = defineCollection({
 });
 
 const postCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/posts" }),
 	schema: z.object({
 		title: z.string(),
 		slug: z.string(),
@@ -40,7 +41,7 @@ const postCollection = defineCollection({
 });
 
 const testimonialCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/testimonials" }),
 	schema: z.object({
 		quote: z.string(),
 		author: z.string(),
@@ -52,7 +53,7 @@ const testimonialCollection = defineCollection({
 });
 
 const partnerCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/partners" }),
 	schema: z.object({
 		name: z.string(),
 		logo: z.string(),
@@ -62,7 +63,7 @@ const partnerCollection = defineCollection({
 });
 
 const programCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/programs" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
