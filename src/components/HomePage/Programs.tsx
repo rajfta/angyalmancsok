@@ -17,7 +17,7 @@ interface Program {
 	title: string;
 	icon: string | LucideIcon;
 	description: string;
-	imageUrl?: string;
+	imageUrl?: string | undefined;
 }
 
 interface ProgramsProps {
@@ -26,7 +26,7 @@ interface ProgramsProps {
 		title: string;
 		icon: string;
 		description: string;
-		imageUrl?: string;
+		imageUrl?: string | undefined;
 	}[];
 }
 

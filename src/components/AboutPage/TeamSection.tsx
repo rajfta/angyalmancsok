@@ -8,10 +8,10 @@ interface Member {
 	name: string;
 	picture: string;
 	role: string;
-	dogs?: string[];
-	titles?: string;
+	dogs?: string[] | undefined;
+	titles?: string | undefined;
 	priority: number;
-	body?: string;
+	body?: string | undefined;
 }
 
 interface Dog {

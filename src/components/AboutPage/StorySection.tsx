@@ -5,7 +5,7 @@ import type { FC } from "react";
 interface StorySectionProps {
 	title: string;
 	content: string;
-	image?: string;
+	image?: string | undefined;
 }
 
 const StorySection: FC<StorySectionProps> = ({ title, content, image }) => {

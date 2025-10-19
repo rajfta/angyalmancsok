@@ -5,7 +5,7 @@ import type { FC } from "react";
 interface VisionSectionProps {
 	title: string;
 	content: string;
-	image?: string;
+	image?: string | undefined;
 }
 
 const VisionSection: FC<VisionSectionProps> = ({ title, content, image }) => {

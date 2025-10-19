@@ -5,7 +5,7 @@ import type { FC } from "react";
 interface MissionSectionProps {
 	title: string;
 	content: string;
-	image?: string;
+	image?: string | undefined;
 }
 
 const MissionSection: FC<MissionSectionProps> = ({ title, content, image }) => {
