@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
-import { type FC, useEffect, useId, useMemo, useState } from "react";
+import { type FC, useId, useMemo, useState } from "react";
 import {
 	Accordion,
 	AccordionContent,
@@ -8,38 +8,6 @@ import {
 	AccordionTrigger,
 } from "~/components/ui/accordion";
 import { cn } from "~/lib/utils";
-
-// Custom Hook: Typewriter Effect
-const useTypewriter = (text: string, speed = 40) => {
-	const [displayText, setDisplayText] = useState("");
-
-	useEffect(() => {
-		if (!text) {
-			setDisplayText("");
-			return;
-		}
-
-		// Reset when text changes
-		setDisplayText("");
-
-		const words = text.split(" ");
-		let index = 0;
-
-		const interval = setInterval(() => {
-			if (index < words.length) {
-				const word = words[index] || "";
-				setDisplayText((prevText) => (prevText ? `${prevText} ${word}` : word));
-				index++;
-			} else {
-				clearInterval(interval);
-			}
-		}, speed);
-
-		return () => clearInterval(interval);
-	}, [text, speed]);
-
-	return displayText;
-};
 
 // TypeScript Interfaces
 type CertificateType = "SEGÍTŐ" | "TANULÓ" | "TERÁPIÁS";
@@ -198,7 +166,7 @@ const FilterSidebar: FC<FilterSidebarProps> = ({
 				<button
 					type="button"
 					onClick={clearAllFilters}
-					className="w-full py-2 px-4 text-sm font-medium text-primary-700 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+					className="mt-4 w-full py-2 px-4 text-sm font-medium text-primary-700 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
 				>
 					Szűrők törlése
 				</button>
@@ -213,13 +181,9 @@ interface DogCardProps {
 	memberLookup: Map<string, { name: string; dogCount: number }>;
 }
 
-// Dog card component with toggle functionality and typewriter effect
+// Dog card component with toggle functionality
 const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 	const [showDetails, setShowDetails] = useState(true);
-
-	// Convert body to string for typewriter effect
-	const bodyText = typeof dog.body === "string" ? dog.body : "";
-	const typewriterText = useTypewriter(showDetails ? "" : bodyText, 40);
 
 	return (
 		<motion.div
@@ -227,7 +191,7 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, scale: 0.9 }}
 			transition={{ duration: 0.3, delay: index * 0.05 }}
-			className="bg-bg-highlight rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden"
+			className="bg-bg-highlight rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden flex flex-col"
 		>
 			{/* Full-bleed image */}
 			<img
@@ -237,7 +201,7 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 			/>
 
 			{/* Content with padding */}
-			<div className="p-6">
+			<div className="p-6 flex flex-col flex-1">
 				{/* Name - Always visible */}
 				<h3 className="text-2xl font-bold text-primary-700 mb-2">{dog.name}</h3>
 
@@ -260,7 +224,7 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							transition={{ duration: 0.2 }}
-							className="space-y-2 mb-4"
+							className="space-y-2 flex-1 flex flex-col"
 						>
 							{/* Gazda */}
 							{dog.owner && memberLookup.has(dog.owner) && (
@@ -283,6 +247,31 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 									</ul>
 								</div>
 							)}
+
+							{/* Spacer to push content to bottom */}
+							<div className="flex-1" />
+
+							{/* Tanúsítványok - Only visible with details */}
+							{dog.certificates && dog.certificates.length > 0 && (
+								<div className="mt-4">
+									<span className="font-semibold text-sm block mb-2">
+										Tanúsítványok:
+									</span>
+									<div className="flex flex-wrap gap-2">
+										{dog.certificates.map((cert) => (
+											<span
+												key={cert}
+												className={cn(
+													"px-2 py-1 rounded text-xs font-medium border",
+													certificateConfig[cert],
+												)}
+											>
+												{cert}
+											</span>
+										))}
+									</div>
+								</div>
+							)}
 						</motion.div>
 					) : (
 						<motion.div
@@ -291,40 +280,18 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							transition={{ duration: 0.2 }}
-							className="prose prose-sm text-gray-700 leading-relaxed min-h-[80px] mb-4"
+							className="prose prose-sm text-gray-700 leading-relaxed flex-1"
 						>
-							{typewriterText}
+							{dog.body}
 						</motion.div>
 					)}
 				</AnimatePresence>
-
-				{/* Tanúsítványok - Always visible at bottom if present */}
-				{dog.certificates && dog.certificates.length > 0 && (
-					<div className="mb-4">
-						<span className="font-semibold text-sm block mb-2">
-							Tanúsítványok:
-						</span>
-						<div className="flex flex-wrap gap-2">
-							{dog.certificates.map((cert) => (
-								<span
-									key={cert}
-									className={cn(
-										"px-2 py-1 rounded text-xs font-medium border",
-										certificateConfig[cert],
-									)}
-								>
-									{cert}
-								</span>
-							))}
-						</div>
-					</div>
-				)}
 
 				{/* Toggle Button */}
 				<button
 					type="button"
 					onClick={() => setShowDetails(!showDetails)}
-					className="w-full py-2 px-4 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium text-sm"
+					className="mt-4 w-full py-2 px-4 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium text-sm"
 				>
 					{showDetails ? "Bemutatkozás" : "Alapadatok"}
 				</button>
@@ -654,7 +621,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 										<button
 											type="button"
 											onClick={clearAllFilters}
-											className="w-full py-2 px-4 text-sm font-medium text-primary-700 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+											className="mt-4 w-full py-2 px-4 text-sm font-medium text-primary-700 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
 										>
 											Szűrők törlése
 										</button>
