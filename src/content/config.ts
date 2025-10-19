@@ -73,6 +73,17 @@ const programCollection = defineCollection({
 	}),
 });
 
+const aboutCollection = defineCollection({
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/about" }),
+	schema: z.object({
+		title: z.string(),
+		content: z.string(),
+		image: z.string().optional(),
+		icon: z.string().optional(), // Lucide icon name as string
+		priority: z.number(),
+	}),
+});
+
 export const collections = {
 	dogs: dogCollection,
 	members: memberCollection,
@@ -80,4 +91,5 @@ export const collections = {
 	testimonials: testimonialCollection,
 	partners: partnerCollection,
 	programs: programCollection,
+	about: aboutCollection,
 };

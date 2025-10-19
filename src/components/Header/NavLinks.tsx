@@ -4,7 +4,6 @@ import { cn } from "~/lib/utils";
 const links = [
 	{ href: "/", label: "Főoldal" },
 	{ href: "/rolunk", label: "Rólunk" },
-	{ href: "/szolgaltatasok", label: "Szolgáltatások" },
 	{ href: "/kapcsolat", label: "Kapcsolat" },
 ];
 

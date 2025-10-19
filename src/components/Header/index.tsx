@@ -10,7 +10,6 @@ import NavLinks from "./NavLinks";
 const menuItems = [
 	{ href: "/", name: "Főoldal" },
 	{ href: "/rolunk", name: "Rólunk" },
-	{ href: "/szolgaltatasok", name: "Szolgáltatások" },
 	{ href: "/kapcsolat", name: "Kapcsolat" },
 ];
 
@@ -55,7 +54,7 @@ const Header: FC = () => {
 
 					{/* Desktop Navigation - Center */}
 					<nav className="hidden lg:flex lg:flex-1 lg:justify-center">
-						<ul className="flex items-center gap-8 text-sm">
+						<ul className="flex items-center gap-8">
 							{menuItems.map((item) => (
 								<li key={item.href}>
 									<a

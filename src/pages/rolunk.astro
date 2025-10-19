@@ -1,59 +1,78 @@
 ---
 import { getCollection } from "astro:content";
-import AboutUs from "~/components/AboutUs";
+import AboutHero from "~/components/AboutPage/AboutHero";
+import MissionSection from "~/components/AboutPage/MissionSection";
+import StorySection from "~/components/AboutPage/StorySection";
+import TeamSection from "~/components/AboutPage/TeamSection";
+import VisionSection from "~/components/AboutPage/VisionSection";
 import Layout from "~/layouts/Layout.astro";
 
+// Fetch content collections
+const aboutEntries = await getCollection("about");
+const membersEntries = await getCollection("members");
 const dogsEntries = await getCollection("dogs");
-const dogs = dogsEntries.sort((a, b) => b.data.priority - a.data.priority);
+
+// Sort about sections by priority
+const aboutSections = aboutEntries.sort(
+	(a, b) => a.data.priority - b.data.priority,
+);
+
+// Get individual sections
+const vision = aboutSections.find((section) => section.id === "vision");
+const story = aboutSections.find((section) => section.id === "story");
+const mission = aboutSections.find((section) => section.id === "mission");
+
+// Sort members by priority
+const members = membersEntries
+	.sort((a, b) => a.data.priority - b.data.priority)
+	.map((entry) => ({
+		id: entry.id,
+		name: entry.data.name,
+		picture: entry.data.picture,
+		role: entry.data.role,
+		dogs: entry.data.dogs,
+		titles: entry.data.titles,
+		priority: entry.data.priority,
+		body: entry.body,
+	}));
+
+// Get dogs for the team section
+const dogs = dogsEntries.map((entry) => ({
+	id: entry.id,
+	name: entry.data.name,
+	thumbnail: entry.data.thumbnail,
+}));
 ---
 
 <Layout title="Angyalmancsok | Rólunk">
-    <AboutUs client:load />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8 container-padding py-16">
-        {dogs.map((dog) => (
-            <div class="bg-bg-highlight rounded-xl p-6 shadow-md border border-gray-100">
-                <img
-                    src={dog.data.thumbnail}
-                    alt={dog.data.name}
-                    class="w-full aspect-square object-cover rounded-lg mb-4"
-                />
-                <h2 class="text-2xl font-bold text-primary-700 mb-2">{dog.data.name}</h2>
+	<AboutHero client:load />
 
-                {dog.data.nicknames && dog.data.nicknames.length > 0 && (
-                    <div class="mb-2">
-                        <span class="font-semibold">Becenevek: </span>
-                        <span class="text-gray-600">{dog.data.nicknames.join(", ")}</span>
-                    </div>
-                )}
+	{vision && (
+		<VisionSection
+			client:load
+			title={vision.data.title}
+			content={vision.data.content}
+			image={vision.data.image}
+		/>
+	)}
 
-                {dog.data.workplaces && dog.data.workplaces.length > 0 && (
-                    <div class="mb-2">
-                        <span class="font-semibold">Munkahely: </span>
-                        <ul class="text-gray-600 ml-4">
-                            {dog.data.workplaces.map((workplace: string) => (
-                                <li>• {workplace}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+	{story && (
+		<StorySection
+			client:load
+			title={story.data.title}
+			content={story.data.content}
+			image={story.data.image}
+		/>
+	)}
 
-                {dog.data.certificates && dog.data.certificates.length > 0 && (
-                    <div class="mb-2">
-                        <span class="font-semibold">Tanúsítványok: </span>
-                        <div class="flex gap-2 mt-1">
-                            {dog.data.certificates.map((cert: string) => (
-                                <span class="bg-primary-100 text-primary-700 px-2 py-1 rounded text-sm">
-                                    {cert}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                )}
+	{mission && (
+		<MissionSection
+			client:load
+			title={mission.data.title}
+			content={mission.data.content}
+			image={mission.data.image}
+		/>
+	)}
 
-                <div class="prose prose-sm mt-4 text-gray-700">
-                    {dog.body}
-                </div>
-            </div>
-        ))}
-    </div>
+	<TeamSection client:load members={members} dogs={dogs} />
 </Layout>
