@@ -1,0 +1,33 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import ContactHero from "~/components/ContactPage/ContactHero";
+import VolunteerSection from "~/components/ContactPage/VolunteerSection";
+import RequirementsSection from "~/components/ContactPage/RequirementsSection";
+import ProcessSteps from "~/components/ContactPage/ProcessSteps";
+import ContactFormSection from "~/components/ContactPage/ContactFormSection";
+---
+
+<Layout title="Angyalmancsok | Kapcsolat">
+    <div class="relative">
+        <!-- Hero Section -->
+        <ContactHero client:load />
+
+        <!-- Timeline Container -->
+        <div class="relative container-padding py-16 max-w-7xl mx-auto">
+            <!-- Timeline Center Line -->
+            <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-200 via-accent-300 to-primary-200 -translate-x-1/2" style="background-image: repeating-linear-gradient(to bottom, #d5d8dd 0, #d5d8dd 10px, transparent 10px, transparent 20px);"></div>
+
+            <!-- Section 1: Volunteering (Left) -->
+            <VolunteerSection client:load />
+
+            <!-- Section 2: Requirements (Right) -->
+            <RequirementsSection client:load />
+
+            <!-- Section 3: Process Steps (Left) -->
+            <ProcessSteps client:load />
+        </div>
+
+        <!-- Section 4: Contact Form (Center/Full) -->
+        <ContactFormSection client:load />
+    </div>
+</Layout>

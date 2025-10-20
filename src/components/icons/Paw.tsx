@@ -1,6 +1,11 @@
 import { type FC, useId } from "react";
+import { cn } from "~/lib/utils";
 
-const Paw: FC = () => {
+interface PawProps {
+	className?: string;
+}
+
+const Paw: FC<PawProps> = ({ className }) => {
 	const filterId1 = useId();
 	const filterId2 = useId();
 	const maskId = useId();
@@ -16,6 +21,7 @@ const Paw: FC = () => {
 			version="1.0"
 			role="img"
 			aria-label="Paw icon"
+			className={cn(className)}
 		>
 			<title>Paw icon</title>
 			<defs>
