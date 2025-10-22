@@ -1,7 +1,7 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
-import Layout from "~/layouts/Layout.astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import GalleryLightbox from "~/components/BlogPage/GalleryLightbox";
+import Layout from "~/layouts/Layout.astro";
 
 export async function getStaticPaths() {
 	const postsEntries = await getCollection("posts");

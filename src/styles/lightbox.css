@@ -51,7 +51,8 @@
 /* Image slide styling */
 .yarl__slide_image {
 	border-radius: 8px;
-	box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5),
+	box-shadow:
+		0 20px 25px -5px rgb(0 0 0 / 0.5),
 		0 8px 10px -6px rgb(0 0 0 / 0.5);
 }
 
@@ -77,7 +78,9 @@
 
 /* Smooth animations */
 .yarl__slide {
-	transition: opacity 0.3s ease, transform 0.3s ease;
+	transition:
+		opacity 0.3s ease,
+		transform 0.3s ease;
 }
 
 /* Mobile responsive adjustments */

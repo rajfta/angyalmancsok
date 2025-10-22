@@ -25,11 +25,13 @@ const RequirementsSection: FC<RequirementsSectionProps> = ({
 	const defaultRequirements = [
 		{
 			title: "Angels for Therapy Kennelből",
-			description: "Alapítványunk keretein belül működő kennelünkből származó kutyák. ENS programon és előzetes karaktertesztelésen átesett kölykök. Garantált genetikai háttér és viselkedési jellemzők. Szigorú követelményeknek megfelelő kölykök.",
+			description:
+				"Alapítványunk keretein belül működő kennelünkből származó kutyák. ENS programon és előzetes karaktertesztelésen átesett kölykök. Garantált genetikai háttér és viselkedési jellemzők. Szigorú követelményeknek megfelelő kölykök.",
 		},
 		{
 			title: "Saját Kutya",
-			description: "Egyedi elbírálás során döntünk a csatlakozás lehetőségéről. Személyes beszélgetés és ismerkedés. A kutya tesztelése szükséges. Közösen megbeszéljük a lehetőségeket.",
+			description:
+				"Egyedi elbírálás során döntünk a csatlakozás lehetőségéről. Személyes beszélgetés és ismerkedés. A kutya tesztelése szükséges. Közösen megbeszéljük a lehetőségeket.",
 		},
 	];
 
@@ -38,7 +40,10 @@ const RequirementsSection: FC<RequirementsSectionProps> = ({
 	const requirements = requirementsToUse.map((req, index) => ({
 		...req,
 		icon: index === 0 ? Paw : Dog,
-		gradient: index === 0 ? "from-primary-100 to-primary-200" : "from-secondary-100 to-secondary-200",
+		gradient:
+			index === 0
+				? "from-primary-100 to-primary-200"
+				: "from-secondary-100 to-secondary-200",
 		borderColor: index === 0 ? "border-primary-300" : "border-secondary-300",
 	}));
 

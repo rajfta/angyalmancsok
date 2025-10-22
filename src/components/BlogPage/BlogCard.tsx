@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import type { FC } from "react";
 
 interface BlogCardProps {

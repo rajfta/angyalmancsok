@@ -9,7 +9,7 @@ interface ContactHeroProps {
 
 const ContactHero: FC<ContactHeroProps> = ({
 	title = "Csatlakozz Hozzánk!",
-	description = "Legyél része egy különleges közösségnek, ahol együtt segíthetünk másokon"
+	description = "Legyél része egy különleges közösségnek, ahol együtt segíthetünk másokon",
 }) => {
 	const ctaCards = [
 		{

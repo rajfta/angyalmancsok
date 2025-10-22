@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "~/layouts/Layout.astro";
-import BlogHero from "~/components/BlogPage/BlogHero";
 import BlogCard from "~/components/BlogPage/BlogCard";
+import BlogHero from "~/components/BlogPage/BlogHero";
+import Layout from "~/layouts/Layout.astro";
 
 const postsEntries = await getCollection("posts");
 const posts = postsEntries

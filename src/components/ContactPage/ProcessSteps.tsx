@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Sparkles } from "lucide-react";
-import type { FC, ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
+import { Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import type { ComponentType, FC } from "react";
 
 interface Step {
 	title: string;

@@ -9,8 +9,8 @@ import {
 	PopoverTrigger,
 } from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
-import Socials from "../Socials";
 import Paw from "../icons/Paw";
+import Socials from "../Socials";
 
 const Hero: FC = () => {
 	return (

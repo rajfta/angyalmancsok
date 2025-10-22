@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "~/layouts/Layout.astro";
-import ContactHero from "~/components/ContactPage/ContactHero";
-import VolunteerSection from "~/components/ContactPage/VolunteerSection";
-import RequirementsSection from "~/components/ContactPage/RequirementsSection";
-import ProcessSteps from "~/components/ContactPage/ProcessSteps";
 import ContactFormSection from "~/components/ContactPage/ContactFormSection";
+import ContactHero from "~/components/ContactPage/ContactHero";
+import ProcessSteps from "~/components/ContactPage/ProcessSteps";
+import RequirementsSection from "~/components/ContactPage/RequirementsSection";
+import VolunteerSection from "~/components/ContactPage/VolunteerSection";
+import Layout from "~/layouts/Layout.astro";
 
 // Fetch contact content collections
 const contactEntries = await getCollection("contact");
@@ -16,10 +16,18 @@ const contactSections = contactEntries.sort(
 );
 
 // Get individual sections by type
-const hero = contactSections.find((section) => section.data.sectionType === "hero");
-const volunteer = contactSections.find((section) => section.data.sectionType === "volunteer");
-const requirements = contactSections.find((section) => section.data.sectionType === "requirements");
-const process = contactSections.find((section) => section.data.sectionType === "process");
+const hero = contactSections.find(
+	(section) => section.data.sectionType === "hero",
+);
+const volunteer = contactSections.find(
+	(section) => section.data.sectionType === "volunteer",
+);
+const requirements = contactSections.find(
+	(section) => section.data.sectionType === "requirements",
+);
+const process = contactSections.find(
+	(section) => section.data.sectionType === "process",
+);
 ---
 
 <Layout title="Angyalmancsok | Kapcsolat">

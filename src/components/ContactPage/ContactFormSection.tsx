@@ -226,9 +226,7 @@ const ContactFormSection: FC = () => {
 							<Phone className="w-6 h-6 text-primary-600" />
 						</div>
 						<div>
-							<p className="text-sm text-text-description mb-1">
-								Hívj minket:
-							</p>
+							<p className="text-sm text-text-description mb-1">Hívj minket:</p>
 							<a
 								href="tel:+36301234567"
 								className="text-lg font-semibold text-primary-700 hover:text-primary-800 transition-colors"
