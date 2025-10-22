@@ -70,7 +70,7 @@ const VolunteerSection: FC<VolunteerSectionProps> = ({
 							</h3>
 							{volunteerTasks.map((task, index) => (
 								<motion.div
-									key={index}
+									key={task}
 									initial={{ opacity: 0, x: -20 }}
 									whileInView={{ opacity: 1, x: 0 }}
 									viewport={{ once: true, margin: "-50px" }}

@@ -59,12 +59,16 @@ const ProcessSteps: FC<ProcessStepsProps> = ({
 		"from-primary-400 to-accent-500",
 	];
 
-	const steps: ProcessStep[] = stepsToUse.map((step, index) => ({
-		number: index + 1,
-		...step,
-		icon: icons[index % icons.length]!,
-		gradient: gradients[index % gradients.length]!,
-	}));
+	const steps: ProcessStep[] = stepsToUse.map((step, index) => {
+		const iconIndex = index % icons.length;
+		const gradientIndex = index % gradients.length;
+		return {
+			number: index + 1,
+			...step,
+			icon: icons[iconIndex] ?? Mail,
+			gradient: gradients[gradientIndex] ?? "from-primary-400 to-primary-600",
+		};
+	});
 
 	return (
 		<section className="relative py-16">

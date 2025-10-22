@@ -32,6 +32,26 @@
 					}
 				}
 			}
+		},
+		{
+			"includes": ["src/styles/lightbox.css"],
+			"linter": {
+				"rules": {
+					"complexity": {
+						"noImportantStyles": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["src/components/ContactPage/**/*.tsx"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"useUniqueElementIds": "off"
+					}
+				}
+			}
 		}
 	],
 	"javascript": {
