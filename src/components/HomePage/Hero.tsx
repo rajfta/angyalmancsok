@@ -10,6 +10,7 @@ import {
 } from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
 import Socials from "../Socials";
+import Paw from "../icons/Paw";
 
 const Hero: FC = () => {
 	return (
@@ -25,21 +26,28 @@ const Hero: FC = () => {
 					}}
 					className="order-1 md:max-w-80 md:order-2 md:flex-1 flex flex-col gap-4"
 				>
-					<h1 className="max-w-96 lg:text-5xl xl:text-6xl md:mb-4 md:mt-2 md:text-left">
-						Üdvözlünk az Angyalmancsok Alapítvány oldalán!
-						<motion.span
-							initial={{ scale: 0, rotate: -180 }}
-							animate={{ scale: 1, rotate: 0 }}
-							transition={{
-								type: "spring",
-								stiffness: 200,
-								damping: 12,
-								delay: 1.2,
-							}}
-							className="text-accent md:mt-4 md:block inline-block"
-						>
-							🐾
-						</motion.span>
+					<h1 className="max-w-96 text-4xl lg:text-5xl md:mb-4 md:mt-2 md:text-left">
+						Üdvözlünk az{" "}
+						<div>
+							<span className="relative">
+								Angyalmancsok
+								<motion.div
+									initial={{ scale: 0, rotate: -180 }}
+									animate={{ scale: 1, rotate: 0 }}
+									transition={{
+										type: "spring",
+										stiffness: 200,
+										damping: 12,
+										delay: 1.2,
+									}}
+									className="text-primary-800 size-5 absolute -right-4 -top-2"
+								>
+									<Paw className="rotate-12" />
+									<Paw className="rotate-30 translate-y-1 translate-x-4.5" />
+								</motion.div>
+							</span>
+						</div>{" "}
+						Alapítvány oldalán!
 					</h1>
 					<Description className="order-4 hidden md:block" />
 					<CTA className="order-4 hidden md:flex mt-12" />
@@ -101,7 +109,7 @@ const Illustration: FC = () => {
 					damping: 15,
 					delay: 0.1,
 				}}
-				className="absolute -z-20 rounded-full -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-accent md:scale-90"
+				className="absolute -z-20 rounded-full -top-4 left-0 w-full h-full bg-gradient-to-b from-accent-200 to-primary md:scale-90"
 			/>
 			<motion.div
 				className="absolute -z-10 bottom-16 xl:bottom-36 right-4 w-1/6 h-1/6 text-enid"
@@ -116,7 +124,7 @@ const Illustration: FC = () => {
 					ease: "easeIn",
 				}}
 			>
-				<VolleyballIcon className="w-full h-full" />
+				<VolleyballIcon className="w-full h-full stroke-[1.5px] stroke-accent-400" />
 			</motion.div>
 		</div>
 	);
