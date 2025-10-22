@@ -1,42 +1,70 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Sparkles } from "lucide-react";
-import type { FC } from "react";
+import type { FC, ComponentType } from "react";
+import type { LucideProps } from "lucide-react";
 
-const ProcessSteps: FC = () => {
-	const steps = [
+interface Step {
+	title: string;
+	description: string;
+}
+
+interface ProcessStep extends Step {
+	number: number;
+	icon: ComponentType<LucideProps>;
+	gradient: string;
+}
+
+interface ProcessStepsProps {
+	title?: string | undefined;
+	description?: string | undefined;
+	steps?: Step[] | undefined;
+	content?: string | undefined;
+}
+
+const ProcessSteps: FC<ProcessStepsProps> = ({
+	title = "4 Lépésben Hozzánk",
+	description = "Egyszerű folyamat, amely során végig támogatunk és segítünk minden lépésben.",
+	steps: customSteps,
+	content,
+}) => {
+	const defaultSteps = [
 		{
-			number: 1,
 			title: "Kapcsolatfelvétel",
 			description:
 				"Vegye fel velünk a kapcsolatot az alapítvány weboldalán található űrlap kitöltésével vagy az alábbi elérhetőségek valamelyikén.",
-			icon: Mail,
-			gradient: "from-primary-400 to-primary-600",
 		},
 		{
-			number: 2,
 			title: "Konzultáció",
 			description:
 				"Egy személyes konzultáció keretében megbeszéljük a részleteket, bemutatjuk a programot és válaszolunk minden felmerülő kérdésére.",
-			icon: Phone,
-			gradient: "from-accent-400 to-accent-600",
 		},
 		{
-			number: 3,
 			title: "Kölyök Kiválasztása és Vásárlása",
 			description:
 				"Segítünk kiválasztani a legmegfelelőbb kölyköt az alapítvány által tesztelt kennelek kínálatából. A kölyök megvásárlását követően kezdődik a képzés.",
-			icon: MapPin,
-			gradient: "from-secondary-400 to-secondary-600",
 		},
 		{
-			number: 4,
 			title: "Képzés Kezdete",
 			description:
 				"A kiválasztott kölyök és gazdája részt vesz a képzési programban, amely során a terápiás kutyává válás minden lépését közösen teljesítik.",
-			icon: Sparkles,
-			gradient: "from-primary-400 to-accent-500",
 		},
 	];
+
+	const stepsToUse = customSteps || defaultSteps;
+	const icons = [Mail, Phone, MapPin, Sparkles];
+	const gradients = [
+		"from-primary-400 to-primary-600",
+		"from-accent-400 to-accent-600",
+		"from-secondary-400 to-secondary-600",
+		"from-primary-400 to-accent-500",
+	];
+
+	const steps: ProcessStep[] = stepsToUse.map((step, index) => ({
+		number: index + 1,
+		...step,
+		icon: icons[index % icons.length]!,
+		gradient: gradients[index % gradients.length]!,
+	}));
 
 	return (
 		<section className="relative py-16">
@@ -67,24 +95,18 @@ const ProcessSteps: FC = () => {
 					</motion.div>
 
 					<h2 className="text-3xl md:text-4xl font-bold text-primary-700 mb-6">
-						4 Lépésben Hozzánk
+						{title}
 					</h2>
 
 					<p className="text-text-description text-lg mb-8 max-w-xl lg:ml-auto">
-						Egyszerű folyamat, amely során végig támogatunk és segítünk minden
-						lépésben.
+						{description}
 					</p>
 
-					<div className="text-text-description text-sm lg:text-right max-w-xl lg:ml-auto">
-						<p className="font-semibold text-text-heading mb-2">
-							Miért érdemes csatlakozni?
-						</p>
-						<p>
-							Az AngyalMancsok Alapítványnál nem csak a kutyák képzésére
-							fókuszálunk, hanem egy közösséget is építünk, ahol a gazdik és
-							kutyák együtt fejlődhetnek.
-						</p>
-					</div>
+					{content && (
+						<div className="text-text-description text-sm lg:text-right max-w-xl lg:ml-auto">
+							<p className="whitespace-pre-line">{content}</p>
+						</div>
+					)}
 				</motion.div>
 
 				{/* Right - Step Cards */}

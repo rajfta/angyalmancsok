@@ -3,33 +3,44 @@ import { Dog } from "lucide-react";
 import type { FC } from "react";
 import Paw from "~/components/icons/Paw";
 
-const RequirementsSection: FC = () => {
-	const requirements = [
+interface Requirement {
+	title: string;
+	description: string;
+}
+
+interface RequirementsSectionProps {
+	title?: string | undefined;
+	description?: string | undefined;
+	requirements?: Requirement[] | undefined;
+	image?: string | undefined;
+}
+
+const RequirementsSection: FC<RequirementsSectionProps> = ({
+	title = "Hogyan Csatlakozhatsz?",
+	description = "Az AngyalMancsok Terápiás és Segítőkutya Alapítvány célja, hogy minél több ember életébe hozza el a terápiás kutyák csodálatos hatását.",
+	requirements: customRequirements,
+	image,
+}) => {
+	// Default requirements if not provided
+	const defaultRequirements = [
 		{
 			title: "Angels for Therapy Kennelből",
-			icon: Paw,
-			gradient: "from-primary-100 to-primary-200",
-			borderColor: "border-primary-300",
-			items: [
-				"Alapítványunk keretein belül működő kennelünkből származó kutyák",
-				"ENS programon és előzetes karaktertesztelésen átesett kölykök",
-				"Garantált genetikai háttér és viselkedési jellemzők",
-				"Szigorú követelményeknek megfelelő kölykök",
-			],
+			description: "Alapítványunk keretein belül működő kennelünkből származó kutyák. ENS programon és előzetes karaktertesztelésen átesett kölykök. Garantált genetikai háttér és viselkedési jellemzők. Szigorú követelményeknek megfelelő kölykök.",
 		},
 		{
 			title: "Saját Kutya",
-			icon: Dog,
-			gradient: "from-secondary-100 to-secondary-200",
-			borderColor: "border-secondary-300",
-			items: [
-				"Egyedi elbírálás során döntünk a csatlakozás lehetőségéről",
-				"Személyes beszélgetés és ismerkedés",
-				"A kutya tesztelése szükséges",
-				"Közösen megbeszéljük a lehetőségeket",
-			],
+			description: "Egyedi elbírálás során döntünk a csatlakozás lehetőségéről. Személyes beszélgetés és ismerkedés. A kutya tesztelése szükséges. Közösen megbeszéljük a lehetőségeket.",
 		},
 	];
+
+	const requirementsToUse = customRequirements || defaultRequirements;
+
+	const requirements = requirementsToUse.map((req, index) => ({
+		...req,
+		icon: index === 0 ? Paw : Dog,
+		gradient: index === 0 ? "from-primary-100 to-primary-200" : "from-secondary-100 to-secondary-200",
+		borderColor: index === 0 ? "border-primary-300" : "border-secondary-300",
+	}));
 
 	return (
 		<section id="jelentkezes" className="relative py-16">
@@ -43,9 +54,17 @@ const RequirementsSection: FC = () => {
 					className="hidden lg:block relative"
 				>
 					<div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-						<div className="w-full h-full bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center">
-							<Paw className="w-32 h-32 text-white opacity-20" />
-						</div>
+						{image ? (
+							<img
+								src={image}
+								alt={title}
+								className="w-full h-full object-cover"
+							/>
+						) : (
+							<div className="w-full h-full bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center">
+								<Paw className="w-32 h-32 text-white opacity-20" />
+							</div>
+						)}
 					</div>
 
 					{/* Timeline Node */}
@@ -77,13 +96,11 @@ const RequirementsSection: FC = () => {
 					</motion.div>
 
 					<h2 className="text-3xl md:text-4xl font-bold text-primary-700 mb-6">
-						Hogyan Csatlakozhatsz?
+						{title}
 					</h2>
 
 					<p className="text-text-description text-lg mb-8 max-w-xl">
-						Az AngyalMancsok Terápiás és Segítőkutya Alapítvány célja, hogy
-						minél több ember életébe hozza el a terápiás kutyák csodálatos
-						hatását.
+						{description}
 					</p>
 
 					{/* Requirement Cards */}
@@ -109,14 +126,9 @@ const RequirementsSection: FC = () => {
 									</h3>
 								</div>
 
-								<ul className="space-y-2">
-									{req.items.map((item, i) => (
-										<li key={i} className="flex items-start gap-2 text-text">
-											<span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-primary-500 mt-2" />
-											<span className="text-sm">{item}</span>
-										</li>
-									))}
-								</ul>
+								<p className="text-text text-sm leading-relaxed">
+									{req.description}
+								</p>
 							</motion.div>
 						))}
 					</div>
