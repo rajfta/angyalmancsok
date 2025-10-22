@@ -3,8 +3,20 @@ import { Heart } from "lucide-react";
 import type { FC } from "react";
 import { cn } from "~/lib/utils";
 
-const VolunteerSection: FC = () => {
-	const volunteerTasks = [
+interface VolunteerSectionProps {
+	title?: string | undefined;
+	description?: string | undefined;
+	tasks?: string[] | undefined;
+	image?: string | undefined;
+}
+
+const VolunteerSection: FC<VolunteerSectionProps> = ({
+	title = "Segíts Nekünk!",
+	description = "Egy motivációs beszélgetés után közösen fogunk dönteni arról, hogy tudsz-e nekünk segíteni.",
+	tasks,
+	image,
+}) => {
+	const volunteerTasks = tasks || [
 		"Adminisztrációs munkák",
 		"Temperamentum vizsga felkészítés során segítőként tudsz jelen lenni",
 		"Részvétel a rendezvényeken",
@@ -44,12 +56,11 @@ const VolunteerSection: FC = () => {
 						</motion.div>
 
 						<h2 className="text-3xl md:text-4xl font-bold text-primary-700 mb-6">
-							Segíts Nekünk!
+							{title}
 						</h2>
 
 						<p className="text-text-description text-lg mb-8 max-w-xl lg:ml-auto">
-							Egy motivációs beszélgetés után közösen fogunk dönteni arról, hogy
-							tudsz-e nekünk segíteni.
+							{description}
 						</p>
 
 						{/* Task List */}
@@ -88,9 +99,17 @@ const VolunteerSection: FC = () => {
 					className="hidden lg:block relative"
 				>
 					<div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-						<div className="w-full h-full bg-gradient-to-br from-accent-200 to-accent-400 flex items-center justify-center">
-							<Heart className="w-32 h-32 text-white opacity-20" />
-						</div>
+						{image ? (
+							<img
+								src={image}
+								alt={title}
+								className="w-full h-full object-cover"
+							/>
+						) : (
+							<div className="w-full h-full bg-gradient-to-br from-accent-200 to-accent-400 flex items-center justify-center">
+								<Heart className="w-32 h-32 text-white opacity-20" />
+							</div>
+						)}
 					</div>
 
 					{/* Timeline Node */}

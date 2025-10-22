@@ -84,6 +84,35 @@ const aboutCollection = defineCollection({
 	}),
 });
 
+const contactCollection = defineCollection({
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/contact" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		image: z.string().optional(),
+		icon: z.string().optional(), // Lucide icon name as string
+		sectionType: z.enum(["hero", "volunteer", "requirements", "process"]),
+		priority: z.number().optional(),
+		tasks: z.array(z.string()).optional(), // For volunteer tasks list
+		steps: z
+			.array(
+				z.object({
+					title: z.string(),
+					description: z.string(),
+				}),
+			)
+			.optional(), // For process steps
+		requirements: z
+			.array(
+				z.object({
+					title: z.string(),
+					description: z.string(),
+				}),
+			)
+			.optional(), // For requirements list
+	}),
+});
+
 export const collections = {
 	dogs: dogCollection,
 	members: memberCollection,
@@ -92,4 +121,5 @@ export const collections = {
 	partners: partnerCollection,
 	programs: programCollection,
 	about: aboutCollection,
+	contact: contactCollection,
 };

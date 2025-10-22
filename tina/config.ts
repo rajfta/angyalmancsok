@@ -318,6 +318,141 @@ export default defineConfig({
 					},
 				],
 			},
+			{
+				name: "about",
+				label: "About Sections",
+				path: "src/content/about",
+				format: "mdx",
+				fields: [
+					{
+						type: "string",
+						name: "title",
+						label: "Title",
+						isTitle: true,
+						required: true,
+					},
+					{
+						type: "string",
+						name: "content",
+						label: "Content",
+						required: true,
+						ui: {
+							component: "textarea",
+						},
+					},
+					{
+						type: "image",
+						name: "image",
+						label: "Section Image",
+					},
+					{
+						type: "string",
+						name: "icon",
+						label: "Icon Name (lucide-react)",
+					},
+					{
+						type: "number",
+						name: "priority",
+						label: "Priority (display order)",
+						required: true,
+					},
+				],
+			},
+			{
+				name: "contact",
+				label: "Contact Page Sections",
+				path: "src/content/contact",
+				format: "mdx",
+				fields: [
+					{
+						type: "string",
+						name: "title",
+						label: "Title",
+						isTitle: true,
+						required: true,
+					},
+					{
+						type: "string",
+						name: "description",
+						label: "Description",
+						required: true,
+						ui: {
+							component: "textarea",
+						},
+					},
+					{
+						type: "image",
+						name: "image",
+						label: "Section Image",
+					},
+					{
+						type: "string",
+						name: "icon",
+						label: "Icon Name (lucide-react)",
+					},
+					{
+						type: "string",
+						name: "sectionType",
+						label: "Section Type",
+						required: true,
+						options: ["hero", "volunteer", "requirements", "process"],
+					},
+					{
+						type: "number",
+						name: "priority",
+						label: "Priority (display order)",
+					},
+					{
+						type: "string",
+						name: "tasks",
+						label: "Tasks (for volunteer section)",
+						list: true,
+						description: "List of volunteer tasks",
+					},
+					{
+						type: "object",
+						name: "steps",
+						label: "Process Steps",
+						list: true,
+						fields: [
+							{
+								type: "string",
+								name: "title",
+								label: "Step Title",
+							},
+							{
+								type: "string",
+								name: "description",
+								label: "Step Description",
+								ui: {
+									component: "textarea",
+								},
+							},
+						],
+					},
+					{
+						type: "object",
+						name: "requirements",
+						label: "Requirements",
+						list: true,
+						fields: [
+							{
+								type: "string",
+								name: "title",
+								label: "Requirement Title",
+							},
+							{
+								type: "string",
+								name: "description",
+								label: "Requirement Description",
+								ui: {
+									component: "textarea",
+								},
+							},
+						],
+					},
+				],
+			},
 		],
 	},
 });

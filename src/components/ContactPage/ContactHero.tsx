@@ -2,7 +2,15 @@ import { motion } from "framer-motion";
 import { Heart, Mail, Sparkles } from "lucide-react";
 import type { FC } from "react";
 
-const ContactHero: FC = () => {
+interface ContactHeroProps {
+	title?: string | undefined;
+	description?: string | undefined;
+}
+
+const ContactHero: FC<ContactHeroProps> = ({
+	title = "Csatlakozz Hozzánk!",
+	description = "Legyél része egy különleges közösségnek, ahol együtt segíthetünk másokon"
+}) => {
 	const ctaCards = [
 		{
 			icon: Sparkles,
@@ -60,11 +68,10 @@ const ContactHero: FC = () => {
 					className="text-center mb-16"
 				>
 					<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-700 mb-4">
-						Csatlakozz Hozzánk!
+						{title}
 					</h1>
 					<p className="text-lg md:text-xl text-text-description max-w-2xl mx-auto">
-						Legyél része egy különleges közösségnek, ahol együtt segíthetünk
-						másokon
+						{description}
 					</p>
 				</motion.div>
 
