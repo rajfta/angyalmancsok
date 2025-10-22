@@ -39,7 +39,7 @@ const ContactHero: FC = () => {
 	};
 
 	return (
-		<section className="relative container-padding py-24 md:py-32 overflow-hidden">
+		<section className="relative container-padding py-24 md:py-24 overflow-hidden">
 			{/* Background Pattern */}
 			<div className="absolute inset-0 -z-10 opacity-5">
 				<div

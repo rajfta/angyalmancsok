@@ -5,13 +5,7 @@ import logo from "~/assets/logo.png";
 import Logo from "~/components/Logo";
 import { cn } from "~/lib/utils";
 import DonateButton from "../DonateButton";
-import NavLinks from "./NavLinks";
-
-const menuItems = [
-	{ href: "/", name: "Főoldal" },
-	{ href: "/rolunk", name: "Rólunk" },
-	{ href: "/kapcsolat", name: "Kapcsolat" },
-];
+import NavLinks, { links } from "./NavLinks";
 
 const Header: FC = () => {
 	const [pathname, setPathname] = useState<string>("");
@@ -55,7 +49,7 @@ const Header: FC = () => {
 					{/* Desktop Navigation - Center */}
 					<nav className="hidden lg:flex lg:flex-1 lg:justify-center">
 						<ul className="flex items-center gap-8">
-							{menuItems.map((item) => (
+							{links.map((item) => (
 								<li key={item.href}>
 									<a
 										href={item.href}
@@ -66,7 +60,7 @@ const Header: FC = () => {
 												: "text-text-description",
 										)}
 									>
-										<span>{item.name}</span>
+										<span>{item.label}</span>
 									</a>
 								</li>
 							))}

@@ -1,0 +1,169 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Layout from "~/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+	const postsEntries = await getCollection("posts");
+	return postsEntries.map((entry) => ({
+		params: { slug: entry.data.slug },
+		props: { entry },
+	}));
+}
+
+interface Props {
+	entry: CollectionEntry<"posts">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const formattedDate = entry.data.date.toLocaleDateString("hu-HU", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+---
+
+<Layout title={`${entry.data.title} | Újdonságok`}>
+	<article class="max-w-4xl mx-auto">
+		<!-- Back button -->
+		<a
+			href="/cikkek"
+			class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium mb-8 group transition-all duration-300"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+			</svg>
+			<span>Vissza a cikkekhez</span>
+		</a>
+
+		<!-- Header -->
+		<header class="mb-8">
+			<div class="flex items-center gap-2 text-text-muted mb-4">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+				</svg>
+				<time datetime={entry.data.date.toISOString()} class="text-lg">
+					{formattedDate}
+				</time>
+			</div>
+
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text-heading mb-6 leading-tight">
+				{entry.data.title}
+			</h1>
+
+			{entry.data.description && (
+				<p class="text-xl text-text-description leading-relaxed">
+					{entry.data.description}
+				</p>
+			)}
+		</header>
+
+		<!-- Featured image -->
+		{entry.data.thumbnail && (
+			<div class="mb-12 rounded-2xl overflow-hidden shadow-2xl">
+				<img
+					src={entry.data.thumbnail}
+					alt={entry.data.title}
+					class="w-full aspect-[21/9] object-cover"
+				/>
+			</div>
+		)}
+
+		<!-- Content -->
+		<div class="prose prose-lg max-w-none mb-12
+			prose-headings:text-text-heading
+			prose-headings:font-bold
+			prose-h2:text-3xl
+			prose-h2:mt-12
+			prose-h2:mb-6
+			prose-h3:text-2xl
+			prose-h3:mt-8
+			prose-h3:mb-4
+			prose-p:text-text
+			prose-p:leading-relaxed
+			prose-p:mb-6
+			prose-a:text-primary-600
+			prose-a:no-underline
+			hover:prose-a:text-primary-700
+			hover:prose-a:underline
+			prose-strong:text-text-heading
+			prose-ul:my-6
+			prose-ol:my-6
+			prose-li:text-text
+			prose-li:my-2
+			prose-blockquote:border-l-4
+			prose-blockquote:border-primary-400
+			prose-blockquote:bg-primary-50
+			prose-blockquote:py-4
+			prose-blockquote:px-6
+			prose-blockquote:rounded-r-lg
+			prose-blockquote:text-text-description
+			prose-blockquote:italic
+			prose-code:text-primary-700
+			prose-code:bg-primary-50
+			prose-code:px-2
+			prose-code:py-1
+			prose-code:rounded
+			prose-code:before:content-none
+			prose-code:after:content-none"
+		>
+			<Content />
+		</div>
+
+		<!-- Gallery -->
+		{entry.data.gallery && entry.data.gallery.length > 0 && (
+			<section class="mb-12">
+				<h2 class="text-3xl font-bold text-text-heading mb-6">Galéria</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{entry.data.gallery.map((imageUrl) => (
+						<div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+							<img
+								src={imageUrl}
+								alt="Galéria kép"
+								class="w-full aspect-[4/3] object-cover hover:scale-105 transition-transform duration-500"
+							/>
+						</div>
+					))}
+				</div>
+			</section>
+		)}
+
+		<!-- Footer navigation -->
+		<footer class="pt-12 border-t-2 border-primary-100">
+			<a
+				href="/cikkek"
+				class="inline-flex items-center gap-2 text-lg text-primary-600 hover:text-primary-700 font-semibold group transition-all duration-300"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+				</svg>
+				<span>Vissza az összes cikkhez</span>
+			</a>
+		</footer>
+	</article>
+</Layout>
+
+<style>
+	/* Additional custom styles for content rendering */
+	article :global(img) {
+		border-radius: 0.5rem;
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	}
+
+	article :global(table) {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	article :global(th),
+	article :global(td) {
+		border: 1px solid #d1d5db;
+		padding: 0.5rem 1rem;
+	}
+
+	article :global(th) {
+		background-color: #f0f7fb;
+		font-weight: 600;
+		color: #475569;
+	}
+</style>

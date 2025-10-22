@@ -47,7 +47,7 @@ const VisionSection: FC<VisionSectionProps> = ({ title, content, image }) => {
 							}}
 							className="order-1 lg:order-2"
 						>
-							<div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+							<div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
 								{image ? (
 									<img
 										src={image}

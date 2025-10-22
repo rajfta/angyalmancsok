@@ -233,7 +233,7 @@ const MemberModal: FC<MemberModalProps> = ({ member, memberDogs, onClose }) => {
 											<img
 												src={dog.thumbnail}
 												alt={dog.name}
-												className="w-20 h-20 rounded-full object-cover object-top border-2 border-primary-200 mb-2"
+												className="size-26 rounded-full object-cover object-top border-2 border-primary-200 mb-2"
 											/>
 											<span className="text-sm font-medium text-text">
 												{dog.name}

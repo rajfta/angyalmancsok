@@ -1,9 +1,10 @@
 import type { FC } from "react";
 import { cn } from "~/lib/utils";
 
-const links = [
+export const links = [
 	{ href: "/", label: "Főoldal" },
 	{ href: "/rolunk", label: "Rólunk" },
+	{ href: "/cikkek", label: "Újdonságok" },
 	{ href: "/kapcsolat", label: "Kapcsolat" },
 ];
 
