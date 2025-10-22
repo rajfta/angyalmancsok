@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import Layout from "~/layouts/Layout.astro";
+import GalleryLightbox from "~/components/BlogPage/GalleryLightbox";
 
 export async function getStaticPaths() {
 	const postsEntries = await getCollection("posts");
@@ -110,22 +111,13 @@ const formattedDate = entry.data.date.toLocaleDateString("hu-HU", {
 			<Content />
 		</div>
 
-		<!-- Gallery -->
+		<!-- Gallery with Lightbox -->
 		{entry.data.gallery && entry.data.gallery.length > 0 && (
-			<section class="mb-12">
-				<h2 class="text-3xl font-bold text-text-heading mb-6">Galéria</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					{entry.data.gallery.map((imageUrl) => (
-						<div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-							<img
-								src={imageUrl}
-								alt="Galéria kép"
-								class="w-full aspect-[4/3] object-cover hover:scale-105 transition-transform duration-500"
-							/>
-						</div>
-					))}
-				</div>
-			</section>
+			<GalleryLightbox
+				client:load
+				images={entry.data.gallery}
+				title={entry.data.title}
+			/>
 		)}
 
 		<!-- Footer navigation -->

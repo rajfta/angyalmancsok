@@ -1,0 +1,100 @@
+/* Custom Yet-Another-React-Lightbox styling for Angyalmancsok therapy dog theme */
+
+/* Override default lightbox styles to match therapy dog theme */
+.yarl__root {
+	--yarl__color_backdrop: rgba(0, 0, 0, 0.95);
+	--yarl__color_button: #81b3c9;
+	--yarl__color_button_active: #6ba0ba;
+	--yarl__color_button_disabled: #94a3b8;
+}
+
+/* Style the navigation buttons with primary color */
+.yarl__button {
+	color: #81b3c9 !important;
+	background: rgba(129, 179, 201, 0.1) !important;
+	backdrop-filter: blur(8px);
+	border-radius: 12px !important;
+	transition: all 0.3s ease !important;
+}
+
+.yarl__button:hover {
+	background: rgba(129, 179, 201, 0.2) !important;
+}
+
+.yarl__button:active {
+	background: rgba(129, 179, 201, 0.3) !important;
+}
+
+/* Close button styling */
+.yarl__button:has(.yarl__icon_close) {
+	background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.yarl__button:has(.yarl__icon_close):hover {
+	background: rgba(239, 68, 68, 0.2) !important;
+	color: #ef4444 !important;
+}
+
+/* Navigation arrows - make them more prominent */
+.yarl__button:has(.yarl__icon_prev),
+.yarl__button:has(.yarl__icon_next) {
+	width: 48px !important;
+	height: 48px !important;
+	background: rgba(129, 179, 201, 0.15) !important;
+}
+
+.yarl__button:has(.yarl__icon_prev):hover,
+.yarl__button:has(.yarl__icon_next):hover {
+	background: rgba(129, 179, 201, 0.3) !important;
+}
+
+/* Image slide styling */
+.yarl__slide_image {
+	border-radius: 8px;
+	box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5),
+		0 8px 10px -6px rgb(0 0 0 / 0.5);
+}
+
+/* Loading spinner color */
+.yarl__loader {
+	color: #81b3c9 !important;
+}
+
+/* Thumbnails styling (if using thumbnails plugin) */
+.yarl__thumbnails_thumbnail {
+	border: 2px solid transparent !important;
+	border-radius: 8px !important;
+	transition: all 0.3s ease !important;
+}
+
+.yarl__thumbnails_thumbnail_active {
+	border-color: #81b3c9 !important;
+}
+
+.yarl__thumbnails_thumbnail:hover {
+	border-color: #6ba0ba !important;
+}
+
+/* Smooth animations */
+.yarl__slide {
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+	.yarl__button:has(.yarl__icon_prev),
+	.yarl__button:has(.yarl__icon_next) {
+		width: 40px !important;
+		height: 40px !important;
+	}
+
+	.yarl__button {
+		border-radius: 8px !important;
+	}
+}
+
+/* Focus states for accessibility */
+.yarl__button:focus-visible {
+	outline: 2px solid #81b3c9;
+	outline-offset: 2px;
+}

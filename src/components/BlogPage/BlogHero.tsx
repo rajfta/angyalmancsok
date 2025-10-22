@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Newspaper } from "lucide-react";
 import type { FC } from "react";
 
 const BlogHero: FC = () => {
