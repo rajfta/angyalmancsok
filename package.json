@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "tinacms dev -c \"astro dev --port 3009\" --port 4009 --datalayer-port 9009",
 		"start": "astro dev",
-		"build": "astro check && astro build",
+		"build": "tinacms build && astro check && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
 		"check": "biome check .",
