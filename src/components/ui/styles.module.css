@@ -4,7 +4,7 @@
 	cursor: pointer;
 	border-radius: 25px;
 	overflow: hidden;
-	z-index: 100;
+	z-index: 10;
 }
 
 .button .slider {
