@@ -3,15 +3,32 @@ import { motion, type Variants } from "framer-motion";
 import type { FC } from "react";
 import { cn } from "~/lib/utils";
 
-const socialLinks = [
+const defaultSocialLinks = [
 	{ href: "https://www.instagram.com/angyalmancsok/", label: "Instagram" },
 	{ href: "https://www.facebook.com/angyalmancsok", label: "Facebook" },
 ];
 
-const Socials: FC<{
+interface SocialsProps {
 	iconClassName?: string;
 	noAnimation?: boolean;
-}> = ({ iconClassName, noAnimation }) => {
+	instagramUrl?: string;
+	facebookUrl?: string;
+}
+
+const Socials: FC<SocialsProps> = ({
+	iconClassName,
+	noAnimation,
+	instagramUrl,
+	facebookUrl,
+}) => {
+	const socialLinks = [
+		{
+			href: instagramUrl || defaultSocialLinks[0].href,
+			label: "Instagram",
+		},
+		{ href: facebookUrl || defaultSocialLinks[1].href, label: "Facebook" },
+	];
+
 	return (
 		<>
 			{socialLinks.map((link, index) => (

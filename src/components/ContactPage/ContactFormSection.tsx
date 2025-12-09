@@ -3,7 +3,19 @@ import { motion } from "framer-motion";
 import { Mail, Phone, Send } from "lucide-react";
 import { type FC, type FormEvent, useState } from "react";
 
-const ContactFormSection: FC = () => {
+interface ContactFormSectionProps {
+	phone?: string | undefined;
+	phoneRaw?: string | undefined;
+	instagramUrl?: string | undefined;
+	facebookUrl?: string | undefined;
+}
+
+const ContactFormSection: FC<ContactFormSectionProps> = ({
+	phone = "+36 30 123 4567",
+	phoneRaw = "+36301234567",
+	instagramUrl = "https://www.instagram.com/angyalmancsok/",
+	facebookUrl = "https://www.facebook.com/angyalmancsok",
+}) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -228,10 +240,10 @@ const ContactFormSection: FC = () => {
 						<div>
 							<p className="text-sm text-text-description mb-1">Hívj minket:</p>
 							<a
-								href="tel:+36301234567"
+								href={`tel:${phoneRaw}`}
 								className="text-lg font-semibold text-primary-700 hover:text-primary-800 transition-colors"
 							>
-								+36 30 123 4567
+								{phone}
 							</a>
 						</div>
 					</div>
@@ -247,7 +259,7 @@ const ContactFormSection: FC = () => {
 							</p>
 							<div className="flex gap-3">
 								<a
-									href="https://www.instagram.com/angyalmancsok/"
+									href={instagramUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="hover:scale-110 transition-transform"
@@ -255,7 +267,7 @@ const ContactFormSection: FC = () => {
 									<SiInstagram className="w-6 h-6 text-accent-500" />
 								</a>
 								<a
-									href="https://www.facebook.com/angyalmancsok"
+									href={facebookUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="hover:scale-110 transition-transform"

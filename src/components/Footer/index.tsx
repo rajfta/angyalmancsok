@@ -4,23 +4,39 @@ import type { FC } from "react";
 import Logo from "~/components/Logo";
 import Socials from "~/components/Socials";
 
-const Footer: FC = () => {
+interface FooterProps {
+	email: string;
+	phone: string;
+	phoneRaw: string;
+	instagramUrl?: string;
+	facebookUrl?: string;
+}
+
+const Footer: FC<FooterProps> = ({
+	email,
+	phone,
+	phoneRaw,
+	instagramUrl,
+	facebookUrl,
+}) => {
 	return (
 		<footer className="container-padding bg-primary-900 text-white rounded-t-3xl text-xs mt-auto py-4">
 			<div className="flex flex-col relative gap-2 justify-center">
 				<h3 className="text-lg text-primary-200 font-bold">Elérhetőségeink</h3>
 				<p className="flex items-center gap-2">
 					<Mail className="size-4" />
-					<a href="mailto:angyalmancsokalapitvany@gmail.com">
-						angyalmancsokalapitvany@gmail.com
-					</a>
+					<a href={`mailto:${email}`}>{email}</a>
 				</p>
 				<p className="flex items-center gap-2">
 					<Phone className="size-4" />
-					<a href="tel:+36209326333">+36 20 93 26 333</a>
+					<a href={`tel:${phoneRaw}`}>{phone}</a>
 				</p>
 				<div className="flex mt-6 items-center gap-4">
-					<Socials iconClassName="size-6 lg:size-8" />
+					<Socials
+						iconClassName="size-6 lg:size-8"
+						instagramUrl={instagramUrl}
+						facebookUrl={facebookUrl}
+					/>
 				</div>
 				<div className="absolute top-1/2 -translate-y-1/2 -right-6">
 					<motion.div whileHover={{ scale: 1.05 }}>

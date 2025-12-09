@@ -84,6 +84,18 @@ const aboutCollection = defineCollection({
 	}),
 });
 
+const settingsCollection = defineCollection({
+	loader: glob({ pattern: "**/*.mdx", base: "./src/content/settings" }),
+	schema: z.object({
+		title: z.string(),
+		email: z.string(),
+		phone: z.string(),
+		phoneRaw: z.string(),
+		instagramUrl: z.string().optional(),
+		facebookUrl: z.string().optional(),
+	}),
+});
+
 const contactCollection = defineCollection({
 	loader: glob({ pattern: "**/*.mdx", base: "./src/content/contact" }),
 	schema: z.object({
@@ -122,4 +134,5 @@ export const collections = {
 	programs: programCollection,
 	about: aboutCollection,
 	contact: contactCollection,
+	settings: settingsCollection,
 };

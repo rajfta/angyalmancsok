@@ -10,6 +10,10 @@ import Layout from "~/layouts/Layout.astro";
 // Fetch contact content collections
 const contactEntries = await getCollection("contact");
 
+// Fetch site settings
+const settingsEntries = await getCollection("settings");
+const settings = settingsEntries[0]?.data;
+
 // Sort by priority
 const contactSections = contactEntries.sort(
 	(a, b) => (a.data.priority || 0) - (b.data.priority || 0),
@@ -73,6 +77,12 @@ const process = contactSections.find(
         </div>
 
         <!-- Section 4: Contact Form (Center/Full) -->
-        <ContactFormSection client:load />
+        <ContactFormSection
+            client:load
+            phone={settings?.phone}
+            phoneRaw={settings?.phoneRaw}
+            instagramUrl={settings?.instagramUrl}
+            facebookUrl={settings?.facebookUrl}
+        />
     </div>
 </Layout>

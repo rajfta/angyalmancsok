@@ -359,6 +359,57 @@ export default defineConfig({
 				],
 			},
 			{
+				name: "settings",
+				label: "Site Settings",
+				path: "src/content/settings",
+				format: "mdx",
+				ui: {
+					allowedActions: {
+						create: false,
+						delete: false,
+					},
+				},
+				fields: [
+					{
+						type: "string",
+						name: "title",
+						label: "Title",
+						isTitle: true,
+						required: true,
+					},
+					{
+						type: "string",
+						name: "email",
+						label: "Email Address",
+						required: true,
+					},
+					{
+						type: "string",
+						name: "phone",
+						label: "Phone Number",
+						required: true,
+						description: "Format: +36 XX XXX XXXX",
+					},
+					{
+						type: "string",
+						name: "phoneRaw",
+						label: "Phone Number (for links)",
+						required: true,
+						description: "Format without spaces: +36XXXXXXXXX",
+					},
+					{
+						type: "string",
+						name: "instagramUrl",
+						label: "Instagram URL",
+					},
+					{
+						type: "string",
+						name: "facebookUrl",
+						label: "Facebook URL",
+					},
+				],
+			},
+			{
 				name: "contact",
 				label: "Contact Page Sections",
 				path: "src/content/contact",

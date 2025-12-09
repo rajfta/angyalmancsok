@@ -1,14 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import "@fontsource-variable/nunito";
 import DonateButton from "~/components/DonateButton";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 import "~/styles/globals.css";
+
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+// Fetch site settings
+const settingsEntries = await getCollection("settings");
+const settings = settingsEntries[0]?.data;
 ---
 
 <!doctype html>
@@ -37,7 +43,14 @@ const { title } = Astro.props;
             </div>
             <slot />
         </main>
-        <Footer client:load />
+        <Footer
+            client:load
+            email={settings?.email ?? ""}
+            phone={settings?.phone ?? ""}
+            phoneRaw={settings?.phoneRaw ?? ""}
+            instagramUrl={settings?.instagramUrl}
+            facebookUrl={settings?.facebookUrl}
+        />
     </body>
 </html>
 <style is:global>
