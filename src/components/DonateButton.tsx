@@ -16,7 +16,7 @@ const DonateButton: FC<DonateButtonProps> = ({
 	smallIcons,
 }) => {
 	return (
-		<a href="/tamogass" target="_blank" rel="noreferrer">
+		<a href="/tamogatas" target="_blank" rel="noreferrer">
 			<PerspectiveButton
 				labels={{
 					closed: [

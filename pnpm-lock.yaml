@@ -14,6 +14,9 @@ importers:
       '@astrojs/mdx':
         specifier: ^4.3.7
         version: 4.3.7(astro@5.14.6(@types/node@24.8.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.5)(typescript@5.9.3)(yaml@2.8.1))
+      '@astrojs/node':
+        specifier: ^9.5.1
+        version: 9.5.1(astro@5.14.6(@types/node@24.8.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.5)(typescript@5.9.3)(yaml@2.8.1))
       '@astrojs/react':
         specifier: ^4.4.0
         version: 4.4.0(@types/node@24.8.1)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(yaml@2.8.1)
@@ -38,6 +41,12 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.2.2)(react@19.2.0)
+      '@stripe/react-stripe-js':
+        specifier: ^5.4.1
+        version: 5.4.1(@stripe/stripe-js@8.5.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stripe/stripe-js':
+        specifier: ^8.5.3
+        version: 8.5.3
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.1.14)
@@ -74,6 +83,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      stripe:
+        specifier: ^20.0.0
+        version: 20.0.0(@types/node@24.8.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -139,6 +151,9 @@ packages:
   '@astrojs/internal-helpers@0.7.4':
     resolution: {integrity: sha512-lDA9MqE8WGi7T/t2BMi+EAXhs4Vcvr94Gqx3q15cFEz8oFZMO4/SFBqYr/UcmNlvW+35alowkVj+w9VhLvs5Cw==}
 
+  '@astrojs/internal-helpers@0.7.5':
+    resolution: {integrity: sha512-vreGnYSSKhAjFJCWAwe/CNhONvoc5lokxtRoZims+0wa3KbHBdPHSSthJsKxPd8d/aic6lWKpRTYGY/hsgK6EA==}
+
   '@astrojs/language-server@2.15.5':
     resolution: {integrity: sha512-GizawjrIytYEOv8c/VUDrzGYo5t584w6S0fUAmVK2u11BtAZcbtXWNjGtwFWYLyR27J9pZe4Ipe/qP8mXUfCWQ==}
     hasBin: true
@@ -159,6 +174,11 @@ packages:
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
+
+  '@astrojs/node@9.5.1':
+    resolution: {integrity: sha512-7k+SU877OUQylPr0mFcWrGvNuC78Lp9w+GInY8Rwc+LkHyDP9xls+nZAioK0WDWd+fyeQnlHbpDGURO3ZHuDVg==}
+    peerDependencies:
+      astro: ^5.14.3
 
   '@astrojs/prism@3.3.0':
     resolution: {integrity: sha512-q8VwfU/fDZNoDOf+r7jUnMC2//H2l0TuQ6FkGJL8vD8nw/q5KiL3DS1KKBI3QhI9UQhpJ5dc7AtqfbXWuOgLCQ==}
@@ -1894,6 +1914,17 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
+  '@stripe/react-stripe-js@5.4.1':
+    resolution: {integrity: sha512-ipeYcAHa4EPmjwfv0lFE+YDVkOQ0TMKkFWamW+BqmnSkEln/hO8rmxGPPWcd9WjqABx6Ro8Xg4pAS7evCcR9cw==}
+    peerDependencies:
+      '@stripe/stripe-js': '>=8.0.0 <9.0.0'
+      react: '>=16.8.0 <20.0.0'
+      react-dom: '>=16.8.0 <20.0.0'
+
+  '@stripe/stripe-js@8.5.3':
+    resolution: {integrity: sha512-UM0GHAxlTN7v0lCK2P6t0VOlvBIdApIQxhnM3yZ2kupQ4PpSrLsK/n/NyYKtw2NJGMaNRRD1IicWS7fSL2sFtA==}
+    engines: {node: '>=12.16'}
+
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0':
     resolution: {integrity: sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g==}
     engines: {node: '>=14'}
@@ -3501,6 +3532,10 @@ packages:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
+  fresh@2.0.0:
+    resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
+    engines: {node: '>= 0.8'}
+
   fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
 
@@ -4580,9 +4615,17 @@ packages:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
 
+  mime-db@1.54.0:
+    resolution: {integrity: sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==}
+    engines: {node: '>= 0.6'}
+
   mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
+
+  mime-types@3.0.2:
+    resolution: {integrity: sha512-Lbgzdk0h4juoQ9fCKXW4by0UJqj+nOOrI9MJ1sSj4nI8aI2eo1qmvQEie4VD1glsS250n15LsWsYtCugiStS5A==}
+    engines: {node: '>=18'}
 
   mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
@@ -5458,12 +5501,19 @@ packages:
     resolution: {integrity: sha512-dW41u5VfLXu8SJh5bwRmyYUbAoSB3c9uQh6L8h/KtsFREPWpbX1lrljJo186Jc4nmci/sGUZ9a0a0J2zgfq2hw==}
     engines: {node: '>= 0.8.0'}
 
+  send@1.2.0:
+    resolution: {integrity: sha512-uaW0WwXKpL9blXE2o0bRhoL2EGXIrZxQ2ZQ4mgcfoBxdFmQold+qWsD2jLrfZ0trjKL6vOw0j//eAwcALFjKSw==}
+    engines: {node: '>= 18'}
+
   sentence-case@3.0.4:
     resolution: {integrity: sha512-8LS0JInaQMCRoQ7YUytAo/xUu5W2XnQxV2HI/6uM6U7CITS1RqPElr30V6uIqyMKM9lJGRVFy5/4CuzcixNYSg==}
 
   serve-static@1.16.2:
     resolution: {integrity: sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==}
     engines: {node: '>= 0.8.0'}
+
+  server-destroy@1.0.1:
+    resolution: {integrity: sha512-rb+9B5YBIEzYcD6x2VKidaa+cqYBJQKnU4oe4E3ANwRRN56yk/ua1YCJT1n21NTS8w6CcOclAKNP3PhdCXKYtQ==}
 
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
@@ -5672,6 +5722,15 @@ packages:
   strip-json-comments@2.0.1:
     resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
     engines: {node: '>=0.10.0'}
+
+  stripe@20.0.0:
+    resolution: {integrity: sha512-EaZeWpbJOCcDytdjKSwdrL5BxzbDGNueiCfHjHXlPdBQvLqoxl6AAivC35SPzTmVXJb5duXQlXFGS45H0+e6Gg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@types/node': '>=16'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
 
   style-mod@4.1.3:
     resolution: {integrity: sha512-i/n8VsZydrugj3Iuzll8+x/00GH2vnYsk1eomD8QiRrSAeW6ItbCQDtfXCeJHd0iwiNagqjQkvpvREEPtW3IoQ==}
@@ -6577,6 +6636,8 @@ snapshots:
 
   '@astrojs/internal-helpers@0.7.4': {}
 
+  '@astrojs/internal-helpers@0.7.5': {}
+
   '@astrojs/language-server@2.15.5(typescript@5.9.3)':
     dependencies:
       '@astrojs/compiler': 2.13.0
@@ -6642,6 +6703,15 @@ snapshots:
       source-map: 0.7.6
       unist-util-visit: 5.0.0
       vfile: 6.0.3
+    transitivePeerDependencies:
+      - supports-color
+
+  '@astrojs/node@9.5.1(astro@5.14.6(@types/node@24.8.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.5)(typescript@5.9.3)(yaml@2.8.1))':
+    dependencies:
+      '@astrojs/internal-helpers': 0.7.5
+      astro: 5.14.6(@types/node@24.8.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.5)(typescript@5.9.3)(yaml@2.8.1)
+      send: 1.2.0
+      server-destroy: 1.0.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8292,6 +8362,15 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@10.0.2': {}
+
+  '@stripe/react-stripe-js@5.4.1(@stripe/stripe-js@8.5.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@stripe/stripe-js': 8.5.3
+      prop-types: 15.8.1
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+
+  '@stripe/stripe-js@8.5.3': {}
 
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.28.4)':
     dependencies:
@@ -10445,6 +10524,8 @@ snapshots:
 
   fresh@0.5.2: {}
 
+  fresh@2.0.0: {}
+
   fs-constants@1.0.0: {}
 
   fs-extra@11.3.2:
@@ -12099,9 +12180,15 @@ snapshots:
 
   mime-db@1.52.0: {}
 
+  mime-db@1.54.0: {}
+
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
+
+  mime-types@3.0.2:
+    dependencies:
+      mime-db: 1.54.0
 
   mime@1.6.0: {}
 
@@ -12583,7 +12670,7 @@ snapshots:
       lodash: 4.17.21
       lodash-es: 4.17.21
       material-colors: 1.2.6
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 19.2.0
       reactcss: 1.2.3(react@19.2.0)
       tinycolor2: 1.6.0
@@ -12591,7 +12678,7 @@ snapshots:
   react-datetime@3.3.1(moment@2.29.4)(react@19.2.0):
     dependencies:
       moment: 2.29.4
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 19.2.0
 
   react-dnd-html5-backend@16.0.1:
@@ -12643,7 +12730,7 @@ snapshots:
       '@types/react-redux': 7.1.34
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 19.2.0
       react-is: 17.0.2
     optionalDependencies:
@@ -13096,6 +13183,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  send@1.2.0:
+    dependencies:
+      debug: 4.4.3
+      encodeurl: 2.0.0
+      escape-html: 1.0.3
+      etag: 1.8.1
+      fresh: 2.0.0
+      http-errors: 2.0.0
+      mime-types: 3.0.2
+      ms: 2.1.3
+      on-finished: 2.4.1
+      range-parser: 1.2.1
+      statuses: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
@@ -13110,6 +13213,8 @@ snapshots:
       send: 0.19.0
     transitivePeerDependencies:
       - supports-color
+
+  server-destroy@1.0.1: {}
 
   set-function-length@1.2.2:
     dependencies:
@@ -13389,6 +13494,12 @@ snapshots:
   strip-bom-string@1.0.0: {}
 
   strip-json-comments@2.0.1: {}
+
+  stripe@20.0.0(@types/node@24.8.1):
+    dependencies:
+      qs: 6.13.0
+    optionalDependencies:
+      '@types/node': 24.8.1
 
   style-mod@4.1.3: {}
 
