@@ -9,9 +9,7 @@ import { motion } from "framer-motion";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { type FC, useEffect, useState } from "react";
 
-const stripePromise = loadStripe(
-	import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY,
-);
+const stripePromise = loadStripe(import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const DONATION_AMOUNTS = [
 	{ value: 1000, label: "1000 Ft" },
@@ -142,6 +140,9 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 		setError(null);
 	};
 
+	console.log("seledtedAmount: ", selectedAmount);
+	console.log("amount: ", amount);
+
 	const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCustomAmount(e.target.value);
 		setClientSecret(null);
@@ -149,8 +150,8 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 	};
 
 	const handleProceedToPayment = async () => {
-		if (!amount || amount < 100) {
-			setError("Kérjük, adj meg legalább 100 Ft-ot.");
+		if (!amount || amount < 200) {
+			setError("Kérjük, adj meg legalább 200 Ft-ot.");
 			return;
 		}
 
@@ -306,7 +307,7 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 									value={customAmount}
 									onChange={handleCustomAmountChange}
 									placeholder="Add meg az összeget"
-									min="100"
+									min="200"
 									className="w-full p-3 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
 								/>
 								<span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">

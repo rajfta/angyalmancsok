@@ -3,7 +3,7 @@ import type { FC } from "react";
 
 const BlogHero: FC = () => {
 	return (
-		<section className="relative container-padding py-20 md:py-24 overflow-hidden">
+		<section className="relative container-padding pt-4 pb-12 overflow-hidden">
 			{/* Background Pattern */}
 			<div className="absolute inset-0 -z-10 opacity-5">
 				<div

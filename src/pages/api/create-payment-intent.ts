@@ -10,15 +10,17 @@ export const POST: APIRoute = async ({ request }) => {
 		const body = await request.json();
 		const { amount, name, email } = body;
 
-		if (!amount || amount < 100) {
+		if (!amount || amount < 200) {
 			return new Response(
-				JSON.stringify({ error: "Minimum adomány összeg 100 Ft" }),
+				JSON.stringify({ error: "Minimum adomány összeg 200 Ft" }),
 				{ status: 400, headers: { "Content-Type": "application/json" } },
 			);
 		}
 
+		const convertedAmount = Math.round(amount * 100); // Convert HUF to the smallest currency unit
+
 		const paymentIntent = await stripe.paymentIntents.create({
-			amount: amount,
+			amount: convertedAmount,
 			currency: "huf",
 			automatic_payment_methods: {
 				enabled: true,
