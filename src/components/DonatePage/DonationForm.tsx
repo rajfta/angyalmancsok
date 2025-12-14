@@ -7,15 +7,33 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { motion } from "framer-motion";
 import { CheckCircle, Loader2 } from "lucide-react";
-import { type FC, useEffect, useState } from "react";
+import { type FC, useEffect, useId, useMemo, useState } from "react";
 
 const stripePromise = loadStripe(import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const DONATION_AMOUNTS = [
-	{ value: 1000, label: "1000 Ft" },
-	{ value: 5000, label: "5000 Ft" },
-	{ value: 25000, label: "25000 Ft" },
-];
+// Slider configuration
+const MIN_AMOUNT = 1000;
+const MAX_AMOUNT = 100000;
+const STEP = 1000;
+const DEFAULT_AMOUNT = 5000;
+
+// Impact calculation based on donation amount
+const calculateImpact = (amount: number) => {
+	// Cost estimates (in Ft)
+	const TREAT_COST = 2000; // jutalomfalat per session
+	const SESSION_COST = 15000; // one therapy session
+	const HEALTH_CHECK_COST = 30000; // health screening per dog
+
+	const treats = Math.floor(amount / TREAT_COST);
+	const sessions = Math.floor(amount / SESSION_COST);
+	const healthChecks = Math.floor(amount / HEALTH_CHECK_COST);
+
+	return {
+		treats,
+		sessions,
+		healthChecks,
+	};
+};
 
 interface DonationFormInnerProps {
 	amount: number;
@@ -106,8 +124,9 @@ interface DonationFormProps {
 }
 
 const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
-	const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-	const [customAmount, setCustomAmount] = useState("");
+	const sliderId = useId();
+	const [sliderAmount, setSliderAmount] = useState(DEFAULT_AMOUNT);
+	const [isMonthly, setIsMonthly] = useState(false);
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -126,28 +145,20 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 		}
 	}, []);
 
-	const amount =
-		selectedAmount === -1
-			? Number.parseInt(customAmount, 10) || 0
-			: selectedAmount;
+	const amount = sliderAmount;
 
-	const handleAmountSelect = (value: number) => {
-		setSelectedAmount(value);
-		if (value !== -1) {
-			setCustomAmount("");
-		}
+	// Calculate impact based on current amount
+	const impact = useMemo(() => calculateImpact(amount), [amount]);
+
+	const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSliderAmount(Number.parseInt(e.target.value, 10));
 		setClientSecret(null);
 		setError(null);
 	};
 
-	console.log("seledtedAmount: ", selectedAmount);
-	console.log("amount: ", amount);
-
-	const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCustomAmount(e.target.value);
-		setClientSecret(null);
-		setError(null);
-	};
+	// Calculate slider percentage for styling
+	const sliderPercentage =
+		((sliderAmount - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT)) * 100;
 
 	const handleProceedToPayment = async () => {
 		if (!amount || amount < 200) {
@@ -219,103 +230,150 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5 }}
-				className="lg:col-span-3 bg-white rounded-2xl shadow-xl p-8"
+				className="lg:col-span-3 bg-bg-highlight rounded-2xl shadow-xl md:p-8 p-4"
 			>
 				<h2 className="text-2xl md:text-3xl font-bold text-primary-600 mb-4">
 					Azonnali adomány
 				</h2>
-				<p className="text-text-description mb-6">
-					Adományozzon bankkártyája segítségével biztonságos, titkosított
-					kapcsolaton keresztül! A kártyaadatokat közvetlenül és kizárólag a
-					Stripe rendszere kapja meg.
-				</p>
 
 				{/* Stripe Badge */}
-				<div className="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-					<div className="flex flex-col">
-						<span className="text-xs text-gray-500">Powered by</span>
-						<span className="text-xl font-bold text-[#635bff]">stripe</span>
+				<div className="mb-6 p-4 bg-gray-50 rounded-lg">
+					<div className="flex items-center gap-4 mb-2">
+						<div className="flex flex-col">
+							<span className="text-xs text-gray-500">Powered by</span>
+							<span className="text-xl font-bold text-[#635bff]">stripe</span>
+						</div>
+						<div className="flex items-center gap-2 ml-auto">
+							<img
+								src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg"
+								alt="Mastercard"
+								className="h-8"
+							/>
+							<img
+								src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+								alt="Visa"
+								className="h-6"
+							/>
+						</div>
 					</div>
-					<div className="flex items-center gap-2 ml-auto">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg"
-							alt="Mastercard"
-							className="h-8"
+					<p className="text-[10px] text-gray-500 leading-tight">
+						Adományozzon bankkártyája segítségével biztonságos, titkosított
+						kapcsolaton keresztül! A kártyaadatokat közvetlenül és kizárólag a
+						Stripe rendszere kapja meg.
+					</p>
+				</div>
+
+				{/* Amount Slider */}
+				<div className="mb-6">
+					<div className="flex justify-between items-center mb-3">
+						<label
+							htmlFor={sliderId}
+							className="block text-sm font-semibold text-text-heading"
+						>
+							Adomány összege
+						</label>
+						<span className="text-2xl font-bold text-primary-600">
+							{sliderAmount.toLocaleString("hu-HU")} Ft
+						</span>
+					</div>
+
+					{/* Slider */}
+					<div className="relative mb-2">
+						<input
+							id={sliderId}
+							type="range"
+							min={MIN_AMOUNT}
+							max={MAX_AMOUNT}
+							step={STEP}
+							value={sliderAmount}
+							onChange={handleSliderChange}
+							className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-500"
+							style={{
+								background: `linear-gradient(to right, #81b3c9 0%, #81b3c9 ${sliderPercentage}%, #e5e7eb ${sliderPercentage}%, #e5e7eb 100%)`,
+							}}
 						/>
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
-							alt="Visa"
-							className="h-6"
-						/>
+					</div>
+					<div className="flex justify-between text-sm text-gray-500">
+						<span>{MIN_AMOUNT.toLocaleString("hu-HU")} Ft</span>
+						<span>{MAX_AMOUNT.toLocaleString("hu-HU")} Ft</span>
 					</div>
 				</div>
 
-				<p className="text-sm text-gray-500 mb-6">
-					<span className="text-red-500">"*"</span> a kötelező mezőket jelöli
-				</p>
-
-				{/* Amount Selection */}
+				{/* One-time / Monthly Toggle */}
 				<div className="mb-6">
-					<label className="block text-sm font-semibold text-text-heading mb-3">
-						Adomány összege <span className="text-red-500">*</span>
-					</label>
-					<div className="space-y-2">
-						{DONATION_AMOUNTS.map((opt) => (
-							<label
-								key={opt.value}
-								className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
-									selectedAmount === opt.value
-										? "border-primary-500 bg-primary-50"
-										: "border-gray-200 hover:border-primary-300"
-								}`}
-							>
-								<input
-									type="radio"
-									name="amount"
-									value={opt.value}
-									checked={selectedAmount === opt.value}
-									onChange={() => handleAmountSelect(opt.value)}
-									className="w-5 h-5 text-primary-500 focus:ring-primary-500"
-								/>
-								<span className="font-medium">{opt.label}</span>
-							</label>
-						))}
-						<label
-							className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
-								selectedAmount === -1
-									? "border-primary-500 bg-primary-50"
-									: "border-gray-200 hover:border-primary-300"
+					<div className="flex rounded-lg border border-gray-200 overflow-hidden">
+						<button
+							type="button"
+							onClick={() => setIsMonthly(false)}
+							className={`flex-1 py-3 px-4 font-semibold transition-colors ${
+								!isMonthly
+									? "bg-primary-500 text-white"
+									: "bg-white text-gray-600 hover:bg-gray-50"
 							}`}
 						>
-							<input
-								type="radio"
-								name="amount"
-								value="-1"
-								checked={selectedAmount === -1}
-								onChange={() => handleAmountSelect(-1)}
-								className="w-5 h-5 text-primary-500 focus:ring-primary-500"
-							/>
-							<span className="font-medium">Egyéb összeg</span>
-						</label>
+							Egyszeri adomány
+						</button>
+						<button
+							type="button"
+							onClick={() => setIsMonthly(true)}
+							className={`flex-1 py-3 px-4 font-semibold transition-colors ${
+								isMonthly
+									? "bg-primary-500 text-white"
+									: "bg-white text-gray-600 hover:bg-gray-50"
+							}`}
+						>
+							Havi támogatás
+						</button>
 					</div>
+					{isMonthly && (
+						<p className="mt-2 text-sm text-gray-500">
+							Havonta automatikusan levonásra kerül a megadott összeg.
+						</p>
+					)}
+				</div>
 
-					{selectedAmount === -1 && (
-						<div className="mt-3">
-							<div className="relative">
-								<input
-									type="number"
-									value={customAmount}
-									onChange={handleCustomAmountChange}
-									placeholder="Add meg az összeget"
-									min="200"
-									className="w-full p-3 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-								/>
-								<span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-									Ft
+				{/* Impact Section */}
+				<div className="mb-6 p-4 bg-primary-50 border border-primary-100 rounded-lg">
+					<p className="text-sm text-text-heading mb-3">
+						A te{" "}
+						<span className="font-bold">
+							{sliderAmount.toLocaleString("hu-HU")} Ft
+						</span>
+						-os
+						{isMonthly ? " havi " : " "}adományod fedezi:
+					</p>
+					<div className="space-y-2">
+						{impact.sessions > 0 && (
+							<div className="flex justify-between">
+								<span className="text-text-description">
+									Terápiás foglalkozás
+								</span>
+								<span className="font-semibold text-primary-600">
+									{impact.sessions} alkalom
 								</span>
 							</div>
-						</div>
-					)}
+						)}
+						{impact.treats > 0 && (
+							<div className="flex justify-between">
+								<span className="text-text-description">
+									Jutalomfalat csomag
+								</span>
+								<span className="font-semibold text-primary-600">
+									{impact.treats} csomag
+								</span>
+							</div>
+						)}
+						{impact.healthChecks > 0 && (
+							<div className="flex justify-between">
+								<span className="text-text-description">
+									Egészségügyi szűrés
+								</span>
+								<span className="font-semibold text-primary-600">
+									{impact.healthChecks} kutya
+								</span>
+							</div>
+						)}
+					</div>
 				</div>
 
 				{/* Name Field */}
@@ -373,7 +431,7 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 					<button
 						type="button"
 						onClick={handleProceedToPayment}
-						disabled={!amount || amount < 100 || isLoading}
+						disabled={!amount || amount < 200 || isLoading}
 						className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
 					>
 						{isLoading ? (
@@ -388,19 +446,32 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 				)}
 			</motion.div>
 
-			{/* Dog Image */}
+			{/* Dog Image with Quote */}
 			{dogImage && (
 				<motion.div
 					initial={{ opacity: 0, x: 20 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.5, delay: 0.2 }}
-					className="hidden lg:block lg:col-span-2"
+					className="order-first lg:order-2 lg:col-span-2"
 				>
-					<img
-						src={dogImage}
-						alt="Terápiás kutya"
-						className="w-full h-auto rounded-2xl shadow-xl object-cover"
-					/>
+					<div className="relative rounded-2xl shadow-xl overflow-hidden">
+						<img
+							src={dogImage}
+							alt="Terápiás kutya"
+							className="w-full h-auto object-cover"
+						/>
+						{/* Quote Overlay */}
+						<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+						<div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+							<p className="text-lg md:text-xl font-medium leading-relaxed mb-3">
+								"A terápiás kutyák látogatásai reményt adtak, amikor a leginkább
+								szükségem volt rá. Ezek a programok életet változtatnak meg."
+							</p>
+							<p className="text-sm text-white/80">
+								— Kovács M., Kórházi páciens
+							</p>
+						</div>
+					</div>
 				</motion.div>
 			)}
 		</div>
