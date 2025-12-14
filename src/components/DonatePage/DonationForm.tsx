@@ -138,9 +138,11 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 	const [error, setError] = useState<string | null>(null);
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [successAmount, setSuccessAmount] = useState<number | null>(null);
+	const [isMounted, setIsMounted] = useState(false);
 
-	// Check for success on mount
+	// Check for success on mount and set mounted state
 	useEffect(() => {
+		setIsMounted(true);
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("success") === "true") {
 			setIsSuccess(true);
@@ -196,8 +198,8 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 		}
 	};
 
-	// Show error if Stripe is not configured
-	if (!stripePromise) {
+	// Show error if Stripe is not configured (only after client mount to avoid hydration mismatch)
+	if (isMounted && !stripePromise) {
 		return (
 			<div className="bg-red-50 rounded-2xl shadow-xl p-8 text-center">
 				<h2 className="text-xl font-bold text-red-600 mb-4">
