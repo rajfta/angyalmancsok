@@ -34,13 +34,6 @@ const settings = settingsEntries[0]?.data;
         <main
             class="container-padding text-justify header-spacing"
         >
-            <div class="md:hidden h-14 mb-8 w-full relative">
-                <DonateButton
-                    className="absolute h-8 text-center flex items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    smallIcons
-                    client:load
-                />
-            </div>
             <slot />
         </main>
         <Footer

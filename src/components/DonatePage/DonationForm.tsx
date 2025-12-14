@@ -17,6 +17,9 @@ const MAX_AMOUNT = 100000;
 const STEP = 1000;
 const DEFAULT_AMOUNT = 5000;
 
+// Preset amount buttons
+const PRESET_AMOUNTS = [2000, 5000, 10000, 25000];
+
 // Impact calculation based on donation amount
 const calculateImpact = (amount: number) => {
 	// Cost estimates (in Ft)
@@ -236,33 +239,6 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 					Azonnali adomány
 				</h2>
 
-				{/* Stripe Badge */}
-				<div className="mb-6 p-4 bg-gray-50 rounded-lg">
-					<div className="flex items-center gap-4 mb-2">
-						<div className="flex flex-col">
-							<span className="text-xs text-gray-500">Powered by</span>
-							<span className="text-xl font-bold text-[#635bff]">stripe</span>
-						</div>
-						<div className="flex items-center gap-2 ml-auto">
-							<img
-								src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg"
-								alt="Mastercard"
-								className="h-8"
-							/>
-							<img
-								src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
-								alt="Visa"
-								className="h-6"
-							/>
-						</div>
-					</div>
-					<p className="text-[10px] text-gray-500 leading-tight">
-						Adományozzon bankkártyája segítségével biztonságos, titkosított
-						kapcsolaton keresztül! A kártyaadatokat közvetlenül és kizárólag a
-						Stripe rendszere kapja meg.
-					</p>
-				</div>
-
 				{/* Amount Slider */}
 				<div className="mb-6">
 					<div className="flex justify-between items-center mb-3">
@@ -275,6 +251,28 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 						<span className="text-2xl font-bold text-primary-600">
 							{sliderAmount.toLocaleString("hu-HU")} Ft
 						</span>
+					</div>
+
+					{/* Preset Amount Buttons */}
+					<div className="grid grid-cols-4 gap-2 mb-4">
+						{PRESET_AMOUNTS.map((preset) => (
+							<button
+								key={preset}
+								type="button"
+								onClick={() => {
+									setSliderAmount(preset);
+									setClientSecret(null);
+									setError(null);
+								}}
+								className={`py-3 px-2 rounded-lg font-semibold text-sm transition-all ${
+									sliderAmount === preset
+										? "bg-primary-500 text-white shadow-md"
+										: "bg-white border border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50"
+								}`}
+							>
+								{preset.toLocaleString("hu-HU")} Ft
+							</button>
+						))}
 					</div>
 
 					{/* Slider */}
@@ -471,6 +469,35 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 								— Kovács M., Kórházi páciens
 							</p>
 						</div>
+					</div>
+
+					{/* Stripe Badge */}
+					<div className="mt-4 p-4 bg-bg-highlight rounded-lg shadow-md">
+						<div className="flex items-center gap-4 mb-2">
+							<div className="flex flex-col">
+								<span className="text-xs text-gray-500">
+									Donations are powered by
+								</span>
+								<span className="text-xl font-bold text-[#635bff]">stripe</span>
+							</div>
+							<div className="flex items-center gap-2 ml-auto">
+								<img
+									src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg"
+									alt="Mastercard"
+									className="h-8"
+								/>
+								<img
+									src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+									alt="Visa"
+									className="h-6"
+								/>
+							</div>
+						</div>
+						<p className="text-[10px] text-gray-500 leading-tight">
+							Adományozzon bankkártyája segítségével biztonságos, titkosított
+							kapcsolaton keresztül! A kártyaadatokat közvetlenül és kizárólag a
+							Stripe rendszere kapja meg.
+						</p>
 					</div>
 				</motion.div>
 			)}
