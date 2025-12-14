@@ -50,8 +50,6 @@ const DonationFormInner: FC<DonationFormInnerProps> = ({
 	name,
 	email,
 }) => {
-	console.log("rerenders");
-
 	const stripe = useStripe();
 	const elements = useElements();
 	const [isProcessing, setIsProcessing] = useState(false);
@@ -289,7 +287,8 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 										: "bg-white border border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50"
 								}`}
 							>
-								{preset.toLocaleString("hu-HU")} Ft
+								{preset.toLocaleString("hu-HU")}
+								<span className="hidden md:inline"> Ft</span>
 							</button>
 						))}
 					</div>
