@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { type FC, useEffect, useId, useMemo, useState } from "react";
 
-const stripePromise = loadStripe(import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripeKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 // Slider configuration
 const MIN_AMOUNT = 1000;
@@ -194,6 +195,20 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 			setIsLoading(false);
 		}
 	};
+
+	// Show error if Stripe is not configured
+	if (!stripePromise) {
+		return (
+			<div className="bg-red-50 rounded-2xl shadow-xl p-8 text-center">
+				<h2 className="text-xl font-bold text-red-600 mb-4">
+					Fizetési rendszer nem elérhető
+				</h2>
+				<p className="text-red-700">
+					A fizetési rendszer jelenleg nem elérhető. Kérjük, próbálja később!
+				</p>
+			</div>
+		);
+	}
 
 	if (isSuccess) {
 		return (

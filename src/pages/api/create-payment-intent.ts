@@ -1,12 +1,19 @@
 import type { APIRoute } from "astro";
 import Stripe from "stripe";
 
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
+const stripeSecretKey = import.meta.env.STRIPE_SECRET_KEY;
+const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
 	try {
+		if (!stripe) {
+			return new Response(
+				JSON.stringify({ error: "Fizetési rendszer nincs konfigurálva" }),
+				{ status: 503, headers: { "Content-Type": "application/json" } },
+			);
+		}
 		const body = await request.json();
 		const { amount, name, email } = body;
 
