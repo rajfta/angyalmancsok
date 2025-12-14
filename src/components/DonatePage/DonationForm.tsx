@@ -50,6 +50,8 @@ const DonationFormInner: FC<DonationFormInnerProps> = ({
 	name,
 	email,
 }) => {
+	console.log("rerenders");
+
 	const stripe = useStripe();
 	const elements = useElements();
 	const [isProcessing, setIsProcessing] = useState(false);
@@ -89,9 +91,9 @@ const DonationFormInner: FC<DonationFormInnerProps> = ({
 	return (
 		<form onSubmit={handleSubmit} className="space-y-6">
 			<div>
-				<label className="block text-sm font-semibold text-text-heading mb-2">
+				<p className="block text-sm font-semibold text-text-heading mb-2">
 					Kártyaadatok <span className="text-red-500">*</span>
-				</label>
+				</p>
 				<PaymentElement
 					options={{
 						layout: "tabs",
@@ -129,6 +131,8 @@ interface DonationFormProps {
 
 const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 	const sliderId = useId();
+	const nameId = useId();
+	const emailId = useId();
 	const [sliderAmount, setSliderAmount] = useState(DEFAULT_AMOUNT);
 	const [isMonthly, setIsMonthly] = useState(false);
 	const [name, setName] = useState("");
@@ -138,11 +142,9 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 	const [error, setError] = useState<string | null>(null);
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [successAmount, setSuccessAmount] = useState<number | null>(null);
-	const [isMounted, setIsMounted] = useState(false);
 
-	// Check for success on mount and set mounted state
+	// Check for success on mount
 	useEffect(() => {
-		setIsMounted(true);
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("success") === "true") {
 			setIsSuccess(true);
@@ -198,8 +200,8 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 		}
 	};
 
-	// Show error if Stripe is not configured (only after client mount to avoid hydration mismatch)
-	if (isMounted && !stripePromise) {
+	// Show error if Stripe is not configured
+	if (!stripePromise) {
 		return (
 			<div className="bg-red-50 rounded-2xl shadow-xl p-8 text-center">
 				<h2 className="text-xl font-bold text-red-600 mb-4">
@@ -393,10 +395,14 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 
 				{/* Name Field */}
 				<div className="mb-4">
-					<label className="block text-sm font-semibold text-text-heading mb-2">
+					<label
+						htmlFor={nameId}
+						className="block text-sm font-semibold text-text-heading mb-2"
+					>
 						Név
 					</label>
 					<input
+						id={nameId}
 						type="text"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
@@ -407,10 +413,14 @@ const DonationForm: FC<DonationFormProps> = ({ dogImage }) => {
 
 				{/* Email Field */}
 				<div className="mb-6">
-					<label className="block text-sm font-semibold text-text-heading mb-2">
+					<label
+						htmlFor={emailId}
+						className="block text-sm font-semibold text-text-heading mb-2"
+					>
 						Email cím
 					</label>
 					<input
+						id={emailId}
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}

@@ -1,7 +1,8 @@
-import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
 import { Mail, Phone, Send } from "lucide-react";
 import { type FC, type FormEvent, useState } from "react";
+import Facebook from "~/components/icons/Facebook";
+import Instagram from "~/components/icons/Instagram";
 
 interface ContactFormSectionProps {
 	phone?: string | undefined;
@@ -264,7 +265,7 @@ const ContactFormSection: FC<ContactFormSectionProps> = ({
 									rel="noopener noreferrer"
 									className="hover:scale-110 transition-transform"
 								>
-									<SiInstagram className="w-6 h-6 text-accent-500" />
+									<Instagram className="w-6 h-6 text-accent-500" />
 								</a>
 								<a
 									href={facebookUrl}
@@ -272,7 +273,7 @@ const ContactFormSection: FC<ContactFormSectionProps> = ({
 									rel="noopener noreferrer"
 									className="hover:scale-110 transition-transform"
 								>
-									<SiFacebook className="w-6 h-6 text-accent-500" />
+									<Facebook className="w-6 h-6 text-accent-500" />
 								</a>
 							</div>
 						</div>

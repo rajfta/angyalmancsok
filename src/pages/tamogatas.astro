@@ -32,10 +32,9 @@ export const prerender = false;
             <div class="max-w-6xl mx-auto">
                 <div class="grid lg:grid-cols-2 gap-12">
 
-                    <!-- Right Column - Form -->
                     <div class="lg:col-span-2">
                         <DonationForm
-                            client:load
+                            client:only="react"
                             dogImage="/donation/donation-dog.jpg"
                         />
                     </div>

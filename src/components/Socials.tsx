@@ -1,12 +1,11 @@
-import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
 import { motion, type Variants } from "framer-motion";
 import type { FC } from "react";
+import Facebook from "~/components/icons/Facebook";
+import Instagram from "~/components/icons/Instagram";
 import { cn } from "~/lib/utils";
 
-const defaultSocialLinks = [
-	{ href: "https://www.instagram.com/angyalmancsok/", label: "Instagram" },
-	{ href: "https://www.facebook.com/angyalmancsok", label: "Facebook" },
-];
+const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/angyalmancsok/";
+const DEFAULT_FACEBOOK_URL = "https://www.facebook.com/angyalmancsok";
 
 interface SocialsProps {
 	iconClassName?: string;
@@ -23,10 +22,10 @@ const Socials: FC<SocialsProps> = ({
 }) => {
 	const socialLinks = [
 		{
-			href: instagramUrl || defaultSocialLinks[0].href,
+			href: instagramUrl || DEFAULT_INSTAGRAM_URL,
 			label: "Instagram",
 		},
-		{ href: facebookUrl || defaultSocialLinks[1].href, label: "Facebook" },
+		{ href: facebookUrl || DEFAULT_FACEBOOK_URL, label: "Facebook" },
 	];
 
 	return (
@@ -43,14 +42,14 @@ const Socials: FC<SocialsProps> = ({
 					<motion.div whileHover={{ y: -4 }}>
 						<motion.a href={link.href}>
 							{link.label === "Instagram" ? (
-								<SiInstagram
+								<Instagram
 									className={cn(
 										"size-8 lg:size-10 text-accent-400",
 										iconClassName,
 									)}
 								/>
 							) : (
-								<SiFacebook
+								<Facebook
 									className={cn(
 										"size-8 lg:size-10 text-accent-400",
 										iconClassName,
