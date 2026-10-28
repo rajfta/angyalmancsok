@@ -1,0 +1,33 @@
+---
+interface Props {
+	memberCount: number;
+	dogCount: number;
+}
+
+const { memberCount, dogCount } = Astro.props;
+---
+
+<header class="max-w-5xl pt-4 pb-16 md:pb-24">
+	<p class="text-sm font-semibold uppercase tracking-[0.2em] text-secondary-700">
+		Rólunk
+	</p>
+	<h1 class="mt-6 font-display text-4xl font-medium leading-[1.05] tracking-tight text-primary-950 sm:text-5xl md:text-6xl lg:text-7xl">
+		Örömet és gyógyulást viszünk az emberek <em class="italic text-primary-600">életébe</em>.
+	</h1>
+	<div class="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+		<p class="max-w-2xl text-lg leading-relaxed text-text-description md:text-xl">
+			Ismerd meg az AngyalMancsok Alapítványt, történetünket, küldetésünket és
+			azt a csodálatos csapatot, amely mindezt lehetővé teszi.
+		</p>
+		<dl class="flex gap-10 border-t border-secondary-300 pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-10">
+			<div>
+				<dt class="text-sm text-text-description">Csapattag</dt>
+				<dd class="font-display text-4xl font-medium text-primary-950">{memberCount}</dd>
+			</div>
+			<div>
+				<dt class="text-sm text-text-description">Kutya</dt>
+				<dd class="font-display text-4xl font-medium text-primary-950">{dogCount}</dd>
+			</div>
+		</dl>
+	</div>
+</header>

@@ -2,79 +2,80 @@
 export const prerender = true;
 
 import { getCollection } from "astro:content";
-import AboutHero from "~/components/AboutPage/AboutHero";
-import MissionSection from "~/components/AboutPage/MissionSection";
-import StorySection from "~/components/AboutPage/StorySection";
-import TeamSection from "~/components/AboutPage/TeamSection";
-import VisionSection from "~/components/AboutPage/VisionSection";
+import AboutCta from "~/components/AboutPage/AboutCta.astro";
+import AboutIntro from "~/components/AboutPage/AboutIntro.astro";
+import Chapter from "~/components/AboutPage/Chapter.astro";
+import TeamMember from "~/components/AboutPage/TeamMember.astro";
 import Layout from "~/layouts/Layout.astro";
 
-// Fetch content collections
 const aboutEntries = await getCollection("about");
 const membersEntries = await getCollection("members");
 const dogsEntries = await getCollection("dogs");
 
-// Sort about sections by priority
-const aboutSections = aboutEntries.sort(
+// Past → present → future
+const chapterOrder = ["story", "mission", "vision"] as const;
+const chapterLayouts = ["wide", "right", "left"] as const;
+const chapters = chapterOrder
+	.map((id) => aboutEntries.find((entry) => entry.id === id))
+	.filter((entry) => entry !== undefined);
+
+const members = membersEntries.sort(
 	(a, b) => a.data.priority - b.data.priority,
 );
-
-// Get individual sections
-const vision = aboutSections.find((section) => section.id === "vision");
-const story = aboutSections.find((section) => section.id === "story");
-const mission = aboutSections.find((section) => section.id === "mission");
-
-// Sort members by priority
-const members = membersEntries
-	.sort((a, b) => a.data.priority - b.data.priority)
-	.map((entry) => ({
-		id: entry.id,
-		name: entry.data.name,
-		picture: entry.data.picture,
-		role: entry.data.role,
-		dogs: entry.data.dogs?.map((dog) => dog.toLowerCase()),
-		titles: entry.data.titles,
-		priority: entry.data.priority,
-		body: entry.body,
-	}));
-
-// Get dogs for the team section
-const dogs = dogsEntries.map((entry) => ({
-	id: entry.id,
-	name: entry.data.name,
-	thumbnail: entry.data.thumbnail,
-}));
+const dogLookup = new Map(dogsEntries.map((dog) => [dog.id, dog]));
+const getMemberDogs = (member: (typeof members)[number]) =>
+	(member.data.dogs ?? [])
+		.map((slug) => dogLookup.get(slug.toLowerCase()))
+		.filter((dog) => dog !== undefined);
 ---
 
 <Layout title="Angyalmancsok | Rólunk">
-	<AboutHero client:load />
+	<div class="text-left">
+		<AboutIntro memberCount={members.length} dogCount={dogsEntries.length} />
 
-	{vision && (
-		<VisionSection
-			client:load
-			title={vision.data.title}
-			content={vision.data.content}
-			image={vision.data.image}
-		/>
-	)}
+		{
+			chapters.map((chapter, index) => (
+				<Chapter
+					number={index + 1}
+					title={chapter.data.title}
+					content={chapter.data.content}
+					image={chapter.data.image}
+					layout={chapterLayouts[index] ?? "wide"}
+				/>
+			))
+		}
 
-	{story && (
-		<StorySection
-			client:load
-			title={story.data.title}
-			content={story.data.content}
-			image={story.data.image}
-		/>
-	)}
+		<section
+			aria-labelledby="team-heading"
+			class="border-t border-secondary-300 py-16 md:py-24"
+		>
+			<div class="grid gap-6 md:grid-cols-12 md:gap-x-12">
+				<div class="md:col-span-5">
+					<p class="font-display text-lg italic text-secondary-700">
+						{String(chapters.length + 1).padStart(2, "0")}
+					</p>
+					<h2
+						id="team-heading"
+						class="mt-2 font-display text-3xl font-medium tracking-tight text-primary-950 md:text-5xl"
+					>
+						Csapatunk
+					</h2>
+				</div>
+				<p class="text-lg leading-relaxed text-text-description md:col-span-7 md:self-end">
+					Felvezetők és kutyáik: párosok, akik minden héten együtt dolgoznak
+					azon, hogy terápiás kutyáinkkal örömet vigyünk az emberek életébe.
+				</p>
+			</div>
 
-	{mission && (
-		<MissionSection
-			client:load
-			title={mission.data.title}
-			content={mission.data.content}
-			image={mission.data.image}
-		/>
-	)}
+			<div class="mt-16 grid gap-x-12 gap-y-16 md:grid-cols-2">
+				{
+					members.map((member) => (
+						<TeamMember member={member} dogs={getMemberDogs(member)} />
+					))
+				}
+			</div>
+		</section>
 
-	<TeamSection client:load members={members} dogs={dogs} />
+		<AboutCta />
+	</div>
 </Layout>
