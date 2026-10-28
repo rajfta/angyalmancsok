@@ -184,13 +184,7 @@ interface DogCardProps {
 // Dog card component with toggle functionality
 const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 	const [showDetails, setShowDetails] = useState(true);
-
-	// Determine which image to show based on toggle state
-	// showDetails=true (Alapadatok): front image (thumbnail)
-	// showDetails=false (Bemutatkozás): photoWithOwner image
-	const currentImage = showDetails
-		? dog.thumbnail
-		: dog.photoWithOwner || dog.thumbnail;
+	const showOwnerPhoto = !showDetails && !!dog.photoWithOwner;
 
 	return (
 		<motion.div
@@ -208,18 +202,25 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 					showDetails ? "aspect-[7/10]" : "aspect-square",
 				)}
 			>
-				<AnimatePresence mode="wait">
-					<motion.img
-						key={currentImage}
-						src={currentImage}
+				{/* Both images stay mounted and crossfade, so there's no blank frame while switching */}
+				<img
+					src={dog.thumbnail}
+					alt={dog.name}
+					className={cn(
+						"w-full h-full object-cover absolute inset-0 transition-opacity duration-300",
+						showOwnerPhoto ? "opacity-0" : "opacity-100",
+					)}
+				/>
+				{dog.photoWithOwner && (
+					<img
+						src={dog.photoWithOwner}
 						alt={dog.name}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 0.3 }}
-						className="w-full h-full object-cover absolute inset-0"
+						className={cn(
+							"w-full h-full object-cover absolute inset-0 transition-opacity duration-300",
+							showOwnerPhoto ? "opacity-100" : "opacity-0",
+						)}
 					/>
-				</AnimatePresence>
+				)}
 			</div>
 
 			{/* Content with padding */}

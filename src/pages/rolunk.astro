@@ -32,7 +32,7 @@ const members = membersEntries
 		name: entry.data.name,
 		picture: entry.data.picture,
 		role: entry.data.role,
-		dogs: entry.data.dogs,
+		dogs: entry.data.dogs?.map((dog) => dog.toLowerCase()),
 		titles: entry.data.titles,
 		priority: entry.data.priority,
 		body: entry.body,
