@@ -25,17 +25,23 @@ const { Content } = await render(member);
 		/>
 		{
 			dogs.length > 0 && (
-				<ul class="absolute -bottom-4 right-3 flex -space-x-3" aria-hidden="true">
+				<ul class="absolute -bottom-4 right-3 flex -space-x-3">
 					{dogs.map((dog) => (
-						<li>
-							<Image
-								src={dog.data.thumbnail}
-								alt=""
-								width={128}
-								height={128}
-								quality={80}
-								class="size-16 rounded-full border-4 border-bg object-cover object-top"
-							/>
+						<li class="relative hover:z-10 focus-within:z-10">
+							<a
+								href={`/#kutya-${dog.id}`}
+								title={dog.data.name}
+								class="block rounded-full transition-transform duration-200 hover:scale-115 focus-visible:scale-115 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 motion-reduce:transition-none"
+							>
+								<Image
+									src={dog.data.thumbnail}
+									alt={dog.data.name}
+									width={128}
+									height={128}
+									quality={80}
+									class="size-16 rounded-full border-4 border-bg object-cover object-top"
+								/>
+							</a>
 						</li>
 					))}
 				</ul>

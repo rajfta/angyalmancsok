@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
-import { type FC, useId, useMemo, useState } from "react";
+import { type FC, useEffect, useId, useMemo, useState } from "react";
 import {
 	Accordion,
 	AccordionContent,
@@ -179,10 +179,16 @@ interface DogCardProps {
 	dog: Dog;
 	index: number;
 	memberLookup: Map<string, { name: string; dogCount: number }>;
+	highlighted: boolean;
 }
 
 // Dog card component with toggle functionality
-const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
+const DogCard: FC<DogCardProps> = ({
+	dog,
+	index,
+	memberLookup,
+	highlighted,
+}) => {
 	const [showDetails, setShowDetails] = useState(true);
 	const showOwnerPhoto = !showDetails && !!dog.photoWithOwner;
 
@@ -192,7 +198,11 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, scale: 0.9 }}
 			transition={{ duration: 0.3, delay: index * 0.05 }}
-			className="bg-bg-highlight rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden flex flex-col"
+			data-dog-id={dog.id}
+			className={cn(
+				"scroll-mt-32 bg-bg-highlight rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden flex flex-col",
+				highlighted && "ring-4 ring-primary-400 ring-offset-4 ring-offset-bg",
+			)}
 		>
 			{/* Full-bleed image with smooth transition and dynamic aspect ratio */}
 			{/* Front: 2:1 portrait | Back: 1:1 square */}
@@ -322,8 +332,44 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 		[],
 	);
 
+	const [highlightedDogId, setHighlightedDogId] = useState<string | null>(null);
+
 	const desktopSearchId = useId();
 	const mobileSearchId = useId();
+
+	// Deep link from /rolunk: /#kutya-<id> scrolls to that dog's card
+	useEffect(() => {
+		const dogId = decodeURIComponent(window.location.hash).match(
+			/^#kutya-(.+)$/,
+		)?.[1];
+		if (!dogId) return;
+
+		const scrollToDog = () => {
+			// Desktop and mobile grids both render cards; pick the visible one
+			const card = Array.from(
+				document.querySelectorAll<HTMLElement>(
+					`[data-dog-id="${CSS.escape(dogId)}"]`,
+				),
+			).find((el) => el.offsetParent !== null);
+			if (!card) return;
+			card.scrollIntoView({ behavior: "smooth", block: "start" });
+			setHighlightedDogId(dogId);
+		};
+
+		// Wait for images above to load so the target doesn't shift
+		if (document.readyState === "complete") {
+			scrollToDog();
+			return;
+		}
+		window.addEventListener("load", scrollToDog, { once: true });
+		return () => window.removeEventListener("load", scrollToDog);
+	}, []);
+
+	useEffect(() => {
+		if (!highlightedDogId) return;
+		const timeout = setTimeout(() => setHighlightedDogId(null), 3000);
+		return () => clearTimeout(timeout);
+	}, [highlightedDogId]);
 
 	// Get unique certificates from all dogs
 	const availableCertificates: CertificateType[] = useMemo(() => {
@@ -362,10 +408,11 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 			}
 
 			// Owner filter
-			if (selectedOwners.length > 0 && dog.owner) {
-				if (!selectedOwners.includes(dog.owner)) {
-					return false;
-				}
+			if (
+				selectedOwners.length > 0 &&
+				(!dog.owner || !selectedOwners.includes(dog.owner))
+			) {
+				return false;
 			}
 
 			// Certificates filter
@@ -499,6 +546,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 										dog={dog}
 										index={index}
 										memberLookup={memberLookup}
+										highlighted={highlightedDogId === dog.id}
 									/>
 								))}
 							</motion.div>
@@ -663,6 +711,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 									dog={dog}
 									index={index}
 									memberLookup={memberLookup}
+									highlighted={highlightedDogId === dog.id}
 								/>
 							))}
 						</motion.div>
