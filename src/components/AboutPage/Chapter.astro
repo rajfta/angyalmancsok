@@ -1,0 +1,89 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	number: number;
+	title: string;
+	content: string;
+	image?: string | undefined;
+	/** wide: full-width photo above the text; left/right: portrait photo beside it */
+	layout: "wide" | "left" | "right";
+}
+
+const { number, title, content, image, layout } = Astro.props;
+const label = String(number).padStart(2, "0");
+const headingId = `chapter-${label}`;
+---
+
+<section
+	aria-labelledby={headingId}
+	class="border-t border-secondary-300 py-16 md:py-24"
+>
+	{
+		layout === "wide" ? (
+			<div class="grid gap-10 lg:grid-cols-12 lg:gap-x-12">
+				<div class="lg:col-span-4">
+					<p class="font-display text-lg italic text-secondary-700">{label}</p>
+					<h2
+						id={headingId}
+						class="mt-2 font-display text-3xl font-medium tracking-tight text-primary-950 md:text-5xl"
+					>
+						{title}
+					</h2>
+				</div>
+				<p class="text-lg leading-relaxed text-text first-letter:float-left first-letter:mt-[0.1em] first-letter:mr-[0.12em] first-letter:font-display first-letter:text-[4.2em] first-letter:leading-[0.8] first-letter:text-primary-600 lg:col-span-8 lg:text-xl">
+					{content}
+				</p>
+				{image && (
+					<figure class="lg:col-span-8 lg:col-start-5">
+						{/* Natural aspect ratio: CMS photos vary, cropping cut off heads */}
+						<Image
+							src={image}
+							alt=""
+							width={1200}
+							height={900}
+							quality={80}
+							class="h-auto w-full rounded-sm"
+						/>
+					</figure>
+				)}
+			</div>
+		) : (
+			<div class="grid items-center gap-10 md:grid-cols-12 md:gap-x-12">
+				{image && (
+					<figure
+						class:list={[
+							"md:col-span-5",
+							layout === "right" && "md:order-2 md:col-start-8",
+						]}
+					>
+						<Image
+							src={image}
+							alt=""
+							width={800}
+							height={1000}
+							quality={80}
+							class="aspect-[4/5] w-full rounded-sm object-cover"
+						/>
+					</figure>
+				)}
+				<div
+					class:list={[
+						"md:col-span-6",
+						layout === "right" ? "md:order-1 md:col-start-1" : "md:col-start-7",
+					]}
+				>
+					<p class="font-display text-lg italic text-secondary-700">{label}</p>
+					<h2
+						id={headingId}
+						class="mt-2 font-display text-3xl font-medium tracking-tight text-primary-950 md:text-5xl"
+					>
+						{title}
+					</h2>
+					<p class="mt-8 text-lg leading-relaxed text-text">{content}</p>
+				</div>
+			</div>
+		)
+	}
+</section>
+

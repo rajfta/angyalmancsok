@@ -1,0 +1,90 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, render } from "astro:content";
+
+interface Props {
+	member: CollectionEntry<"members">;
+	dogs: CollectionEntry<"dogs">[];
+}
+
+const { member, dogs } = Astro.props;
+const { name, picture, role, titles } = member.data;
+const hasBio = (member.body ?? "").trim().length > 0;
+const { Content } = await render(member);
+---
+
+<article class="flex flex-col gap-6 sm:flex-row md:flex-col lg:flex-row">
+	<div class="relative shrink-0 self-start sm:w-56 md:w-full lg:w-56">
+		<Image
+			src={picture}
+			alt={name}
+			width={448}
+			height={560}
+			quality={80}
+			class="aspect-[4/5] w-full rounded-sm object-cover object-top"
+		/>
+		{
+			dogs.length > 0 && (
+				<ul class="absolute -bottom-4 right-3 flex -space-x-3" aria-hidden="true">
+					{dogs.map((dog) => (
+						<li>
+							<Image
+								src={dog.data.thumbnail}
+								alt=""
+								width={128}
+								height={128}
+								quality={80}
+								class="size-16 rounded-full border-4 border-bg object-cover object-top"
+							/>
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</div>
+
+	<div class="min-w-0 flex-1 pt-2 sm:pt-0">
+		<p class="text-xs font-semibold uppercase tracking-[0.18em] text-secondary-700">
+			{role.trim()}
+		</p>
+		<h3 class="mt-2 font-display text-2xl font-medium text-primary-950 md:text-3xl">
+			{name}
+		</h3>
+		{titles && <p class="mt-2 text-sm text-text-description">{titles}</p>}
+
+		{
+			dogs.length > 0 && (
+				<p class="mt-4 text-sm text-text">
+					<span class="text-text-description">
+						{dogs.length > 1 ? "Kutyái:" : "Kutyája:"}
+					</span>{" "}
+					<span class="font-display text-base italic">
+						{dogs.map((dog) => dog.data.name).join(", ")}
+					</span>
+				</p>
+			)
+		}
+
+		{
+			hasBio && (
+				<details class="group mt-5 border-t border-secondary-300 pt-4">
+					<summary class="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-primary-700 hover:text-primary-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-600 [&::-webkit-details-marker]:hidden">
+						<span class="group-open:hidden">Bemutatkozás olvasása</span>
+						<span class="hidden group-open:inline">Bemutatkozás bezárása</span>
+						<svg
+							class="size-4 transition-transform group-open:rotate-180 motion-reduce:transition-none"
+							viewBox="0 0 16 16"
+							fill="none"
+							aria-hidden="true"
+						>
+							<path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" />
+						</svg>
+					</summary>
+					<div class="prose prose-sm mt-4 max-w-none text-text-description prose-p:leading-relaxed">
+						<Content />
+					</div>
+				</details>
+			)
+		}
+	</div>
+</article>

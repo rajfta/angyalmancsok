@@ -58,6 +58,9 @@ export default {
 					muted: "#94a3b8",
 				},
 			},
+			fontFamily: {
+				display: ['"Fraunces Variable"', "Georgia", "serif"],
+			},
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
