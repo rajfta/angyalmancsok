@@ -127,7 +127,7 @@ const FilterSidebar: FC<FilterSidebarProps> = ({
 									onChange={() => toggleOwner(ownerId)}
 									className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500 cursor-pointer"
 								/>
-								<span className="text-sm text-text flex-1 group-hover:text-primary-700">
+								<span className="text-sm text-text text-left flex-1 group-hover:text-primary-700">
 									{name}
 								</span>
 								<span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
@@ -239,76 +239,67 @@ const DogCard: FC<DogCardProps> = ({ dog, index, memberLookup }) => {
 				)}
 
 				{/* Conditional Content: Details vs Body */}
-				<AnimatePresence mode="wait">
-					{showDetails ? (
-						<motion.div
-							key="details"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.2 }}
-							className="space-y-2 flex-1 flex flex-col"
-						>
-							{/* Gazda */}
-							{dog.owner && memberLookup.has(dog.owner) && (
-								<div>
-									<span className="font-semibold text-sm">Gazda: </span>
-									<span className="text-gray-600 text-sm">
-										{memberLookup.get(dog.owner)?.name}
-									</span>
-								</div>
-							)}
+				{/* CSS fade instead of AnimatePresence: framer flashed opacity for a frame at each fade end */}
+				{showDetails ? (
+					<div
+						key="details"
+						className="space-y-2 flex-1 flex flex-col animate-in fade-in duration-200"
+					>
+						{/* Gazda */}
+						{dog.owner && memberLookup.has(dog.owner) && (
+							<div>
+								<span className="font-semibold text-sm">Gazda: </span>
+								<span className="text-gray-600 text-sm">
+									{memberLookup.get(dog.owner)?.name}
+								</span>
+							</div>
+						)}
 
-							{/* Munkahely */}
-							{dog.workplaces && dog.workplaces.length > 0 && (
-								<div>
-									<span className="font-semibold text-sm">Munkahely: </span>
-									<ul className="text-gray-600 text-sm ml-4 mt-1">
-										{dog.workplaces.map((workplace) => (
-											<li key={workplace}>• {workplace}</li>
-										))}
-									</ul>
-								</div>
-							)}
+						{/* Munkahely */}
+						{dog.workplaces && dog.workplaces.length > 0 && (
+							<div>
+								<span className="font-semibold text-sm">Munkahely: </span>
+								<ul className="text-gray-600 text-sm ml-4 mt-1">
+									{dog.workplaces.map((workplace) => (
+										<li key={workplace}>• {workplace}</li>
+									))}
+								</ul>
+							</div>
+						)}
 
-							{/* Spacer to push content to bottom */}
-							<div className="flex-1" />
+						{/* Spacer to push content to bottom */}
+						<div className="flex-1" />
 
-							{/* Tanúsítványok - Only visible with details */}
-							{dog.certificates && dog.certificates.length > 0 && (
-								<div className="mt-4">
-									<span className="font-semibold text-sm block mb-2">
-										Tanúsítványok:
-									</span>
-									<div className="flex flex-wrap gap-2">
-										{dog.certificates.map((cert) => (
-											<span
-												key={cert}
-												className={cn(
-													"px-2 py-1 rounded text-xs font-medium border",
-													certificateConfig[cert],
-												)}
-											>
-												{cert}
-											</span>
-										))}
-									</div>
+						{/* Tanúsítványok - Only visible with details */}
+						{dog.certificates && dog.certificates.length > 0 && (
+							<div className="mt-4">
+								<span className="font-semibold text-sm block mb-2">
+									Tanúsítványok:
+								</span>
+								<div className="flex flex-wrap gap-2">
+									{dog.certificates.map((cert) => (
+										<span
+											key={cert}
+											className={cn(
+												"px-2 py-1 rounded text-xs font-medium border",
+												certificateConfig[cert],
+											)}
+										>
+											{cert}
+										</span>
+									))}
 								</div>
-							)}
-						</motion.div>
-					) : (
-						<motion.div
-							key="body"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.2 }}
-							className="prose prose-sm text-gray-700 leading-relaxed flex-1"
-						>
-							{dog.body}
-						</motion.div>
-					)}
-				</AnimatePresence>
+							</div>
+						)}
+					</div>
+				) : (
+					<div
+						key="body"
+						className="prose prose-sm text-gray-700 leading-relaxed flex-1 animate-in fade-in duration-200"
+					>
+						{dog.body}
+					</div>
+				)}
 
 				{/* Toggle Button */}
 				<button
@@ -434,7 +425,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 			</motion.h2>
 
 			{/* Desktop: Split Layout */}
-			<div className="hidden lg:grid lg:grid-cols-[220px_1fr] gap-8 max-w-7xl mx-auto">
+			<div className="hidden lg:grid lg:grid-cols-[250px_1fr] gap-8 max-w-7xl mx-auto">
 				{/* Left: Filter Sidebar */}
 				<motion.div
 					initial={{ opacity: 0, x: -20 }}
@@ -599,7 +590,7 @@ const OurDogs: FC<OurDogsProps> = ({ dogs, members }) => {
 															onChange={() => toggleOwner(ownerId)}
 															className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
 														/>
-														<span className="text-sm text-text flex-1">
+														<span className="text-sm text-text text-left flex-1">
 															{name}
 														</span>
 														<span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
